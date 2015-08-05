@@ -22,5 +22,12 @@ github_username: x10-lang
 # Build settings
 markdown: kramdown
 
+# Jekyll plugins we enable.  These are all supported by GitHub pages
+gems:
+  - jekyll-mentions
+  - jekyll-redirect-from
+  - jekyll-sitemap
+
 # other settings
 menu-list: [X10]
+
