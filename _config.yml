@@ -1,0 +1,26 @@
+# Site settings
+title: "X10: Performance and Productivity at Scale"
+email: your-email@domain.com
+description: "X10 programming language"
+keywords:
+  - X10
+  - "X10 Language"
+  - parallelism
+  - "parallel programming"
+  - "programming language"
+  - "X10 programming language"
+  - MPI
+  - multicore
+  - "scale out"
+  - "partitioned global address space"
+  - "PGAS"
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://x10-lang.org" # the base hostname & protocol for your site
+twitter_username: 
+github_username: x10-lang
+
+# Build settings
+markdown: kramdown
+
+# other settings
+menu-list: [X10]

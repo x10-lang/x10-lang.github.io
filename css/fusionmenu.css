@@ -1,0 +1,65 @@
+/**
+ * @package   Gantry Template - RocketTheme
+ * @version   3.2.0 March 4, 2011
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2011 RocketTheme, LLC
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
+ */
+
+/* Global */
+.menutop li {height: auto;margin: 0;padding: 0;position: relative;list-style: none;}
+.menutop em {font-size: 80%;font-weight: normal;display: block;font-style: normal;}
+.menutop li .item, .menutop li.active .item {display: block;margin: 0;text-decoration: none;float: none;width: auto;}
+.menutop li .fusion-submenu-wrapper {float: none;left: -999em;position: absolute;z-index: 500;}
+.menutop li:hover li ul, .menutop li.sfHover li ul {top: -999em;}
+.menutop li:hover ul, .menutop li.sfHover ul {top: 0;}
+
+/* Root Items */
+.menutop {list-style: none;margin: 0;padding: 0px;position: relative;line-height: 1em;display: inline-block;}
+.menutop li.root {float: left;}
+.menutop li.root > .item {white-space: nowrap;display: block;padding: 3px 0px 0px 0px;font-size: 1em;z-index: 100;cursor: pointer;position: relative;margin: 0;outline: none;height: 37px;}
+.menutop li.root > .item span {display: block;margin: 0;outline: none;padding: 0 15px;width: auto;line-height: 3em;}
+.menutop li.root > .item em {font-size: 10px;display: block;text-transform: lowercase;line-height: 0.3em;}
+.menutop li.parent.root .item span {padding-right: 20px;}
+.menutop li.root .subtext span {line-height: 1.9em;}
+.menutop li.root > .item img {margin: 0 4px 0 0;vertical-align: text-bottom;}
+
+/* Dropdown Surrounds */
+.menutop ul {padding: 0;margin: 0;float: left;}
+.menutop .drop-bot {height: 1px;overflow: hidden;clear: both;}
+.menutop .fusion-submenu-wrapper {height: auto !important;}
+
+/* Dropdown Items */
+.menutop ul li {padding: 0;display: block;}
+.menutop ul li > .item {padding: 0 15px;height: auto;display: block;font-size: 1em;cursor: pointer;}
+.menutop ul li > .item span {display: block;width: 100%;overflow: hidden;line-height: 25px;}
+.menutop ul li .item img {float: left;margin: 8px 6px 0 0;vertical-align: top;}
+.menutop ul li .nolink span {display: block;}
+.menutop ul li span.item {cursor: default;outline: none;}
+.menutop ul li .subtext span {line-height: 1.9em;}
+.menutop ul li .subtext em {line-height: 0.6em;padding-bottom: 7px;text-transform: lowercase;}
+
+/* No JS */
+.menutop li.root:hover > .fusion-submenu-wrapper {top: 40px;left: 0;}
+.menutop ul li:hover > .fusion-submenu-wrapper {left: 180px;top: 0;}
+
+/* Fusion JS */
+.fusion-js-container {display: block;height: 0;left: 0;overflow: visible;position: absolute;top: 0;z-index: 600000!important;background: transparent !important;}
+.fusion-js-subs {display: none;margin: 0;overflow: hidden;padding: 0;position: absolute;}
+
+/* Grouped & Modules */
+.menutop .fusion-grouped {padding-bottom: 10px;}
+.menutop .fusion-grouped ol {padding: 0;}
+.menutop .fusion-grouped ol li {padding: 0 15px;}
+.menutop .fusion-grouped ol li .item {padding: 0 15px;}
+.menutop .fusion-grouped ol li span {font-size: 85%;line-height: 2em;}
+.menutop .type-module ol {padding: 0;}
+.menutop .type-module ol li {padding: 0;}
+.menutop .type-module ol li .fusion-modules {background: none;}
+.menutop .type-module ol li .fusion-module {padding: 0;background: none;overflow: hidden;}
+.menutop .fusion-module, .menutop .fusion-modules, .menutop .fusion-grouped {display: block;}
+.menutop .fusion-modules.item {padding: 15px;}
+.menutop .fusion-module em {display: inline;font-size: inherit;font-style: italic;}
+.menutop .fusion-module a {font-size: inherit;line-height: 130%;}
+.menutop .fusion-module p, .menutop .fusion-modules p {line-height: 160%;}
+.menutop ul li.grouped-parent > .daddy span {background: none;}

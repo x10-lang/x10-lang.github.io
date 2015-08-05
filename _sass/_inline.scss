@@ -1,0 +1,39 @@
+/**
+  inline overrides
+*/
+
+body a, body a:hover {
+	color:#d33207;
+}
+
+.module-title h2.title{
+	background-color:#df611c;
+}
+
+.module-title h2.title{
+	 color:#ffffff;
+}
+
+#rt-top h2.title, #rt-content-top h2.title, #rt-content-bottom h2.title, #rt-bottom h2.title{
+	 color:#df611c;
+}
+
+#rt-footer, #rt-footer a, #rt-footer h2.title, #rt-copyright, #rt-copyright a {
+	color:#042b3c;
+}
+
+#rt-footer .menu li {
+	border-bottom: 1px solid #042b3c;
+}
+
+.rt-joomla h1, .rt-joomla h2.componentheading, .rt-joomla .contentheading, .rt-joomla h3, .rt-joomla h5, .component-content h1, .component-content h2.componentheading, .component-content .contentheading, .component-content h3, .component-content h5, #rt-menu ul.menu li a, .menutop li.root > .item, .menutop li.active.root > span.item, #rt-menu ul.menu li a:hover, #rt-menu ul.menu li.active > a,  #rt-menu ul.menu li.active a:hover, .menu-type-splitmenu .menutop li .item{
+	color:#f7860d;
+}
+
+.button{
+	background-color:#bf180a;
+}
+
+#rt-menu ul.menu li.active > a, #rt-menu ul.menu li.active a:hover, #rt-menu ul.menu li a:hover, .menutop li.root.active > .item, .menutop li.active > span.item, .menutop li.root.active > .item:hover, .menu-type-splitmenu .menutop li.active .item, .menutop ul li > a.item:hover, .menutop ul li.f-menuparent-itemfocus > a.item, .menutop ul li.f-menuparent-itemfocus > span.item,.menutop li.root > .item:hover, .menutop li.active.root.f-mainparent-itemfocus > .item, .menutop li.root.f-mainparent-itemfocus > .item, .menu-type-splitmenu .menutop li:hover > .item, .menutop .fusion-js-subs ul li.active > a{
+	background-color:#c32e09;
+}
