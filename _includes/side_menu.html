@@ -1,18 +1,32 @@
    <div id="rt-sidebar-a">
+   {% for menu in site.data.side-menu %}
                                     <div class="module-outline-1">
         	<div class="module-outline-2">
-            	<div class="rt-block">
             	    					<div class="module-title">
-            	    	<h2 class="title">X10 Resources</h2>
+            	<div class="rt-block">
+           	    	<h2 class="title">
+			{% if menu.link %}
+			<a href="{{menu.link}}">menu.name</a>
+			{% else %}
+ 			{{menu.name}}
+			{% endif %}
+			</h2>
 					</div>
             	                	    <div class="module-content">
             	    	<div class="in-module-content">
-            	    		
-<ul class="menu">
-<li id="item-325"><a href="http://x10.sourceforge.net/documentation/intro/latest/html/" ><span>An Introduction to X10</span></a></li><li id="item-331"><a href="/x10-publications.html" ><span>X10 Publications</span></a></li><li id="item-338"><a href="/applications-and-libraries-using-x10.html" ><span>Applications and Libraries</span></a></li><li id="item-352"><a href="http://stackoverflow.com/questions/tagged/x10-language" ><span>Stack Overflow</span></a></li><li id="item-219"><a href="/x10-events.html" ><span>Upcoming X10 Events</span></a></li><li id="item-104"><a href="/software/download-x10/latest-release.html" ><span>Download X10</span></a></li><li id="item-211"><a href="http://x10.sourceforge.net/documentation/languagespec/x10-latest.pdf" ><span>Language Specification</span></a></li><li id="item-218"><a href="/x10-mailing-lists.html" ><span>Mailing Lists</span></a></li></ul>            	    	</div>
+			  <ul class="menu">
+ {% for item in menu.submenu %}
+  <li>
+ {% if item.link %}
+ <a href="{{item.link}}"><span>{{item.name}}</span></a>
+ {% else %}
+ <span>{{item.name}}</span>
+ {% endif %}
+  {% endfor %}
+  </ul>            	    	</div>
             	    </div>
             	</div>
             </div>
         </div>
-        	
+{% endfor %}        	
                 </div>
