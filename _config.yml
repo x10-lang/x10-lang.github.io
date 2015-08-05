@@ -31,3 +31,7 @@ gems:
 # other settings
 menu-list: [X10]
 
+# These files should not be copied to the website
+exclude:
+ - README.md
+ 
