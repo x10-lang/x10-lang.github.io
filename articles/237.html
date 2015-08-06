@@ -3,7 +3,9 @@ layout: page
 title: "Porting code to X10 2.4"
 alias: "porting-to-x10-24"
 category: "documentation/developer-info"
-redirect_from: /documentation/practical-x10-programming/porting-to-x10-2-4.html
+redirect_from:
+  - /documentation/practical-x10-programming/porting-to-x10-2-4.html
+  - /porting-to-24.html
 ---
 <p>X10 version 2.4 is not fully backwards compatible with previous versions of the X10 language.&nbsp; The motivation for making backwards incompatible language changes with this release of X10 is to significantly improve the ability of the X10 programmer to exploit the expanded memory capabilities of modern computer systems.&nbsp; In particular, X10 v2.4 includes an extensive redesign of arrays and a change of the default type of unqualified integral literals (e.g. 2) from Int to Long. Taken together these two changes enable natural exploitation of large memories via 64-bit addressing and Long-based indexing of arrays and similar data structures.</p>
 <p>Due to the pervasive use of arrays and integral literals in most programs, updating code that worked with X10 version 2.3 to work with X10 2.4 is likely to require small changes on many lines of code.&nbsp; However, our experience with porting&nbsp; the X10 standard libraries, test suite, benchmarks, and other large X10 applications is that the process is actually fairly straightforward and the X10 compiler is effective at reporting what needs to be changed.</p>
