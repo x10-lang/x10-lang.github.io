@@ -21,13 +21,18 @@
   var id = GetURLParameter("id");
   if(typeof id !== 'undefined') {
       window.location.href = "/articles/" + id + ".html";
-  }
-</script>
-
-<h1>This is a redirection page.</h1>
+  } else {
+    document.getElementById("redirect-blurb").innerHTML = "<h1>This is a redirection page.</h1>
   If you are seeing it, then either
   javascript is not enabled or you did not specify a document id as
-  part of the url.
+  part of the url.";
+  }
+
+</script>
+
+<div id="redirect-blurb">
+
+</div>
   </body>
 </html>
 
