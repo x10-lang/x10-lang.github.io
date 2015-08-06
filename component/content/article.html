@@ -21,11 +21,8 @@
   var id = GetURLParameter("id");
   if(typeof id !== 'undefined') {
       window.location.href = "/articles/" + id + ".html";
-  } else {
-    document.getElementById("redirect-blurb").innerHTML = "<h1>This is a redirection page.</h1>
-  If you are seeing it, then either
-  javascript is not enabled or you did not specify a document id as
-  part of the url.";
+} else {
+document.getElementById("redirect-blurb").innerHTML = "<h1>This is a redirection page.</h1> If you are seeing it, then either javascript is not enabled or you did not specify a document id as part of the url.";
   }
 
 </script>
