@@ -24,7 +24,7 @@
     - name: An Introduction to X10
       link: http://x10.sourceforge.net/documentation/intro/latest/html/
     - name: Getting Started
-      link: documentation/getting-started.html
+      link: /documentation/getting-started.html
     - name: Installing X10DT
       link: /documentation/x10dt-installation.html
     - name: Language Specification
@@ -35,8 +35,8 @@
           link: http://x10.sourceforge.net/documentation/intro/latest/html/
         - name: Using X10 Libraries
           link: /documentation/practical-x10-programming/x10lib.html
-        - name: /documentation/practical-x10-programming/elastic-x10.html
-          link: Elastic X10
+        - name: Elastic X10
+          link: /documentation/practical-x10-programming/elastic-x10.html
         - name: Porting to X10 2.4
           link: /documentation/practical-x10-programming/porting-to-x10-2-4.html
         - name: Performance Tuning
