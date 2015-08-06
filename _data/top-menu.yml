@@ -1,0 +1,172 @@
+- name: X10
+  link: /
+  submenu:
+    - name: Introduction
+      link: /home/introduction1.html
+    - name: X10 Roadmap 
+      link: /home/codebase-progress.html
+    - name: X10 News
+      link: /home/news6.html
+    - name: X10 in the News
+      link: /home/in-the-press.html
+    - name: Upcoming X10 Events
+      link: /home/upcoming-x10-events.html
+    - name: FAQ
+      link: /home/faq-list.html
+    - name: X10 Team
+      link: /home/x10-team.html
+    - name: X10 History
+      link: /home/x10-history.html
+    - name: X10 License
+      link: /home/x10-license.html
+- name: Documentation
+  submenu:
+    - name: An Introduction to X10
+      link: http://x10.sourceforge.net/documentation/intro/latest/html/
+    - name: Getting Started
+      link: documentation/getting-started.html
+    - name: Installing X10DT
+      link: /documentation/x10dt-installation.html
+    - name: Language Specification
+      link: http://x10.sourceforge.net/documentation/languagespec/x10-latest.pdf
+    - name: Practical X10 Programming
+      submenu:
+        - name: An Introduction to X10
+          link: http://x10.sourceforge.net/documentation/intro/latest/html/
+        - name: Using X10 Libraries
+          link: /documentation/practical-x10-programming/x10lib.html
+        - name: /documentation/practical-x10-programming/elastic-x10.html
+          link: Elastic X10
+        - name: Porting to X10 2.4
+          link: /documentation/practical-x10-programming/porting-to-x10-2-4.html
+        - name: Performance Tuning
+          link: /documentation/practical-x10-programming/performance-tuning.html
+        - name: X10 on GPUs
+          link: /documentation/practical-x10-programming/x10-on-gpus.html
+        - name: Native Code Integration
+          link: /documentation/practical-x10-programming/native-code-integration.html
+        - name: X10RT Implementations
+          link: /documentation/practical-x10-programming/x10rt-implementations.html
+        - name: Coding Conventions
+          link: /documentation/practical-x10-programming/coding-conventions.html
+    - name: Tutorials/Overview Articles
+      link: /documentation/tutorials.html
+      submenu: 
+        - name: An Introduction to X10
+          link: http://x10.sourceforge.net/documentation/intro/latest/html/
+        - name: APGAS Programming in X10
+          link: /documentation/tutorials/apgas-programming-in-x10-24.html
+        - name: Inside X10 2.4 
+          link: /documentation/tutorials/inside-x1024.html
+        - name: SC 2012 Tutorial 
+          link: /documentation/tutorials/sc2012-tutorial.html
+    - name: X10 Standard Library API
+      link: /documentation/x10-standard-library.html
+    - name: Code Examples
+      link: https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt.help/html/samples/
+      submenu:
+        - name: HelloWholeWorld
+          link: https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt.help/html/samples/HelloWholeWorld.html
+        - name: Fibonacci
+          link: https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt.help/html/samples/Fib.html
+        - name: Quicksort
+          link: https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt.help/html/samples/QSort.html
+        - name: KMeans
+          link: https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt.help/html/samples/KMeans.html
+        - name: KMeansDist
+          link: https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt.help/html/samples/KMeansDist.html
+        - name: HelloWorld
+          link: https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt.help/html/samples/HelloWorld.html
+- name: Downloads
+  submenu:
+    - name: X10 and X10DT Releases
+      submenu:
+        - name: Latest Release
+          link: /software/download-x10/latest-release.html
+        - name: All Releases
+          link: /software/download-x10/release-list.html
+    - name: APGAS Releases
+      submenu:
+        - name: Latest Release
+          link: /software/download-apgas/latest-apgas-release.html
+    - name: Building from Source
+      submenu:
+        - name: Building X10 from Source
+          link: /x10-development/building-x10-from-source.html
+        - name: Building X10DT From Source
+          link: /x10-development/building-x10dt-from-source.html
+- name: X10 Community
+  submenu:
+    - name: Applications and Libraries
+      link: /x10-community/applications.html
+    - name:  X10 Innovation Grants
+      link: /x10-community/x10-in-use.html
+      submenu:
+        - name: Applications
+          link: /x10-community/x10-in-use/applications.html
+        - name: Tool Development
+          link: /x10-community/x10-in-use/tool-development.html
+        - name: Frameworks &amp; Libraries
+          link: /x10-community/x10-in-use/frameworks-a-libraries.html
+        - name: Mapping high level language
+          link: /x10-community/x10-in-use/mapping-high-level-languages.html
+        - name: Curriculum Development
+          link: /x10-community/x10-in-use/curriculum-development.html
+        - name: Performance &amp; Concurrency
+          link: /x10-community/x10-in-use/research-using-x10.html
+    - name: Upcoming X10 Events
+      link: /x10-community/upcoming-x10-events10.html
+    - name: Publications Using X10
+      link: /x10-community/publications-using-x10.html
+    - name: Courses Using X10
+      link: /x10-community/courses-using-x10.html
+    - name: Universities Using X10
+      link: /x10-community/universities-using-x10.html
+    - name: Videos
+      link: /x10-community/videos.html
+    - name: Mailing Lists
+      link: /x10-community/mailing-lists.html
+- name: X10 Development 
+  submenu: 
+    - name: Project Roadmap
+      link: /home/codebase-progress.html
+    - name: Building X10 from Source
+      link: /x10-development/building-x10-from-source.html
+    - name: Building X10DT From Source
+      link: /x10-development/building-x10dt-from-source.html
+    - name: Project Coding Conventions
+      link: /x10-development/x10-project-coding-conventions.html
+    - name: Issue Tracking
+      link: /feedback/bug-tracking.html
+    - name: Sourceforge Project
+      link: http://sourceforge.net/projects/x10/
+    - name: Contributor Agreement
+      link: /x10-development/contributor-agreement.html
+- name: X10 Workshops
+  submenu:
+    - name: X10&#039;15 Workshop (at PLDI&#039;15) 
+      link: /workshop/workshop15.html
+    - name: X10&#039;14 Workshop (at PLDI&#039;14) 
+      link: /workshop/workshop14.html
+      submenu:
+        name: X10&#039;14 Program
+        link: /workshop/workshop14/x10-2014-program.html
+    - name: X10&#039;13 Workshop (at PLDI&#039;13) 
+      link: /workshop/workshop13.html
+      submenu:
+        name: X10&#039;13 Program
+        link: /workshop/workshop13/x10-2013-program.html
+    - name: X10&#039;12 Workshop (at PLDI&#039;12) 
+      link: /workshop/workshop12.html
+      submenu:
+        name: X10&#039;12 Program
+        link: /workshop/workshop12/x10-12-program.html
+    - name: X10&#039;11 Workshop (at PLDI&#039;11) 
+      link: /workshop/cfp.html
+      submenu:
+        name: Program
+        link: /workshop/program.html
+- name: Feedback
+  submenu:
+    - name: Bug Reporting / Feature Request
+      link: /feedback/bug-tracking.html

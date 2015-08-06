@@ -1,23 +1,7 @@
 <div class="rt-fusionmenu">
-<div class="nopill">
-  <div class="rt-menubar">
-    <ul 
-  {% for cat in site.menu-list %}
-<li class="item102 parent active root">{{ cat }}
-<span class="daddyicon"></span>
-<div class="fusion-submenu-wrapper level2" style="width:180px;">
-                        
-                        <ul class="level2" style="width:180px;">
-  {% for page in site.pages %}
- {% if page.menu contains cat %}
-          <li class="item127 active" ><a class="orphan item bullet" href="{{ page.url }}">{{ page.title }}</a></li>
-        {% endif %}   <!-- cat-match-p -->
-      {% endfor %}  <!-- page-category -->
-</ul>
-</div>
-{% endfor %}<!-- cat -->
-</ul>
-</div>
+  <div class="nopill">
+    {% include top_menu_rec.html level=1 submenu=site.data.top-menu %}
 </div>
 </div>
 <div class="clear"></div>
+

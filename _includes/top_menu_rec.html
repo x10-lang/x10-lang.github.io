@@ -1,0 +1,45 @@
+{% if include.level == 1 %}
+<div class="rt-menubar">
+  <ul class="menutop level1 " >
+{% else %}
+    <div class="fusion-submenu-wrapper {{include.level | prepend:'level'}}" style="width:180px;">
+      <ul class="{{include.level | prepend:'level'}}" style="width:180px;">
+ {% endif %}
+{% for menu in include.submenu %}
+{% if menu.submenu %}
+{% assign span_type="daddy"%}
+{% assign li_type="parent"%}
+{% else <!-- menu.submenu --> %} 
+ {% assign span_type="orphan" %}
+ {% assign li_type="" %}
+{% endif %}
+
+ {% if include.level == 1 %}
+ {% capture li_type %}{{li_type}} root{% endcapture %}
+ {% endif %}
+ 
+<li class="{{li_type}}"> 
+ {% if menu.link %}
+  <a class="{{span_type}} item bullet" href="{{menu.link}}"  >
+    <span>
+      {{menu.name}}
+    <span class="daddyicon"></span>
+    </span>
+  </a>
+{% else <!-- menu.link --> %} 
+ <span class="{{span_type}} item bullet nolink">
+   <span>
+     {{menu.name}}
+     <span class="daddyicon"></span>
+   </span>
+</span>
+{% endif  <!-- menu.link --> %} 
+ {% if menu.submenu %}
+ {% capture level %}{{include.level | plus:1}}{% endcapture %}
+{% include top_menu_rec.html level=level submenu=menu.submenu %}
+{% endif  <!-- menu.submenu --> %}
+</li>
+{% endfor <!-- menu in data.top-menu --> %} 
+      </ul>
+      <div class="drop-bot"></div>
+</div>
