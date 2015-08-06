@@ -106,13 +106,13 @@
           link: /x10-community/x10-in-use/applications.html
         - name: Tool Development
           link: /x10-community/x10-in-use/tool-development.html
-        - name: Frameworks &amp; Libraries
+        - name: Frameworks & Libraries
           link: /x10-community/x10-in-use/frameworks-a-libraries.html
         - name: Mapping high level language
           link: /x10-community/x10-in-use/mapping-high-level-languages.html
         - name: Curriculum Development
           link: /x10-community/x10-in-use/curriculum-development.html
-        - name: Performance &amp; Concurrency
+        - name: Performance & Concurrency
           link: /x10-community/x10-in-use/research-using-x10.html
     - name: Upcoming X10 Events
       link: /x10-community/upcoming-x10-events10.html
@@ -144,24 +144,24 @@
       link: /x10-development/contributor-agreement.html
 - name: X10 Workshops
   submenu:
-    - name: X10&#039;15 Workshop (at PLDI&#039;15) 
+    - name: X10'15 Workshop (at PLDI'15) 
       link: /workshop/workshop15.html
-    - name: X10&#039;14 Workshop (at PLDI&#039;14) 
+    - name: X10'14 Workshop (at PLDI'14) 
       link: /workshop/workshop14.html
       submenu:
-        name: X10&#039;14 Program
+        name: X10'14 Program
         link: /workshop/workshop14/x10-2014-program.html
-    - name: X10&#039;13 Workshop (at PLDI&#039;13) 
+    - name: X10'13 Workshop (at PLDI'13) 
       link: /workshop/workshop13.html
       submenu:
-        name: X10&#039;13 Program
+        name: X10'13 Program
         link: /workshop/workshop13/x10-2013-program.html
-    - name: X10&#039;12 Workshop (at PLDI&#039;12) 
+    - name: X10'12 Workshop (at PLDI'12) 
       link: /workshop/workshop12.html
       submenu:
-        name: X10&#039;12 Program
+        name: X10'12 Program
         link: /workshop/workshop12/x10-12-program.html
-    - name: X10&#039;11 Workshop (at PLDI&#039;11) 
+    - name: X10'11 Workshop (at PLDI'11) 
       link: /workshop/cfp.html
       submenu:
         name: Program

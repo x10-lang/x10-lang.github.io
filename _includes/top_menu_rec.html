@@ -22,14 +22,14 @@
  {% if menu.link %}
   <a class="{{span_type}} item bullet" href="{{menu.link}}"  >
     <span>
-      {{menu.name}}
+      {{menu.name | xml_escape}}
     <span class="daddyicon"></span>
     </span>
   </a>
 {% else <!-- menu.link --> %} 
  <span class="{{span_type}} item bullet nolink">
    <span>
-     {{menu.name}}
+     {{menu.name | xml_escape}}
      <span class="daddyicon"></span>
    </span>
 </span>

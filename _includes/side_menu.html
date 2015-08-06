@@ -6,9 +6,9 @@
             	<div class="rt-block">
            	    	<h2 class="title">
 			{% if menu.link %}
-			<a href="{{menu.link}}">menu.name</a>
+			<a href="{{menu.link}}">{{menu.name | xml_escape}}</a>
 			{% else %}
- 			{{menu.name}}
+ 			{{menu.name | xml_escape}}
 			{% endif %}
 			</h2>
 					</div>
@@ -18,9 +18,9 @@
  {% for item in menu.submenu %}
   <li>
  {% if item.link %}
- <a href="{{item.link}}"><span>{{item.name}}</span></a>
+ <a href="{{item.link}}"><span>{{item.name | xml_escape}}</span></a>
  {% else %}
- <span>{{item.name}}</span>
+ <span>{{item.name | xml_escape}}</span>
  {% endif %}
   {% endfor %}
   </ul>            	    	</div>
