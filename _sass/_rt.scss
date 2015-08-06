@@ -17,7 +17,7 @@ a:hover {color: #000; text-decoration: none;}
 	padding: 0px;
 }
 #rt-accessibility .button, .rt-joomla .icon {
-	background-image: url(/images/background/typography.png);
+	background-image: url(/images/theme/background/typography.png);
 }
 
 /* Layers structure */
@@ -25,14 +25,14 @@ a:hover {color: #000; text-decoration: none;}
 	width: 998px;
 	padding: 0px 37px;
 	margin: 20px auto 0px auto;
-	background: url(/images/background/shadow.png) 50% 0px no-repeat;
+	background: url(/images/theme/background/shadow.png) 50% 0px no-repeat;
 }
 #in-page-wraper{
-	background: url(/images/background/bottom-shadow.png) center bottom no-repeat;
+	background: url(/images/theme/background/bottom-shadow.png) center bottom no-repeat;
 	padding-bottom: 51px;
 }
 #in-page-wraper-2{
-	background: url(/images/background/content-background.png);
+	background: url(/images/theme/background/content-background.png);
 	border: 1px solid #fff;
 	padding-top: 25px;
 	padding-bottom: 25px;
@@ -82,7 +82,7 @@ p{
 .rt-right #rt-logo,
 .rt-left #rt-logo,
 .rt-flipped #rt-logo{
-	background: url(/images/logo/logo.png) 0 0 no-repeat transparent;
+	background: url(/images/theme/logo/logo.png) 0 0 no-repeat transparent;
 }
 input.inputbox, .contact-form input{
 	border: 1px solid #dcdcdc;
@@ -92,7 +92,7 @@ input.inputbox, .contact-form input{
 	padding: 3px;
 	color: #000;
 	text-shadow: 0px 1px 0px #fff;
-	background: url(/images/inputbox.jpg) left bottom repeat-x #fff;
+	background: url(/images/theme/inputbox.jpg) left bottom repeat-x #fff;
 	margin: 0px 4px;
 
 }
@@ -102,7 +102,7 @@ input.inputbox, .contact-form input{
 }
 
 textarea.inputbox, .contact-form textarea{
-  background: url(/images/textarea.jpg) left bottom repeat-x #FBFBFB;
+  background: url(/images/theme/textarea.jpg) left bottom repeat-x #FBFBFB;
 }
 
 input[type="checkbox"]{
@@ -114,7 +114,7 @@ input[type="checkbox"]{
 }
 
 .button{
-	background: url(/images/universal-gradient.png) left top repeat-x #3a7ab3;
+	background: url(/images/theme/universal-gradient.png) left top repeat-x #3a7ab3;
 	border: 0px;
 	padding: 5px 8px;
 	margin: 4px 0px;
@@ -159,7 +159,7 @@ input[type="checkbox"]{
 	padding: 0px;
 }
 .module-title h2.title{
-	background: url(/images/universal-gradient.png) left top repeat-x #0a93cb;
+	background: url(/images/theme/universal-gradient.png) left top repeat-x #0a93cb;
 	color: #fff;
 	text-shadow: none;
 	font-weight: normal;
@@ -172,7 +172,7 @@ input[type="checkbox"]{
 	text-shadow: 0px 1px 0px rgba(0,0,0,0.7);;
 }
 #breadcrumbs-gantry{
-	background: url(/images/home.png) 0 0 no-repeat;
+	background: url(/images/theme/home.png) 0 0 no-repeat;
 	width: 20px;
 	height: 16px;
 	margin-top: 2px;
@@ -186,7 +186,7 @@ input[type="checkbox"]{
 #rt-sidebar-a .module-outline-1,
 #rt-sidebar-b .module-outline-1,
 #rt-sidebar-c .module-outline-1{
-	background: url(/images/left-bottom-shadow-small.png) left bottom no-repeat;
+	background: url(/images/theme/left-bottom-shadow-small.png) left bottom no-repeat;
 }
 #rt-feature .module-outline-2, 
 #rt-maintop .module-outline-2, 
@@ -194,7 +194,7 @@ input[type="checkbox"]{
 #rt-sidebar-a .module-outline-2,
 #rt-sidebar-b .module-outline-2,
 #rt-sidebar-c .module-outline-2{
-	background: url(/images/right-bottom-shadow-small.png) right bottom no-repeat;
+	background: url(/images/theme/right-bottom-shadow-small.png) right bottom no-repeat;
 	padding-bottom: 13px;
 }
 #rt-feature .rt-block, 
@@ -207,7 +207,7 @@ input[type="checkbox"]{
 	-moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 	box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
-	background: url(/images/module-gradient.png) left bottom repeat-x #fff;
+	background: url(/images/theme/module-gradient.png) left bottom repeat-x #fff;
 	padding: 5px;
 	border: 1px solid #fff;
 } 
@@ -238,14 +238,14 @@ input[type="checkbox"]{
 	border-top: 0;
 }
 #rt-showcase .module-outline-1{
-	background: url(/images/left-bottom-shadow.png) left bottom no-repeat;
+	background: url(/images/theme/left-bottom-shadow.png) left bottom no-repeat;
 }
 #rt-showcase .module-outline-2{
-	background: url(/images/right-bottom-shadow.png) right bottom no-repeat;
+	background: url(/images/theme/right-bottom-shadow.png) right bottom no-repeat;
 	padding-bottom: 16px;
 }
 #rt-showcase .rt-block{
-	background: url(/images/showcase-background.png) left bottom repeat-x #fff;
+	background: url(/images/theme/showcase-background.png) left bottom repeat-x #fff;
 	border: 1px solid #fff;
 	padding: 8px;
 	-moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
@@ -280,7 +280,7 @@ input[type="checkbox"]{
 	-moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 	box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
-	background: url(/images/module-gradient.png) left bottom repeat-x #fff;
+	background: url(/images/theme/module-gradient.png) left bottom repeat-x #fff;
 }
 #rt-content-top .rt-block, 
 #rt-content-bottom .rt-block{
@@ -354,16 +354,16 @@ input[type="checkbox"]{
 	color: #0893cf;
 }
 #rt-menu ul.menu li a:hover{
-	background: url(/images/level1Bg.png) 0px -50px repeat-x #0b9fdf;
+	background: url(/images/theme/level1Bg.png) 0px -50px repeat-x #0b9fdf;
 	text-shadow: 0px 1px 0px #fff;
 }
 #rt-menu ul.menu li.active > a, 
 #rt-menu ul.menu li.active a:hover{
-	background: url(/images/level1Bg.png) 0px -50px repeat-x #0b9fdf;
+	background: url(/images/theme/level1Bg.png) 0px -50px repeat-x #0b9fdf;
 	text-shadow: 0px 1px 0px #fff;
 }
 #rt-menu .rt-container{
-	background: url(/images/menuBackground.png) 0px -10px repeat-x #fff;
+	background: url(/images/theme/menuBackground.png) 0px -10px repeat-x #fff;
 	width: 940px;
 	height: auto;
 	border: 1px solid #dcdcdd;
@@ -401,7 +401,7 @@ input[type="checkbox"]{
 	line-height: normal;
 	font-weight: bold;
 	text-shadow: 0px 1px 0px #fff;
-	background: url(/images/level1Bg.png) 0px -10px repeat-x #fff;
+	background: url(/images/theme/level1Bg.png) 0px -10px repeat-x #fff;
 }
 #rt-menu ul.menu li a span, #rt-menu ul.menu li .separator span {
 	display: inline;
@@ -423,7 +423,7 @@ input[type="checkbox"]{
 
 /* Breadcrumbs */
 #rt-breadcrumbs .rt-block{
-	background: url(/images/breadcrumbs-background.png) left bottom repeat-x #fff;
+	background: url(/images/theme/breadcrumbs-background.png) left bottom repeat-x #fff;
 	border: 1px solid #e2e2e2;
 	padding: 5px 10px;
 	font-family: "Ubuntu" , arial , serif;
@@ -437,7 +437,7 @@ input[type="checkbox"]{
 }
 /* Top link */
 #gototop {
-    background: url(/images/toTopBackground.png) left bottom repeat-x;
+    background: url(/images/theme/toTopBackground.png) left bottom repeat-x;
     bottom: 5px;
     color: #575757;
     text-shadow: 0px 1px 0px #fff;
@@ -450,7 +450,7 @@ input[type="checkbox"]{
     border: 1px solid #fff;
 }
 #gototop:hover{
-	background: url(/images/toTopBackground.png) left bottom repeat-x;
+	background: url(/images/theme/toTopBackground.png) left bottom repeat-x;
 }
 #pageTop{
 	position: absolute;
@@ -481,12 +481,12 @@ input[type="checkbox"]{
 	padding: 6px 15px 6px 5px;
 	text-decoration: none;
 	border: 1px solid #fff;
-	background: url(/images/sideMenuSprite.jpg) 100% 0px no-repeat #fff;
+	background: url(/images/theme/sideMenuSprite.jpg) 100% 0px no-repeat #fff;
 }
 #rt-sidebar-a ul.menu li.parent > a, #rt-sidebar-b ul.menu li.parent > a, #rt-sidebar-c ul.menu li.parent > a,
 #rt-sidebar-a ul.menu li.parent > span, #rt-sidebar-b ul.menu li.parent > span, #rt-sidebar-c ul.menu li.parent > span
 {
-	background: url(/images/sideMenuSprite.jpg) 100% -50px no-repeat #fff;
+	background: url(/images/theme/sideMenuSprite.jpg) 100% -50px no-repeat #fff;
 }
 #rt-sidebar-a ul.menu li a:hover, #rt-sidebar-b ul.menu li a:hover, #rt-sidebar-c ul.menu li a:hover,
 #rt-sidebar-a ul.menu li a:active, #rt-sidebar-b ul.menu li a:active, #rt-sidebar-c ul.menu li a:active,
@@ -496,7 +496,7 @@ input[type="checkbox"]{
 #rt-sidebar-a ul.menu li span:focus, #rt-sidebar-b ul.menu li span:focus, #rt-sidebar-c ul.menu li span:focus
 { 
 	color: #575757; 
-	background: url(/images/sideMenuSprite.jpg) 100% -100px no-repeat #fff;
+	background: url(/images/theme/sideMenuSprite.jpg) 100% -100px no-repeat #fff;
 }
 #rt-sidebar-a ul.menu li.parent > a:hover, #rt-sidebar-b ul.menu li.parent > a:hover, #rt-sidebar-c ul.menu li.parent > a:hover,
 #rt-sidebar-a ul.menu li.parent > a:active, #rt-sidebar-b ul.menu li.parent > a:active, #rt-sidebar-c ul.menu li.parent > a:active,
@@ -505,19 +505,19 @@ input[type="checkbox"]{
 #rt-sidebar-a ul.menu li.parent > span:active, #rt-sidebar-b ul.menu li.parent > span:active, #rt-sidebar-c ul.menu li.parent > span:active,
 #rt-sidebar-a ul.menu li.parent > span:focus, #rt-sidebar-b ul.menu li.parent > span:focus, #rt-sidebar-c ul.menu li.parent > span:focus
 {
-	background: url(/images/sideMenuSprite.jpg) 100% -150px no-repeat #fff;
+	background: url(/images/theme/sideMenuSprite.jpg) 100% -150px no-repeat #fff;
 }
 #rt-sidebar-a ul.menu li.active > a, #rt-sidebar-b ul.menu li.active > a, #rt-sidebar-c ul.menu li.active > a  ,
 #rt-sidebar-a ul.menu li.active > span, #rt-sidebar-b ul.menu li.active > span, #rt-sidebar-c ul.menu li.active > span
 { 
 	color: #575757;
 	font-weight: bold; 
-	background: url(/images/sideMenuSprite.jpg) 100% -100px no-repeat #fff;
+	background: url(/images/theme/sideMenuSprite.jpg) 100% -100px no-repeat #fff;
 }
 #rt-sidebar-a ul.menu li.parent.active > a, #rt-sidebar-b ul.menu li.parent.active > a, #rt-sidebar-c ul.menu li.parent.active > a,
 #rt-sidebar-a ul.menu li.parent.active > span, #rt-sidebar-b ul.menu li.parent.active > span, #rt-sidebar-c ul.menu li.parent.active > span
 {
-	background: url(/images/sideMenuSprite.jpg) 100% -150px no-repeat #fff;
+	background: url(/images/theme/sideMenuSprite.jpg) 100% -150px no-repeat #fff;
 }
 #rt-sidebar-a ul.menu li ul, #rt-sidebar-b ul.menu li ul, #rt-sidebar-c ul.menu li ul{ 
 	margin: 0px; 
@@ -525,7 +525,7 @@ input[type="checkbox"]{
 }
 #rt-sidebar-a ul.menu li a span, #rt-sidebar-b ul.menu li a span, #rt-sidebar-c ul.menu li a span, 
 #rt-sidebar-a ul.menu li span.separator span, #rt-sidebar-b ul.menu li span.separator span, #rt-sidebar-c ul.menu li span.separator span{
-	background:url("/images/menuArrow.png") no-repeat scroll 0 50% transparent;
+	background:url("/images/theme/menuArrow.png") no-repeat scroll 0 50% transparent;
 	padding-left:15px;
 	display: block;
 	line-height: normal;
@@ -534,7 +534,7 @@ input[type="checkbox"]{
 #rt-sidebar-a ul.menu li a:active span, #rt-sidebar-b ul.menu li a:active span, #rt-sidebar-c ul.menu li a:active span,
 #rt-sidebar-a ul.menu li a:focus  span, #rt-sidebar-b ul.menu li a:focus  span, #rt-sidebar-c ul.menu li a:focus  span, 
 #rt-sidebar-a ul.menu li.active > a span, #rt-sidebar-b ul.menu li.active > a span, #rt-sidebar-c ul.menu li.active > a span{ 
-	background:url("/images/menuArrowHover.png") no-repeat scroll 0 50% transparent;
+	background:url("/images/theme/menuArrowHover.png") no-repeat scroll 0 50% transparent;
 }
 /* Level 2 */
 #rt-sidebar-a ul.menu li li a span, #rt-sidebar-b ul.menu li li a span, #rt-sidebar-c ul.menu li li a span,
@@ -576,14 +576,14 @@ input[type="checkbox"]{
 	text-decoration: none;
 	font-weight: bold;
 	text-shadow: 0px 1px 0px #fff;
-	background: url(/images/level1Bg.png) 0px -10px repeat-x #fff;
+	background: url(/images/theme/level1Bg.png) 0px -10px repeat-x #fff;
 }
 .menutop li.parent.root > .item span, .menu-type-splitmenu .menutop li.parent .item span {
-	background: url(/images/menus/menutop-daddy.png) 97% 50% no-repeat;
+	background: url(/images/theme/menus/menutop-daddy.png) 97% 50% no-repeat;
 }
 /* Navigation - Hovers */
 .menutop li.root > .item:hover, .menutop li.active.root.f-mainparent-itemfocus > .item, .menutop li.root.f-mainparent-itemfocus > .item, .menu-type-splitmenu .menutop li:hover > .item {
-	background: url(/images/level1Bg.png) 0px -50px repeat-x #fff;
+	background: url(/images/theme/level1Bg.png) 0px -50px repeat-x #fff;
 	text-shadow: 0px 1px 0px #fff;
 	-moz-box-shadow: 0px 2px 9px rgba(0,0,0,0.1), 0px -2px 9px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
@@ -591,7 +591,7 @@ input[type="checkbox"]{
 }
 /* Navigation - Active */
 .menutop li.root.active > .item, .menutop li.root.active > .item:hover, .menu-type-splitmenu .menutop li.active .item {
-	background: url(/images/level1Bg.png) 0px -50px repeat-x #fff;
+	background: url(/images/theme/level1Bg.png) 0px -50px repeat-x #fff;
 	text-shadow: 0px 1px 0px #fff;
 }
 /* Navigation - Dropdowns */
@@ -606,25 +606,25 @@ input[type="checkbox"]{
 }
 .menutop ul li > a.item:hover, .menutop ul li.f-menuparent-itemfocus > a.item, .menutop li.active > span.item,
 .menutop ul li.f-menuparent-itemfocus > span.item, .menutop .fusion-js-subs ul li.active > a{
-	background: url(/images/universal-gradient.png) 0px 0px repeat-x #0a97d3;
+	background: url(/images/theme/universal-gradient.png) 0px 0px repeat-x #0a97d3;
 	color: #fff;
 }
 .menutop ul li > .daddy span {
-	background: url(/images/menus/dropdown-daddy.png) 97% 50% no-repeat;
+	background: url(/images/theme/menus/dropdown-daddy.png) 97% 50% no-repeat;
 }
 .menutop .fusion-grouped ol li > .item {
-	background: url(/images/menus/menu-arrow.png) 5px 50% no-repeat;
+	background: url(/images/theme/menus/menu-arrow.png) 5px 50% no-repeat;
 }
 /* Disable it for Joomla! 1.6 
 .fusion-js-subs{
-	background: url(/images/menus/level2Bg.png);
+	background: url(/images/theme/menus/level2Bg.png);
 	-moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 	box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 }*/
 /* Enable it for Joomla! 1.6 */
 .fusion-submenu-wrapper{
-	background: url(/images/menus/level2Bg.png);
+	background: url(/images/theme/menus/level2Bg.png);
 	padding: 0px !important;
 	-moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.1), -2px -2px 9px rgba(0,0,0,0.1);
@@ -652,7 +652,7 @@ input[type="checkbox"]{
 	background-repeat: no-repeat;
 }
 .rokradios, .rokchecks, .rokradios-active,.rokchecks-active {
-	background-image: url(/images/body/inputs.png);
+	background-image: url(/images/theme/body/inputs.png);
 }
 /* Content Toc */
 table.contenttoc{
@@ -700,7 +700,7 @@ table.contenttoc th {
 }
 /* Search module */
 .search #mod_search_searchword, .search #mod-search-searchword{
-	background: url("/images/search-box.png") no-repeat scroll 0 0 transparent;
+	background: url("/images/theme/search-box.png") no-repeat scroll 0 0 transparent;
     border: 0 none;
     font-size: 11px;
     height: 17px;
@@ -710,7 +710,7 @@ table.contenttoc th {
     color: #7F7F7F;
 }
 .search .button {
-    background: url("/images/search-button.png") no-repeat right top #c6c6c6;
+    background: url("/images/theme/search-button.png") no-repeat right top #c6c6c6;
     height: 32px;
     color: #7f7f7f;
     text-shadow: 0px 1px 0px #fff;
@@ -741,7 +741,7 @@ table.contenttoc th {
 	padding: 0 5px;
 }
 .rt-pagination .page-inactive, .rt-pagination .page-active, .rt-pagination .tab .page-active{
-	background: url(/images/greyGradient.png) left bottom repeat-x;
+	background: url(/images/theme/greyGradient.png) left bottom repeat-x;
 }
 .rt-pagination .rt-results{
 	margin-bottom: 0px;
@@ -822,7 +822,7 @@ dl.article-count dt{
 	width: 33%;
 } 
 .rt-joomla .rt-article-bg {
-    background: url("/images/article-separation.png") repeat-x scroll left bottom transparent;
+    background: url("/images/theme/article-separation.png") repeat-x scroll left bottom transparent;
     border-bottom: 0 none;
     padding-bottom: 15px;
 }
@@ -833,7 +833,7 @@ dl.article-count dt{
 	clear: both;
 }
 .rt-article .readon {
-    background: url("/images/readmore.png") repeat-x scroll 0 0 transparent;
+    background: url("/images/theme/readmore.png") repeat-x scroll 0 0 transparent;
     color: #525252;
     font-weight: bold;
     padding: 8px 10px;
@@ -874,7 +874,7 @@ dl.article-count dt{
 }
 
 .rt-joomla .rt-article-bg, .component-content .rt-article-bg {
-    background: url("/images/article-separation.png") repeat-x scroll left bottom transparent;
+    background: url("/images/theme/article-separation.png") repeat-x scroll left bottom transparent;
     border-bottom: 0 none;
     padding-bottom: 15px;
 	overflow: hidden;
@@ -902,7 +902,7 @@ dl.article-count dt{
 }
 
 #rt-sidebar-a .search input, #rt-sidebar-b .search input, #rt-sidebar-c .search input {
-	background: url("/images/inputbox.jpg") repeat-x scroll left bottom #FFFFFF;
+	background: url("/images/theme/inputbox.jpg") repeat-x scroll left bottom #FFFFFF;
 	width: 175px;
 	padding: 3px;
 	float: none;
@@ -939,7 +939,7 @@ font-size:100%;
 width:10%;
 }
 tr.odd, .cat-list-row1 {
-    background: url("/images/news.gif") repeat-x scroll 0 0 transparent;
+    background: url("/images/theme/news.gif") repeat-x scroll 0 0 transparent;
 }
 
 /* Mobile device fix */
@@ -978,7 +978,7 @@ height: 27px;
 }
 
 .rt-normal #rt-showcase .rt-container .rt-block{
-	background: url(/images/showcase-background.png) left bottom repeat-x #fff;
+	background: url(/images/theme/showcase-background.png) left bottom repeat-x #fff;
 }
 
 #rt-main .contact h3.contact-details, #rt-main .contact h3.contact-form{

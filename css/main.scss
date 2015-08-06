@@ -16,7 +16,7 @@ $spacing-unit:     30px;
 $text-color:       #111;
 $background-color: #fdfdfd;
 //$background-picture: 
-// $background-picture: url({{site.url}}/images/background/background.jpg);
+// $background-picture: url({{site.url}}/images/theme/background/background.jpg);
 $brand-color:      #D33207; // #2a7ae2;
 
 $grey-color:       #828282;
@@ -45,12 +45,9 @@ $on-laptop:        800px;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
-        "/css/grid-12.css",
-        "/css/gantry.css",
-        "/css/fusionmenu.css",
         "base",
-	"rt",
-        "layout",
+//	"rt",
+//        "layout",
         "syntax-highlighting",
         "inline"
 ;

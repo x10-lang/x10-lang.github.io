@@ -86,7 +86,7 @@ body {color: #333;}
 #rt-header, #rt-bottom {color: #aaa;}
 .rt-container {background: #fff;} 
 a:hover {color: #000;}
-#rt-logo {background: url(../images/header-assets.png) 0 0 no-repeat;}
+#rt-logo {background: url(../images/theme/header-assets.png) 0 0 no-repeat;}
 #rt-menu ul.menu li a {color: #fff;}
 #rt-menu ul.menu li a:hover {background: #444;color: #fff;}
 #rt-menu ul.menu li.active a, #rt-menu ul.menu li.active a:hover {background: #fff;color: #000;}
@@ -94,9 +94,9 @@ a:hover {color: #000;}
 #rt-sidebar-a {background-color:#e0e0e0;}
 #rt-sidebar-b {background-color:#e9e9e9;}
 #rt-sidebar-c {background-color:#f0f0f0;}
-#rocket {background: url(../images/rocket.png) 0 0 no-repeat;}
+#rocket {background: url(../images/theme/rocket.png) 0 0 no-repeat;}
 
-#gantry-viewswitcher {background-image: url(../images/iphone/switcher.png); background-repeat: no-repeat; background-position: top left; width: 60px; height: 20px;display:block;position:absolute;right: 10px;top:40%;}
+#gantry-viewswitcher {background-image: url(../images/theme/iphone/switcher.png); background-repeat: no-repeat; background-position: top left; width: 60px; height: 20px;display:block;position:absolute;right: 10px;top:40%;}
 #gantry-viewswitcher.off {background-position: bottom left;}
 #gantry-viewswitcher span {display: none;}
 
