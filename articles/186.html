@@ -1,0 +1,52 @@
+---
+layout: page
+title: "A Quick Tour Through X10"
+alias: "a-quick-tour-through-x10"
+category: "code-examples/examples"
+---
+<p>Here is a&nbsp; "HelloWorld" program in X10:</p>
+<pre>
+
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+
+</pre>
+<div class="O">
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #cc0099;"><strong>class</strong></span><span style="font-family: 'Courier New'; color: #3333cc;"><strong>HelloWholeWorld { </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New';"><strong><span>&nbsp; </span></strong></span><span style="font-family: 'Courier New'; color: #cc0099;"><strong>public static def</strong></span><span style="font-family: 'Courier New'; color: #3333cc;"><strong>main(s:Array[String]):void { </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #3333cc;"><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Console.OUT.println("Hello, world!"); </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #3333cc;"><strong><span>&nbsp; </span>} </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #3333cc;"><strong>}</strong></span></span></div>
+</div>
+<p>When this program is run, the body of the main method is executed in an activity at place 0 with the command parameters supplied as a 1-dimensional array of strings. The body contains a single statement which is executed, causing "Hello, World" to be printed out, and the program terminates.</p>
+<p>What if we wanted to print out a string from thr command line from every place in the execution? Here is what you would do:</p>
+<p>
+
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+p\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+v\:textbox {display:none;}
+
+</p>
+<div class="O">
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #cc0099;"><strong>class</strong></span><span style="font-family: 'Courier New'; color: #3333cc;"><strong>HelloWholeWorld { </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New';"><strong><span>&nbsp; </span></strong></span><span style="font-family: 'Courier New'; color: #cc0099;"><strong>public static def</strong></span><span style="font-family: 'Courier New'; color: #3333cc;"><strong>main(s:Array[String]):void { </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New';"><strong><span>&nbsp;&nbsp;&nbsp;&nbsp; </span></strong></span><span style="font-family: 'Courier New'; color: #cc0099;"><strong>finish</strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New';"><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong></span><span style="font-family: 'Courier New'; color: #cc0099;"><strong>for</strong></span><span style="font-family: 'Courier New'; color: #3333cc;"><strong>(p</strong></span><span style="font-family: 'Courier New'; color: #cc0099;"><strong>in</strong></span><span style="font-family: 'Courier New'; color: #3333cc;"><strong>Place.places())</strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New';"><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong></span><span style="font-family: 'Courier New'; color: #cc0099;"><strong>async</strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New';"><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong></span><span style="font-family: 'Courier New'; color: #cc0099;"><strong>at</strong></span><span style="font-family: 'Courier New'; color: #3333cc;"><strong>(p) </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #3333cc;"><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Console.OUT.println("(At " + p + ") "+ s(0)); </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #3333cc;"><strong><span>&nbsp; </span>} </strong></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: 'Courier New'; color: #3333cc;"><strong>}</strong></span></span></div>
+<div>&nbsp;</div>
+<div>From place 0, for every place p in the set of places you would launch an async thart immediately shifts to place p, and prints out the given string.&nbsp; Note that the println references a variable s that was originally declared at place 0 (as the parameter to the method). The X10 system takes care of serializing into a buffer the objects referred to in the body of the async at(p) ... transmitting the buffer to all places and reconstituting a local copy of the object in each place. The println statement then accesses the 0'th element of the copy at this place.</div>
+<div>&nbsp;</div>
+<div>Since you want the program to terminate only when all places have finished their work, you enclose the for loop in a finish.</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+</div>

@@ -1,0 +1,26 @@
+---
+layout: page
+title: "APGAS Release 1.0.0"
+alias: "apgas-release-100"
+category: "code-downloads"
+---
+<h1>APGAS 1.0.0</h1>
+<p><span style="line-height: 1.3em;">The APGAS library supports the APGAS programming model for resilient, elastic, parallel, and distributed programming in Java 8. See this <a href="http://x10.sourceforge.net/documentation/papers/X10Workshop2015/tardieu.pdf">short paper</a></span><span style="line-height: 1.3em;">&nbsp;for details.</span></p>
+<h2><span style="line-height: 1.3em;">Example</span></h2>
+<p>For instance, X10's HelloWorld program can be expressed in Java using APGAS as the following.</p>
+<pre>import static apgas.Constructs.*;<br />import apgas.Configuration;<br />import apgas.Place;<br /><br />final class HelloWorld {<br />  public static void main(String[] args) {<br />    // Run with two places unless specified otherwise<br />    if (System.getProperty(Configuration.APGAS_PLACES) == null) {<br />      System.setProperty(Configuration.APGAS_PLACES, "2");<br />    }<br /><br />    finish(() -&amp;gt; {<br />      for (final Place place : places()) {<br />        asyncAt(place, () -&amp;gt; System.out.println("Hello from " + here()));<br />      }<br />    });<br />    System.out.println("Bye");<br />  }<br />}</pre>
+<p><span style="line-height: 1.3em;">&nbsp;</span></p>
+<p><span style="line-height: 1.3em;">To compile:</span></p>
+<pre><span style="line-height: 1.3em;">$ javac -cp .:apgas.jar HelloWorld.java<br /></span></pre>
+<p><span style="line-height: 1.3em;">&nbsp;</span></p>
+<p><span style="line-height: 1.3em;">To run with four places:</span></p>
+<pre><span style="line-height: 1.3em;">$ java -cp .:apgas.jar:hazelcast-3.4.jar -Dapgas.places=4 HelloWorld<br />Hello from place(0)<br />Hello from place(3)<br />Hello from place(1)<br />Hello from place(2)<br />Bye</span><span style="line-height: 1.3em; color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 12px;"><br /></span></pre>
+<h2>Downloads</h2>
+<p><span style="line-height: 1.3em; font-family: Arial, Helvetica, sans-serif; font-size: 14px;">T</span><span style="line-height: 1.3em;">he simplest way to start out with APGAS is by installing the APGAS Development Tools for Eclipse</span><span style="line-height: 1.3em;">&nbsp;using the&nbsp;<a href="http://x10.sourceforge.net/apgas/1.0.0">APGAS update site</a>&nbsp;(</span><span style="line-height: 1.3em;">or by downloading an </span><a href="http://sourceforge.net/projects/x10/files/apgas/1.0.0/apgas-update-site-1.0.0.zip/download" style="line-height: 1.3em;">archive</a><span style="line-height: 1.3em;"> of the update site) and importing this <a href="http://sourceforge.net/projects/x10/files/apgas/1.0.0/apgas-example-project-1.0.0.zip/download">example project</a>&nbsp;in the Eclipse workspace.</span></p>
+<p><span style="line-height: 1.3em;">The pre-built APGAS library is also available as a <a href="http://sourceforge.net/projects/x10/files/apgas/1.0.0/apgas-1.0.0.zip/download">standalone archive</a> to be used with a command-line Java compiler.</span></p>
+<p>The&nbsp;<a href="http://x10.sourceforge.net/apgas/1.0.0/samples/">example codes</a>&nbsp;and&nbsp;<a href="http://x10.sourceforge.net/apgas/1.0.0/doc/">javadoc</a>&nbsp;for the APGAS library are included in both distributions and also available online.</p>
+<h2>Prerequisites</h2>
+<p>APGAS requires Java 8 and the APGAS Development Tools require Eclipse 4.2.2. These distributions are otherwise platform independent.&nbsp;These distributions include the <a href="http://central.maven.org/maven2/com/hazelcast/hazelcast/3.4/hazelcast-3.4.jar">hazelcast-3.4.jar</a> from&nbsp;<a href="http://hazelcast.com">Hazelcast</a>, which is required for running APGAS programs.</p>
+<h2>Source Code</h2>
+<p><span style="line-height: 1.3em;">The APGAS </span><a href="http://sourceforge.net/p/x10/code/HEAD/tree/trunk/apgas/" style="line-height: 1.3em;">source code</a><span style="line-height: 1.3em;"> is available from </span><a href="http://sourceforge.net" style="line-height: 1.3em;">sourceforge</a><span style="line-height: 1.3em;"> as part of the </span><a href="http://sourceforge.net/projects/x10/" style="line-height: 1.3em;">X10 project</a><span style="line-height: 1.3em;">. The standalone APGAS distribution can be built as the following:</span></p>
+<pre>$ svn co https://svn.code.sf.net/p/x10/code/trunk/apgas<br /><span style="line-height: 1.3em;">$ svn co https://svn.code.sf.net/p/x10/code/trunk/apgas.examples # optional<br /></span><span style="line-height: 1.3em;">$ cd apgas<br /></span><span style="line-height: 1.3em;">$ ant</span></pre>

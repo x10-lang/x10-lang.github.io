@@ -1,0 +1,54 @@
+---
+layout: page
+title: "X10 Release 2.4.0"
+alias: "x10-release-240"
+category: "code-downloads/compiler-a-runtime"
+---
+<p>This is the release page for X10 2.4.0. See the <a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/README.txt/download">Release Notes</a> for more details.</p>
+<p>X10 v2.4 is not backwards compatible with previous releases of X10. The motivation for making backwards incompatible language changes with this release of X10 is to significantly improve the ability of the X10 programmer to exploit the expanded memory capabilities of modern computer systems. In particular, X10 v2.4 includes an extensive redesign of arrays and a change of the default type of unqualified integral literals (e.g. 2) from Int to Long. Taken together these two changes enable natural exploitation of large memories via 64-bit addressing and Long-based indexing of arrays and similar data structures.&nbsp; For more information about upgrading code to X10 v2.4, see <a class="external-link" href="porting-to-24">steps for porting code to X10 2.4</a></p>
+<h3>Downloads</h3>
+<ul>
+<li><a class="external-link" href="http://x10.sourceforge.net/documentation/languagespec/x10-240.pdf">X10 2.4.0 Language Specification</a></li>
+</ul>
+<ul>
+<li>Pre-built binary builds of X10 2.4.0 for selected platforms (also includes sample X10 programs). After downloading, untar and see the INSTALL file for further instructions.
+<ul>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_aix_ppc.tgz/download">AIX/Power</a></li>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_linux_bgp.tgz/download">BlueGene/P</a></li>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_linux_bgq.tgz/download">BlueGene/Q</a></li>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_linux_ppc.tgz/download">Linux/Power (tgz)</a> <a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0-1.linux_ppc.rpm/download">Linux/Power (rpm)</a></li>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_cygwin_x86.tgz/download">Cygwin/x86</a> (can run Managed X10 on Windows without cygwin; cygwin required for Native X10).</li>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_linux_x86.tgz/download">Linux/x86 (tgz)</a> <a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0-1.linux_x86.rpm/download">Linux/x86 (rpm)</a></li>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_linux_x86_64.tgz/download">Linux/x86_64 (tgz)</a> <a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0-1.linux_x86_64.rpm/download">Linux/x86_64 (rpm)</a></li>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0_macosx_x86.tgz/download">MacOS/x86 and x86_64</a></li>
+</ul>
+<ul>
+<li>All in one zip files for&nbsp; X10DT 2.4.0 that contain Eclipse, X10DT plugins and prerequisites, and the X10 compiler and runtime. Simply unzip and you're ready to run by executing the program called 'x10dt' (or 'x10dt.exe' on windows).
+<ul>
+<li><a href="http://sourceforge.net/projects/x10/files/x10dt/2.4.0/x10dt-2.4.0-linux.gtk.x86.zip/download">Linux/x86</a></li>
+<li><a href="http://sourceforge.net/projects/x10/files/x10dt/2.4.0/x10dt-2.4.0-linux.gtk.x86_64.zip/download">Linux/x86_64</a></li>
+<li><a href="http://sourceforge.net/projects/x10/files/x10dt/2.4.0/x10dt-2.4.0-macosx.cocoa.x86.zip/download">MacOS/x86 and x86_64</a></li>
+<li><a href="http://sourceforge.net/projects/x10/files/x10dt/2.4.0/x10dt-2.4.0-win32.win32.x86.zip/download">Windows</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0-src.tar.bz2/download">Source Distribution of X10 2.4.0</a> Use this if you want to build X10 yourself, use X10 with CUDA, modify the X10 implementation, or need X10 for a platform that is not one of the ones for which we provide pre-built binaries.</li>
+</ul>
+<ul>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-benchmarks-2.4.0.tar.bz2/download">X10 Benchmarks</a> Selected X10 benchmark programs.</li>
+</ul>
+<ul>
+<li><a class="external-link" href="http://sourceforge.net/projects/x10/files/x10/2.4.0/x10-2.4.0-testsuite.tar.bz2/download">X10 test suite</a> Full X10 test suite run by our nightly regression testing.</li>
+</ul>
+<ul>
+<li>On BlueGene/P X10 uses an extra closed-source network layer: the Common PGAS runtime. Under most circumstances, you should not need to manually download the Common PGAS runtime yourself. It is included in the binary X10 release for BlueGene/P and will be automatically downloaded by the X10 build process if you are building from source. If the automatic download doesn't work, download it manually from <a class="external-link" href="http://dist.codehaus.org/x10/binaryReleases/2.4.0/">PGAS Runtime for BlueGene/P</a>.</li>
+</ul>
+<h3>Online resources</h3>
+<ul>
+<li>Standard library documentation is <a href="http://x10.sourceforge.net/x10doc/2.4.0">available online</a>. It is also included in all pre-built X10 downloads in the stdlib/x10doc directory.</li>
+<li>More detailed <a href="documentation/x10dt-installation">installation and setup instructions</a> for X10DT.</li>
+<li>X10DT Update Site:&nbsp;<a href="http://x10.sourceforge.net/x10dt/2.4.0/updateSite/">http://x10.sourceforge.net/x10dt/2.4.0/updateSite/</a></li>
+</ul>
+</li>
+</ul>

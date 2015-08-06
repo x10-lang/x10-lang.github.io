@@ -1,0 +1,29 @@
+---
+layout: page
+title: "Async Expression"
+alias: "snippet-1"
+category: "code-examples/simple-snippets"
+---
+<pre>/*
+ *  This file is part of the X10 project (http://x10-lang.org).
+ *
+ *  This file is licensed to You under the Eclipse Public License (EPL);
+ *  You may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *      http://www.opensource.org/licenses/eclipse-1.0.php
+ *
+ *  (C) Copyright IBM Corporation 2010.
+ */
+
+/**
+ * Simple Example of an &amp;#39;async&amp;#39; expression.
+ */
+
+public class Async1 {
+  public static def main(argv:Array[String]) {
+     async{ Console.OUT.print(&amp;quot;a&amp;quot;); }
+     async{ Console.OUT.print(&amp;quot;b&amp;quot;); }
+     async{ Console.OUT.print(&amp;quot;c&amp;quot;); }
+  }
+}
+</pre><p>&amp;nbsp;</p>

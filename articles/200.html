@@ -1,0 +1,256 @@
+---
+layout: page
+title: "X10 on GPUs"
+alias: "x10-on-gpus"
+category: "documentation/developer-info"
+---
+<h1>Summary of CUDA Support</h1>
+<p>Using the X10/CUDA backend, one can identify fragments of an X10 program to run on the GPU.&nbsp; For ideal workloads, this can give a speedup of up to 30x or more.&nbsp; Any X10RT backend can be used with CUDA, but X10 must be built specially from source to allow this capability.</p>
+<p>The idea behind the X10/CUDA implementation is to expose the low level CUDA fundamentals in as direct a fashion as possible, to maximize the ways in which the backend can be used, and to present as few surprises as possible to programmers.&nbsp; To support this, we have also striven to change X10 minimally, and 99% of the semantics of CUDA are represented with certain design patterns of X10 language features.&nbsp; For this reason, one needs to have a reasonably good understanding of the distributed/multicore features of the X10 language (places, async, finish, and the distributed object model, which are together commonly known as the APGAS model) before programming CUDA kernels in X10.</p>
+<p>For a detailed technical description of how X10 is compiled to CUDA to run on GPUs, please see</p>
+<ul>
+<li>The X10'11 Workshop paper <a href="http://x10.sourceforge.net/documentation/papers/X10Workshop2011/cuda.pdf"> GPU Programming in a High Level Language Compiling X10 to CUDA</a></li>
+<li>The GPU section of our <a href="http://x10.sourceforge.net/tutorials/x10-2.4/CGO-2014-InsideX10.pdf">CGO2014 Tutorial</a></li>
+</ul>
+<h1><a name="X102.2.1CUDA-Prerequisites"></a>Prerequisites</h1>
+<p>You will need a CUDA-capable NVidia GPU.&nbsp; All recent NVidia GPUs support this.&nbsp; Anything from the '8000' series should work.&nbsp; Check the documentation for your hardware to be sure.&nbsp; Lists of supported chipsets can be found on the NVidia website.&nbsp; If the specifications for your card include the number of "CUDA cores" available, then you can be sure it supports CUDA.</p>
+<p>You will need to install graphics drivers that support CUDA.&nbsp; We have tested with the latest versions of the drivers, so you should also use these if possible.&nbsp; Download CUDA drivers from the NVidia website <a href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+<p>You will also need the NVidia CUDA compiler, 'nvcc', and its runtime libraries.&nbsp; These are part of the 'toolkit' download from the same site.&nbsp; You should make sure nvcc is included your path, and the toolkit is installed in /usr/local/cuda.&nbsp; If x10c++ cannot find nvcc, it will print a warning message and produce an executable that will only run on the CPU.&nbsp; If you try to run it on your GPU you will get a message about not being able to find the cubin files, since these are output by nvcc.&nbsp;</p>
+<h1><a name="X102.2.1CUDA-Compiling"></a>Compiling</h1>
+<p>Unpack the source release tarball into a directory of your choice.&nbsp; Invoke ant as follows to build the whole X10 compiler and runtime:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>cd x10.dist
+ant dist -DX10RT_CUDA=true -Doptimize=true
+</pre>
+</div>
+</div>
+<p>The build process will expect to find the CUDA toolkit headers and libraries installed on the local system in /usr/local/cuda.</p>
+<p>If you want to use a combination of CUDA and MPI (e.g. for an InfiniBand cluster of hosts with GPUs attached), include the following extra argument:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>-DX10RT_MPI=true
+</pre>
+</div>
+</div>
+<p>If you want to use gdb or valgrind to debug your generated programs, you might want to build the X10 runtime without optimization.&nbsp; To reduce optimization, disable GC (which interferes with valgrind) and enable extra assertions, unpack the tarball into a different directory and build it as follows (again, include the extra MPI argument if needed):</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>cd x10.dist
+ant dist -DX10RT_CUDA=true -Doptimize=false -DDISABLE_GC=true
+</pre>
+</div>
+</div>
+<p>Note that your application will be built with optimization if and only if you give the -O argument to x10c++.&nbsp; The optimization argument above only affects the optimization of the X10 runtime.&nbsp; It is possible, and sometimes useful, to have an unoptimized application linked against an optimized X10 runtime, and vice versa.</p>
+<h1><a name="X102.2.1CUDA-TestingTheBuildwithTheCUDASamples"></a>Testing The Build with The CUDA Samples</h1>
+<h2><a name="X102.2.1CUDA-Compiling"></a>Compiling</h2>
+<p>In the x10.dist/samples/cuda directory there are 5 CUDA-capable X10 programs you can now try.&nbsp; Change to that directory and compile each one as follows:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>../../bin/x10c++ -O -STATIC_CHECKS CUDATopology.x10 -o CUDATopology
+../../bin/x10c++ -O -STATIC_CHECKS CUDABlackScholes.x10 -o CUDABlackScholes
+../../bin/x10c++ -O -STATIC_CHECKS KMeansCUDA.x10 -o KMeansCUDA
+../../bin/x10c++ -O -STATIC_CHECKS CUDA3DFD.x10 -o CUDA3DFD<br />../../bin/x10c++ -O -STATIC_CHECKS CUDAMatMul.x10 -o CUDAMatMul
+</pre>
+</div>
+</div>
+<p>If you want to use MPI, you should add the following argument to x10c++ in each case:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>-x10rt mpi
+</pre>
+</div>
+</div>
+<p>The -O parameter is optional here, but will give you the best performance for the parts of the code that run on the host. The -STATIC_CHECKS parameter is optional, but recommended -- it ensures the X10 compiler will not inject dynamic constraint checks into the kernel, which will result in nvcc compilation errors. You may optionally give x10c++ the -NO_CHECKS argument to suppress generation of array bounds, null pointer, and divide by zero checks for the host code; these checks are always disabled even without -NO_CHECKS for the version of the kernel that runs on the GPU.</p>
+<p>These builds will try and execute nvcc using the $PATH, so please ensure it can be found.</p>
+<h2><a name="X102.2.1CUDA-Executing"></a>Executing</h2>
+<p>All of the compiled samples above should be runnable just like normal X10 programs.&nbsp; If one used -x10rt mpi then one should use mpirun to execute them in the ordinary way for MPI programs.</p>
+<p>However, the applications will not use GPUs by default.&nbsp; To make them use your local GPUs, define the environment variable X10RT_ACCELS, like this:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>X10RT_ACCELS=ALL ./CUDATopology
+X10RT_ACCELS=ALL ./CUDABlackScholes
+X10RT_ACCELS=ALL ./KMeansCUDA -i 50
+X10RT_ACCELS=ALL ./CUDA3DFD
+X10RT_ACCELS=ALL ./CUDAMatMul
+</pre>
+</div>
+</div>
+<p>This allows all GPUs to be used by each X10 host place.&nbsp; In the above example, only one host place exists because we did not specify X10_NPLACES.&nbsp; If you ran with mpirun then each MPI process looks at X10RT_ACCELS to choose how many GPUs to use.&nbsp; You will probably have to look into your mpirun documentation to see how to make it pass environment variables to the MPI processes.</p>
+<p>If you run these samples without the environment variable set, that is equivalent to setting it to 'NONE', and no GPUs will be used.&nbsp; You should see the CUDABlackScholes and KMeansCUDA samples are running a lot slower in this case because they are written to use the host CPU for the computation if they do not find any GPUs available.</p>
+<ul>
+<li>The CUDATopology sample just prints the GPU places available underneath every host place, so its output will change depending on the value of X10RT_ACCELS.</li>
+<li>CUDABlackScholes is a reimplementation of the NVidia BlackScholes CUDA demo.&nbsp; It runs with similar performance to the NVidia version.</li>
+<li>KMeansCUDA is an implementation of KMeansSPMD.x10, in the samples directory, that uses the GPU for acceleration.&nbsp; The -v parameter will make it print out the clusters at each iteration so you can watch them converge.&nbsp; It only works correctly when the number of clusters is a multiple of 20.</li>
+<li>CUDA3DFD is a port of the 3DFD benchmark in the NVidia CUDA SDK.&nbsp; On the GPU it calculates the finite differences of a 3d volume and verifies the result against a CPU computation of the same.</li>
+<li>CUDAMatMul is a port of one of Volkov's dense matrix multiplication kernel.</li>
+</ul>
+<p>You can also specify a comma separated list of GPUs to use, and can oversubscribe each GPU several times.&nbsp; For instance, the following value for X10RT_ACCELS will use the first GPU 3 times and the third GPU twice:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>X10RT_ACCELS=CUDA0,CUDA0,CUDA0,CUDA2,CUDA2
+</pre>
+</div>
+</div>
+<p>If the X10 package was compiled without support for CUDA, then there will always be no GPUs discovered at runtime, and X10RT_ACCELS will be silently ignored.</p>
+<h1><a name="X102.2.1CUDA-WritingYourOwnCUDAKernels"></a>Writing Your Own CUDA Kernels</h1>
+<p>The X10/CUDA design utilizes existing X10 language features to express the various concepts defined by the CUDA system.&nbsp; The code that you write is therefore much like normal X10 code, but certain patterns are enforced because GPUs are not as capable as ordinary CPUs.</p>
+<h2><a name="X102.2.1CUDA-CUDAPlaces"></a>CUDA Places</h2>
+<p>A single GPU has its own memory that is distinct from the host memory and from other GPUs.&nbsp; Therefore we represent it with a place.&nbsp; In fact one can oversubscribe GPUs using the X10RT_ACCELS environment variable, and in this case many places will be created on the same GPU, but they will be distinct in terms of X10 semantics.</p>
+<p>The Place API contains methods that can be used for finding out what GPUs are available, which in turn depends on the value of X10RT_ACCELS when the program was executed.&nbsp; In particular, isCUDA() will identify whether or not a particular place is a GPU, and parent() will return the host of a GPU.&nbsp; For a given place p, one can iterate over PlaceTopology.getTopology().getChildren(p) in order to get the GPUs at that place.&nbsp; Also, PlaceTopology.getTopology().numChildren(p) will return the number of children.&nbsp; Any GPU program ought to have a strategy for when there are no GPUs present, perhaps choosing to run on the CPU instead.</p>
+<p>While the API contains calls that suggest some places may be cell SPEs, there is currently no support for compiling X10 programs to run on the cell.&nbsp; However since it is not unlikely that other kinds of accelerators will be supported in future (e.g. OpenCL) we will not guarantee that every child of a place is a CUDA GPU.</p>
+<h2><a name="X102.2.1CUDA-MemoryOnCUDAPlaces"></a>Memory On CUDA Places</h2>
+<p>Just like during the execution of any X10 program, each place has its own heap and objects live in a particular place.&nbsp; Unlike normal X10 programs, CUDA requires that GPU memory is allocated and managed by the host place, rather than the GPU's own place.&nbsp; Therefore we provide some utility functions to represent this kind of remote memory management.&nbsp; Each of these utility functions also works if the remote place is a CPU instead of a GPU, since under the covers it is just using normal X10 language features to implement the needed semantics.</p>
+<h3><a name="X102.2.1CUDA-AllocatingGPUMemory"></a>Allocating GPU Memory</h3>
+<p>The main datatype for doing work on GPUs is Rail.&nbsp; However it cannot be made in the usual form because allocation in CUDA kernels is not allowed:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>val remote_gpu_array = at (gpu) new Rail[T](sz, init); // will not work
+</pre>
+</div>
+</div>
+<p>Instead, we provide the following function to call from the host, in the class x10.util.CUDAUtilities, whose semantics is the same as the above:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>val remote_gpu_array = CUDAUtilities.makeGlobalRail[Float](gpu, sz, init);
+</pre>
+</div>
+</div>
+<p>As with ordinary array construction, init can be a closure, a single value to initialise all elements, or an existing array of the same kind.</p>
+<p>To free the array, since there is no garbage collection for CUDA objects yet, call the following:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>CUDAUtilities.deleteGlobalRail(remote_gpu_array);
+</pre>
+</div>
+</div>
+<h3><a name="X102.2.1CUDA-CopyingValuesBetweenGPUandHostPlaces."></a>Copying Values Between GPU and Host Places.</h3>
+<p>The usual X10 mechanisms for copying arrays can be used to copy to/from arrays in GPU memory. Note that the following is asynchronous so should be wrapped in a finish statement to ensure it has completed.</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>Rail.asyncCopy(src_array, src_offset, dst_array, dst_offset, len);
+</pre>
+</div>
+</div>
+<p>Since X10 is a garbage collected language, we cannot allocate all our host arrays using cudaAllocHost.&nbsp; This means the arrays will not be pinned, so we are forced to spool the data through an intermediate pinned buffer (hidden in the X10 runtime).&nbsp; Because of this spooling, the bandwidth of DMAs takes up to a 30% hit.&nbsp; This is a known limitation of the design of CUDA, and has nothing to do with X10.</p>
+<p>The size of the spooling buffer can be specified in bytes with the environment variable X10RT_CUDA_DMA_SLICE, and defaults to 1MB.&nbsp; By increasing this, one can often reduce the overhead of the spooling.</p>
+<h2><a name="X102.2.1CUDA-Kernels"></a>Kernels</h2>
+<p>To run X10 code on the GPU, a particular pattern of X10 language constructs must be used.&nbsp; Since the GPU is a remote place, we have to use the 'at' construct to run code there.&nbsp; And since the underlying CUDA kernels are asynchronous, we currently require the form to be:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>async at (gpu) {  ...  }
+</pre>
+</div>
+</div>
+<p>In future we will also allow "at (gpu) { ... }" but at present it is necessary to use "finish async at (gpu) { ... }" to synchronize on the completion of a kernel.</p>
+<p>Since only certain kinds of code can be executed on the GPU, there is an annotation @CUDA, found in the package x10.compiler, that must be used to inform the compiler that a certain block of code is intended to run on the GPU.&nbsp; Since places are runtime quantities, it is not possible to statically know that the value of the 'gpu' variable is actually a GPU place and not just another host.&nbsp; So we use the @CUDA annotation to cause the block of code to be compiled for both CPU and GPU, instead of just for the CPU like the rest of the X10 program.&nbsp; In fact this behaviour is useful, as it allows CUDA code to run on the host if no GPUs can be found, through the usual X10 generated code.</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>async at (gpu) @CUDA {  ...  }
+</pre>
+</div>
+</div>
+<p>Once you add the @CUDA annotation, the compiler will insist that certain restrictions are obeyed within the annotated block.&nbsp; It will also trigger the compiler to attempt to run 'nvcc' to generate a cubin file for each class that contains an occurrence of @CUDA.&nbsp; If you attempt to run code on a GPU place, and that code has not been marked with @CUDA, you will get a runtime error of the form "X10RT: async id X is not a CUDA kernel".</p>
+<h3><a name="X102.2.1CUDA-KernelStructure"></a>Kernel Structure</h3>
+<p>The basic execution pattern of a CUDA kernel is that there are a number of 'blocks', each of which spawn a number of 'threads', and each thread executes the same code.&nbsp; We represent this using X10 language constructs as follows:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>async at (gpu) @CUDA {
+    finish for (block in 0n..239n) async {
+        clocked finish for (thread in 0n..63n) clocked async {
+            ...
+        }
+    }
+}
+</pre>
+</div>
+</div>
+<p>Note the 'async' in the central for loop.&nbsp; The '...' is what one would typically call 'the CUDA kernel', as it is the code that each thread runs in parallel.&nbsp; The outer async is to specify the fact that CUDA blocks also run in parallel.&nbsp; Naturally, the code denoted with ... may use the loop variables 'block' and 'thread' (which can be named arbitrarily).&nbsp; The 'clocked' qualifiers on the inner finish and async allow the use of Clock.advanceAll() call within the kernel.&nbsp; This is compiled down to the __syncthreads() intrinsic.&nbsp; In future we will allow the omission of the 'clocked' qualifiers and in this case the use of Clock.advanceAll() call will not be permitted.&nbsp; Other variations of clocks within the kernel are not permitted.&nbsp; We also allow the total number of threads and number of blocks to be specified using variables captured from the enclosing scope, as so:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>async at (gpu) @CUDA {
+    val blocks = 240n;<br />    val threads = 64n;<br />    finish for (block in 0n..(blocks-1n)) async {
+        clocked finish for (thread in 0n..(threads-1n)) clocked async {
+            ...
+        }
+    }
+}
+</pre>
+</div>
+</div>
+<p>As in normal X10 programs, the code in '...' can access variables from the enclosing scope, i.e. the host.&nbsp; Such captured variables will be automatically copied to the GPU.&nbsp; Entire arrays will be copied, which can be slow so if the array is large enough and doesn't change from one kernel to another, it may be better to create a remote array initially, using CUDAUtilities.makeGlobalRail(...).&nbsp; In this case, the kernel would capture the pointer to this specially created array instead of capturing a local array on the host.&nbsp; One must consider pre-allocating remote arrays when optimizing performance of regular X10 programs too, as the copying behaviour of captured arrays is the same for GPUs and CPUs.</p>
+<p>Stack variables inside the '...' are compiled to use CUDA registers.</p>
+<h4><a name="X102.2.1CUDA-Limitations"></a><strong>Limitations</strong></h4>
+<p>There are currently many constructs that are not supported in GPU code:</p>
+<ul>
+<li>structs</li>
+<li>method calls (except in special cases, e.g. Rail.apply and primitive arithmetic)</li>
+<li>new</li>
+<li>creating / calling closures</li>
+<li>up/down casts or instanceof tests</li>
+<li>throwing exceptions</li>
+<li>catching exceptions</li>
+<li>spawning more asyncs or using finish</li>
+<li>await blocks</li>
+<li>atomic blocks</li>
+</ul>
+<p>Some of these we plan to address in future versions (e.g. method calls, structs).&nbsp; However there are also fundamental limitations of CUDA hardware and runtimes that make it difficult for us to implement e.g. new, async, or dynamic dispatch for closures and method calls.&nbsp; In the latest CUDA GPUs, some of these issues have been addressed so it is hard to say with certainty what we will and will not allow in future.&nbsp; It is also unclear how many of these features will be useful for writing kernels, and what ultimately comprises an appropriate and well-rounded subset of language features.</p>
+<h3><a name="X102.2.1CUDA-KernelParameters"></a>Kernel Parameters</h3>
+<p>Variables defined outside of the kernel and used within the kernel (captured variables) are the X10/CUDA equivalent of CUDA kernel parameters.&nbsp; There are two implementation strategies we use for implementing these kernel parameters.&nbsp; The default strategy is to create a struct containing all the variables and DMA this to the GPU before executing the kernel.&nbsp; This should always work, but is less efficient than the other technique, which is to directly use CUDA kernel parameters to hold the captured environment.&nbsp; In the latter case, if the environment is too large, it will not fit in the small area designated by CUDA for transferring parameters to the kernel.</p>
+<p>The X10 programmer can currently control which mechanism is used, although in future we will automatically decide based on the size of the environment.&nbsp; To use CUDA kernel parameters instead of a separate DMA, add the annotation @CUDADirectParams after the @CUDA annotation.&nbsp; This annotation is also found in the package x10.compiler.</p>
+<h3><a name="X102.2.1CUDA-SharedMemoryandConstantMemory"></a>Shared Memory and Constant Memory</h3>
+<p>Shared memory is a CUDA concept for memory that threads within a block share and can read/write to.&nbsp; This is distinct from registers, that are local to each individual thread.&nbsp; In KMeansCUDA.x10, shared memory is used as a cache, since global memory fetches are slow in CUDA.&nbsp; In CUDA3DFD.x10 and CUDAMatMul.x10 it is use as a cache which is updated each iteration, effectively implementing a staging ground through which to stream data from the much slower global memory.</p>
+<p>Constant memory is a CUDA concept for memory that is populated before a kernel runs and is immutable for the duration of that kernel.&nbsp; Every block and thread reads from the same data.&nbsp; The hardware uses a cache for the constant memory that in many cases makes it as fast to access as local registers or shared memory.</p>
+<p>In X10, we express these semantics by defining heap objects in specific places:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>async at (gpu) @CUDA {
+    val cmem = CUDAConstantRail(external_array);
+    finish for (block in 0n..63n) async {
+        val shmem = new Rail[Float](240, init);
+        clocked finish for (thread in 0n..239n) clocked async {
+            ...
+            shmem(thread) = thread;
+            ...
+            Clock.advanceAll();
+            ...
+            val tmp = shmem((thread+1) % 240);
+            ...
+        }
+    }
+}
+</pre>
+</div>
+</div>
+<p>Because 'cmem' is immutable, we represent it with an instance the CUDAConstantRail object, which is constructed from an existing array on the host.&nbsp; A CUDAConstantRail object allows random access to the array, but not updates.</p>
+<p>Since 'shmem' is mutable we use an array which allows both random access and updates.&nbsp; However updates to shmem need to be synchronized between threads using the Clock.advanceAll() call, just like one would use __syncthreads() to synchronize shared memory in a native CUDA program.</p>
+<p>In both cases, since the object is not actually allocated on the heap, but in shared / constant memory that does not outlive the CUDA kernel, it is important not to leak the 'shmem' or 'cmem' reference by writing it to memory that will be accessed in a later kernel.</p>
+<h4><a name="X102.2.1CUDA-Limitations"></a><strong>Limitations</strong></h4>
+<ul>
+<li>Only Rails of Int / Float may be specified in shared memory</li>
+<li>Only CUDAConstantRails of Int / Float may be specified in constant memory</li>
+<li>The requirement that shared / constant memory objects not be leaked is not yet enforced.</li>
+<li>The constant memory is repopulated each kernel iteration.&nbsp; We do not yet support the idiom of populating the constant memory once, and then running many kernel invocations.</li>
+</ul>
+<p>We plan to address these limitations before the next release.</p>
+<h3><a name="X102.2.1CUDA-AutoBlocks/Threads"></a>Auto Blocks / Threads</h3>
+<p>The performance of CUDA kernels is very sensitive to the number of blocks/threads used, the particulars of the kernel code (e.g. the number of registers / shared memory used) and the hardware that the code runs on.&nbsp; This makes it very difficult to write portable code, since there is such variety in GPUs.&nbsp; To help in this situation, we provide a feature that will automatically choose blocks and threads following a strategy that seems to work well in most cases.&nbsp; The idea is the maximize utilization while using a multiple of 64 threads, and as few blocks/threads as possible.&nbsp; Utilization is a CUDA concept meaning the number of hardware thread slots that are occupied.</p>
+<p>In order to use this functionality, you may optionally declare two variables in the following manner, within the @CUDA annotation, and use these variables to define the extents of the loops:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>async at (gpu) @CUDA {
+    val blocks = CUDAUtilities.autoBlocks();
+    val threads = CUDAUtilities.autoThreads();
+    finish for (block in 0n..(blocks-1n)) async {
+        clocked finish for (thread in 0n..(threads-1n)) clocked async {
+            ...
+        }
+    }
+}
+</pre>
+</div>
+</div>
+<p>The kinds of kernel that can make use of this are kernels whose correctness is not sensitive to the number of blocks/threads, and whose shared memory requirements do not depend on the number of blocks or threads, since the amount of shared memory required is actually used to determine how many blocks/threads there will be.</p>
+<p>The exact algorithm used is an iteration down a list of pairs of (blocks,threads), with preferred pairs (with greater utilization for a given MP) at the beginning of the list.&nbsp; The selected pair is the first pair that is a valid way to instantiate the kernel in question on the GPU in question.&nbsp; The selected pair is used to spawn the kernel, except that the number of blocks are scaled by the number of MPs (what NVidia calls 'streaming processors' but would conventionally be called cores) in that GPU.&nbsp; Pairs will be stepped over if they require too many registers, too much shared memory, etc.&nbsp; The list contains 32 pairs and the curious can have a look at it in x10.runtime/src-cpp/x10aux/network.cc to see its definition.</p>
+<h1><a name="X102.2.1CUDA-PerformanceNotes"></a>Performance Notes</h1>
+<p>There is considerable performance transparency with the current implementation.&nbsp; However, this also means we have not attempted to hide any of the performance artefacts that are peculiar to CUDA devices and the CUDA programming model.&nbsp; Programmers need to be aware of coalesced memory accesses and bank conflicts, and have to choose the number of blocks/threads wisely.&nbsp; The NVidia CUDA profiler, accessible with the CUDA_PROFILE and CUDA_PROFILE_CONFIG environment variables, is very useful to debug performance problems within X10/CUDA programs.&nbsp; The X10/CUDA programmer is best equipped to deal with performance issues on the GPU having read the relevant parts of the CUDA manual where the performance model is discussed in detail.</p>

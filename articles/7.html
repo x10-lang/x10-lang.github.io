@@ -1,0 +1,28 @@
+---
+layout: page
+title: "Tour of X10"
+alias: "tour-of-x10"
+category: "about-x10/about-x10"
+---
+<p><span style="line-height: 24px; font-size: 16px;"><strong>What other languages is X10 related to?</strong></span></p>
+<p>X10 is an APGAS language (Asynchronous Partitioned Global Address Space),much like Fortress, Chapel, and UPC.</p>
+<p>&nbsp;</p>
+<p><span style="line-height: 24px; font-size: 16px;"><strong>Where is X10 maturing?</strong></span></p>
+<p>Notable current gaps include library support, interoperability, IDE and compiler performance, and runtime performance of certain X10 idioms. Each release includes significant improvements in every area, so stay tuned!</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 12pt;"><strong>What license is X10 released under and how and how much does it cost?</strong></span></p>
+<p>X10 is released under the Eclipse Public License, v1.0. It is open source and distributed without charge.</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 12pt;"><strong>What systems is it available on?</strong></span></p>
+<p>Mac, Linux and Windows.</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 12pt;"><strong>Is X10 an object-oriented language?</strong></span></p>
+<p>Yes. X10 support classes, interfaces, and inheritance, much like Java or Scala.</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 12pt;"><strong>Is X10 a functional language?</strong></span></p>
+<p>Like functional languages, X10 support first-class functions and closures, and encourages using immutable state. Unlike most functional langauges, most X10 programs will feature some important mutable state. For this reason, X10 would not usually be called a functional language.</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 12pt;"><strong>How does X10 compare with MPI?</strong></span></p>
+<p>X10 is a higher level programming model than MPI. In general, X10 code should be much more concise than the equivalent MPI. There are at least two major philosophical differences between the MPI programming model and X10: the control flow, and the memory model.</p>
+<p>The MPI control flow model is SPMD (Single-Program Multiple Data): the program begins with a single thread of control in each process. In contrast, an X10 program begins with a single thread of control in the root place, and an X10 program spawns more threads of control across places using async and at.</p>
+<p>The MPI memory model is a completely distributed memory model. MPI processes communicate via message-passing. There is no shared global address space in MPI, so user code must manage the mappings between local address spaces in different processes. In contrast, X10 supports a global shared address space. While an X10 activity can only directly access memory in the local Place (address space), it can name a location in a remote place, and the system maintains the mapping between the global address space and each local adresss space.</p>

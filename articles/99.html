@@ -1,0 +1,72 @@
+---
+layout: page
+title: "Test Integer Range"
+alias: "intrange-example"
+category: "code-examples/small-examples"
+---
+<pre>/*
+ *  This file is part of the X10 project (http://x10-lang.org).
+ *
+ *  This file is licensed to You under the Eclipse Public License (EPL);
+ *  You may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *      http://www.opensource.org/licenses/eclipse-1.0.php
+ *
+ *  (C) Copyright IBM Corporation 2006-2010.
+ */
+
+/**
+ * Some simple examples using a range of Ints for creating functions that
+ * capture the state (in this case the bounds of the range) of an object
+ * in order to create the function.
+ */
+public class IntRange {
+   private val low: Int; 
+   private var high: Int; 
+
+   /**
+    * constructs the range low &amp;lt;= x &amp;lt;= high
+    * @param low the smallest integer in the range
+    * @param high the largest integer in the range
+    */
+   public def this(low: Int, high: Int) { 
+      this.low = low; this.high = high; 
+   } 
+
+   /**
+    * check whether the argument lies in the range
+    * @param n any integer
+    * @return true &amp;lt;==&amp;gt; low &amp;lt;= n &amp;lt;= high
+    */
+   public def includes(n:Int) = low &amp;lt;= n &amp;amp;&amp;amp; n &amp;lt;= high; 
+
+   /**
+    * returns a function that checks whether an integer is between 0 and 9
+    * @return a function of one integer argument that checks whether the
+    *      integer is between 0 and 9
+    */
+   public static def isDigitFcn() { 
+      val digit = new IntRange(0,9); 
+      return (n: Int) =&amp;gt; digit.includes(n); 
+   } 
+
+   /**
+    * returns the function of one integer argument that checks whether
+    * that argument is in this range.
+    * @return the function described in the method comment.
+    */
+   public def inMeTester() { 
+      return (n: Int) =&amp;gt; low &amp;lt;= n &amp;amp;&amp;amp; n &amp;lt;= high; 
+   } 
+
+   /**
+    * Checks a couple of examples to see that IntRange works
+    * @param args: command line arguments, not needed here.
+    */
+   public static def main(args: Array[String](1)): Void {
+      val isDigit = isDigitFcn();
+      Console.OUT.println(&amp;quot;Is 5 a digit? &amp;quot;+isDigit(5)+&amp;quot;.  How about 15? &amp;quot;+isDigit(15)+&amp;quot;.&amp;quot;);
+      val tester = new IntRange(4, 40).inMeTester();
+      Console.OUT.println(&amp;quot;Is 4 in me? &amp;quot;+tester(4)+&amp;quot;.  How about 55? &amp;quot;+tester(55)+&amp;quot;.&amp;quot;);
+   }
+}</pre><p>&amp;nbsp;</p>

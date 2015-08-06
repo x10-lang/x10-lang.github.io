@@ -1,0 +1,117 @@
+---
+layout: page
+title: "X10RT Implementations"
+alias: "x10rt-implementations"
+category: "documentation/developer-info"
+---
+<div id="main-copy">
+<div class="section_2">
+<p><a href="http://x10.sourceforge.net/x10rt/">X10RT</a> is a library that an X10 program uses to communicate between places. There are several implementations of X10RT available for use. The different implementations have different capabilities and performance characteristics, as described below.</p>
+<div class="table-wrap">
+<table class="confluenceTable">
+<tbody>
+<tr><th class="confluenceTh">X10RT Implementation</th><th class="confluenceTh">Description</th></tr>
+<tr>
+<td class="confluenceTd">Sockets</td>
+<td class="confluenceTd"><span style="display: none;">&nbsp;</span>An open-source implementation that uses TCP/IP sockets and <span>ssh</span> to support multiple places on one or more hosts.&nbsp; This is the default implementation, and is the only option when using Managed <span>X10</span>.&nbsp; It can be found in <tt><span>x10.runtime</span>/<span>x10rt</span>/sockets.</tt></td>
+</tr>
+<tr>
+<td class="confluenceTd">Standalone</td>
+<td class="confluenceTd">A open-source implementation that supports multiple places on a single host, using shared memory between places.&nbsp; Standalone has high bandwidth, but limited message sizes and only runs on a single machine.</td>
+</tr>
+<tr>
+<td class="confluenceTd">MPI</td>
+<td class="confluenceTd">An implementation of X10RT on top of MPI2. It is fully open source and can be found in <tt>x10.runtime/x10rt/mpi</tt>.&nbsp; This supports all the hardware that your MPI implementation supports, such as Infiniband and Ethernet.</td>
+</tr>
+<tr>
+<td class="confluenceTd">PAMI</td>
+<td class="confluenceTd">PAMI is an IBM communications API that supports high-end networks such HFI (Host Fabric Interface), Blue Gene, Infiniband, and also Ethernet.&nbsp; PAMI code is located in <tt><span>x10.runtime</span>/<span>x10rt</span>/pami. </tt><span>Building and running with PAMI</span> requires the <a href="http://www-03.ibm.com/systems/power/software/parallel/">IBM Parallel Environment</a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;</p>
+<p>The default is <tt>sockets</tt> on all platforms except Blue Gene/Q (which defaults to <tt>pami</tt>). All platforms except Blue Gene support <tt>standalone</tt> and <tt>sockets</tt>.</p>
+</div>
+<div class="section_2">
+<h2><a name="X10RTImplementations-Propertiesfiles"></a>Properties files</h2>
+<p>The programmer may specify <tt>X10RT</tt> properties to be used by x10c++ in a properties file:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>$ x10c++ -x10rt FOO
+</pre>
+</div>
+</div>
+<p>This will cause the compiler to search to read <tt>etc/x10rt_FOO.properties</tt>. Typically the contents of this file tell <tt>x10c++</tt> how to compile the generated <tt>c++</tt> code.<br /> For instance, this file may contain:</p>
+<div class="preformatted panel" style="border-width: 1px;">
+<div class="preformattedContent panelContent">
+<pre>$ cat etc/x10rt_mpi.properties
+CXX=mpicxx
+CXXFLAGS=
+LDFLAGS=
+LDLIBS=-lx10rt_mpi
+</pre>
+</div>
+</div>
+</div>
+<div class="section_2">
+<h2><a name="X10RTImplementations-BuildingalternateX10RTImplementations"></a>Building alternative X10RT Implementations</h2>
+<p>By default, the build process will automatically build the Standalone and socket implementations of X10RT. If you have MPI installed on your build machine, then you may want to build the MPI implementation as well. This can be done by giving ant the extra command line <tt>-DX10RT_MPI=true</tt> when building X10 (<tt>cd x10.dist &amp;amp;&amp;amp; ant dist -DX10RT_MPI=true</tt>).&nbsp; Similarly, if you have PAMI installed on your machine, you can build support for pami by passing the extra command <tt><span>-DX10RT_PAMI</span>=true</tt> when building X10.</p>
+</div>
+<div class="section_2">
+<h2><a name="X10RTImplementations-SelectingalternativeX10RTImplementations"></a>Selecting alternative X10RT Implementations</h2>
+<p>When you compile a program, you can optionally select the X10RT implementation you want to use. This can be done on a per-compilation basis. There is no need to rebuild X10 to switch X10RT implementations; simply recompiling the X10 program (relinking the C++ executable) is sufficient.</p>
+<p>By default, x10c++ will use the implementation that is appropriate for the target platform, which is usually sockets. The default can be overridden either by giving the -x10rt &amp;lt;impl&amp;gt; command line argument to x10c++ (valid values for &amp;lt;impl&amp;gt; are: <tt>mpi</tt>, <tt>standalone</tt>,<tt> pami, or sockets</tt>).&nbsp; The string given corresponds to a properties file in etc, containing the specifics required to build an executable for that x10rt implementation.&nbsp; One can inspect the contents of this directory to see what x10rt implementations are available, and also to add custom ones.</p>
+<div class="section_3">
+<h3><a name="X10RTImplementations-RunningX10programs"></a>Running X10 programs</h3>
+<p>Depending on which X10RT implementation you selected, you will execute the resulting executable in slightly different ways.</p>
+<div class="table-wrap">
+<table class="confluenceTable">
+<tbody>
+<tr><th class="confluenceTh">X10RT Implementation</th><th class="confluenceTh">Execution options</th></tr>
+<tr>
+<td class="confluenceTd">MPI</td>
+<td class="confluenceTd">mpirun</td>
+</tr>
+<tr>
+<td class="confluenceTd">PAMI</td>
+<td class="confluenceTd">poe, or execute directly</td>
+</tr>
+<tr>
+<td class="confluenceTd">STANDALONE</td>
+<td class="confluenceTd">Execute directly (no extra tools needed)</td>
+</tr>
+<tr>
+<td class="confluenceTd">SOCKETS</td>
+<td class="confluenceTd">X10Launcher, or execute directly</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>&nbsp;</p>
+<h2><a name="X10RTImplementations-RunningWithSocketsBackend"></a>Running with <strong>Sockets</strong> backend</h2>
+</div>
+</div>
+<p>The sockets transport is currently the default backend if you don't compile with the "-x10rt" flag. Running with sockets is easy - you simply execute the binary that was produced when you compiled your program.&nbsp; This will run your program in a single place on your local machine.&nbsp; To use more places, you set an environment variable <code>X10_NPLACES</code> to specify the number of places.</p>
+<p>There are two ways to specify the machines to run those places on:</p>
+<ul>
+<li>Set the environment variable <code>X10_HOSTFILE</code> to the full path for a hostfile. The hostfile is a simple text file that contains a list of hostnames to run on, with one line per machine.</li>
+<li>Set the environment variable <code>X10_HOSTLIST</code>, to a comma-separated list of hostnames, without spaces. This environment variable is checked only if <code>X10_HOSTFILE</code> was not set.</li>
+</ul>
+<p>Both of the above will wrap if there are more places than hostnames specified. For example, setting <code>X10_NPLACES=4</code> and <code>X10_HOSTLIST=host1,host2</code> will cause places 0 and 2 to run on host1, and places 1 and 3 to run on host2. If neither of the above is set, and there is more than 1 place, then it defaults to running everything on localhost.</p>
+<p>If you're running on more than one machine, you should have public/private key ssh authentication set up, so you can ssh from one machine to another without getting a password prompt. You should also have your executable and hostfile available in the same location on every machine listed in the hostfile. You compile your program with "-x10rt sockets", and with ssh in place, and the environment variables set, you run your executable. You don't have to launch from one of the machines in the hostfile, but you do need to have the ssh authentication set up between the machine you launch from and the first machine in the list.</p>
+<p>The sockets backend supports gdb debugging through the <code>X10_GDB</code> environment variable. The value of this has two forms:</p>
+<ul>
+<li><em>"place:port"</em>, where <em>place</em> is the place that you want to be debugged or the string "all", and <em>port</em> is the port number that you want gdbserver to use. This launches the runtime for the specified place under gdbserver, which allows you to connect to the remote runtime with your local gdb session. See&nbsp;<em><a href="https://sourceware.org/gdb/current/onlinedocs/gdb/Server.html">Using the gdbserver program</a></em><a href="http://www.delorie.com/gnu/docs/gdb/gdb_134.html" target="_top"></a> for more details. If you specify "all" for the place, then all places will be started under gdbserver at the specified port. Be aware that if you have multiple places running on the same machine, then this will cause port number conflicts.</li>
+<li><em>"place"</em>, where <em>place</em> is either the place that you want to be debugged, or the string "all". Setting this to a number causes the specified place to be launched under gdb in a new xterm. For example, setting <code>X10_GDB=0</code> will cause the x10 runtime for place 0 to be started in a gdb session in a new xterm, while other places run normally. Setting this to "all" will cause all runtimes to execute in separate gdb xterms. Each xterm is given a title showing which place it is running so you can keep track.</li>
+</ul>
+<p>Additional flags that may be of use:</p>
+<p><code>X10_NOYIELD</code> The X10 runtime regularly polls the network to see if data has arrived to work on. If you have more runtime threads or places than CPU cores, then this polling in idle places can starve real work in other places. So the sockets runtime will give up the CPU if one of these polls comes up empty. By setting the <code>X10_NOYIELD</code> flag to true, you disable this yield. Consider doing this if you have as many worker threads as you have cores.</p>
+<p><code>X10_LAZYLINKS</code> The socket links between places are point-to-point. By default, these links are established at the beginning of communications, from every place to every other place. This gives better performance when running everything locally, but if you are running with a large number of places across multiple machines, you may want to establish the links on-demand, by setting <code>X10_LAZYLINKS</code> to true.</p>
+<p><code>X10_FORCEPORTS</code> Normally the port number that each place opens for other places to connect to it is left up to the operating system. This eliminates the possibility of port contention, but it also requires a fancy place lookup mechanism supported by the launchers. It's possible to force the listen port for each place to a specific number, by setting <code>X10_FORCEPORTS</code>. If everything is running on localhost, this will bypass the need for the lookup. The value can take one of two forms. Firsy, you can set it to a single number. This will be the port number for place 0, and each additional place will listen at that port number plus the place number. For example, if <code>X10_FORCEPORTS=7000</code>, then place 0 will listen on port 7000, place 1 on port 7001, etc. The other form requires a comma-separated list of values, one per place. So if you set <code>X10_FORCEPORTS=7000,7005,7010</code>, and run with 3 places, then place 0 will be at port 7000, place 1 at port 7005, and place 2 at port 7010.</p>
+<p>It's possible to run without the launcher, and start up each place manually. To do this, you need to set the <code>X10_LAUNCHER_PLACE</code>, and <code>X10_FORCEPORTS</code> environment variables, which would normally be set by the launcher. For example:</p>
+<pre>// Launch three places on triloka1-3, all using port 7001:<br />X10_LAUNCHER_PLACE=0 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka1<br />X10_LAUNCHER_PLACE=1 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka2<br />X10_LAUNCHER_PLACE=2 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka3</pre>
+<h2><a name="X10RTImplementations-RunningWithStandalonesBackend"></a>Running with the Standalone backend</h2>
+<p>Standalone mode sets up shared memory regions and forks off one instance of the program per place. The places all run on the local machine. There is one environment variable "X10_NPLACES", which should be set to the number of places. If not set, it defaults to 1 and prints a warning. The standalone has transport has a limit on the size of the data blocks that can be sent (about 512k), because of the shared memory regions. To run, just compile with "-x10rt standalone", set the environment variable, and run your executable. This transport is a good choice if you're running everything one one machine and don't use large messages.</p>
+<div id="cke_pastebin" style="position: absolute; top: 221.633px; width: 1px; height: 1px; overflow: hidden; left: -1000px;">&nbsp;</div>

@@ -1,0 +1,280 @@
+---
+layout: page
+title: "Frequently Asked Questions"
+alias: "faq-list"
+category: "about-x10/about-x10"
+---
+<div id="main-copy">
+<div>
+<ul>
+<li><a href="#FAQ-GeneralinformationaboutX10">General information about X10</a>
+<ul>
+<li><a href="#FAQ-WhatisX10">What is X10?</a></li>
+<li><a href="#FAQ-WhatisthepurposeofX10">What is the purpose of X10?</a></li>
+<li><a href="#FAQ-WhatotherlanguagesisX10relatedto">What other languages is X10 related to?</a></li>
+<li><a href="#FAQ-WhatistheoriginofX10">What is the origin of X10?</a></li>
+<li><a href="#FAQ-WhatistheoriginofthenameX10">What is the origin of the name X10?</a></li>
+<li><a href="#FAQ-DontyouknowthatX10isthenameofindustrystandardcommunicationsprotocol">Don't you know that X10 is the name of industry-standard communications protocol?</a></li>
+<li><a href="#FAQ-WhatisX10especiallygoodfor">What is X10 especially good for?</a></li>
+<li><a href="#FAQ-WhatisX10notsogoodat">What is X10 not so good at?</a></li>
+</ul>
+</li>
+<li><a href="#FAQ-X10forDevelopers">X10 for Developers</a>
+<ul>
+<li><a href="#FAQ-WhatlicenseisX10releasedunder">What license is X10 released under?</a></li>
+<li><a href="#FAQ-Howmuchdoesitcost">How much does it cost?</a></li>
+<li><a href="#FAQ-Whatsystemsisitavailableon">What systems is it available on?</a></li>
+<li><a href="#FAQ-Whoshouldusethelanguage">Who should use the language?</a></li>
+<li><a href="#FAQ-IsIBMusingX10">Is IBM using X10?</a></li>
+<li><a href="#FAQ-IsthereanactivecommunityofX10users">Is there an active community of X10 users?</a></li>
+<li><a href="#FAQ-HowdoesX10relatetoEclipse">How does X10 relate to Eclipse?</a></li>
+<li><a href="#FAQ-HowdoIreportabuginX10">How do I report a bug in X10?</a></li>
+<li><a href="#FAQ-HowcanIcontributecodetotheX10project">How can I contribute code to the X10 project?</a></li>
+<li><a href="#FAQ-HowdoIgetgoodperformancefrommyX10code">How do I get good performance from my X10 code?</a></li>
+<li><a href="#FAQ-IsthereadebuggerforX10">Is there a debugger for X10?</a></li>
+</ul>
+</li>
+<li><a href="#FAQ-WhatkindofprogramminglanguageisX10">What kind of programming language is X10?</a>
+<ul>
+<li><a href="#FAQ-IsX10anobjectorientedlanguage">Is X10 an object-oriented language?</a></li>
+<li><a href="#FAQ-IsX10afunctionallanguage">Is X10 a functional language?</a></li>
+<li><a href="#FAQ-HowdoesX10comparewithMPI">How does X10 compare with MPI?</a></li>
+</ul>
+</li>
+<li><a href="#FAQ-WritingCodeinX10">Writing Code in X10</a>
+<ul>
+<li><a href="#FAQ-WhyisthesyntaxdifferentfromJava">Why is the syntax different from Java?</a></li>
+<li><a href="#FAQ-IsthereanX10programmingguide">Is there an X10 programming guide?</a></li>
+<li><a href="#FAQ-IstherealistofpatternsforX10">Is there a list of patterns for X10?</a></li>
+<li><a href="#FAQ-WherecanIfindsomeexamplecode">Where can I find some example code?</a></li>
+<li><a href="#FAQ-IsthereanIDEforX10">Is there an IDE for X10?</a></li>
+</ul>
+</li>
+<li><a href="#FAQ-Implementation">Implementation</a>
+<ul>
+<li><a href="#FAQ-Whatcompilertechnologiesareusedtobuildthecompilers">What compiler technologies are used to build the compilers?</a></li>
+<li><a href="#FAQ-Howistheruntimeimplemented">How is the runtime implemented?</a></li>
+<li><a href="#FAQ-Whyaretheretwocompilebackends">Why are there two compiler backends?</a></li>
+<li><a href="#FAQ-HowdoIcontrolthesizeofthethreadpoolinaplace">How do I control the size of the thread pool in a place?</a></li>
+<li><a href="#FAQ-Whathappensifaplacediesduringtheexecution">What happens if a place dies during the execution?&nbsp; Is it possible to detect it and recover the error?</a></li>
+</ul>
+</li>
+<li><a href="#FAQ-LanguageDetails">Language Details</a>
+<ul>
+<li><a href="#FAQ-HowdoesX10dealwithvalues">How does X10 deal with values?</a></li>
+<li><a href="#FAQ-HowdoesX10dealwithconcurrency">How does X10 deal with concurrency?</a></li>
+<li><a href="#FAQ-WhenshouldIuseclocksandwhennot">When should I use clocks and when not?</a></li>
+<li><a href="#FAQ-Whatoperationsareatomic">What operations are atomic?</a></li>
+<li><a href="#FAQ-HowdoesX10relatetoPGAS">How does X10 relate to PGAS?</a></li>
+<li><a href="#FAQ-WhatisPlaceandhowisitused">What is Place and how is it used?</a></li>
+<li><a href="#FAQ-Whatisasyncandhowisitused">What is async and how is it used?</a></li>
+<li><a href="#FAQ-Whatisatandhowisitused">What is at and how is it used?</a></li>
+<li><a href="#FAQ-Howisfinishused">How is finish used?</a></li>
+<li><a href="#FAQ-HowdoesX10dealwithpointers">How does X10 deal with pointers?</a></li>
+<li><a href="#FAQ-HowarefunctionsandmethodsexpressedinX10">How are functions and methods expressed in X10?</a></li>
+<li><a href="#FAQ-Whatarefunctiontypes">What are function types?</a></li>
+<li><a href="#FAQ-Whataregenericclasses">What are generic classes?</a></li>
+<li><a href="#FAQ-Whataredependenttypes">What are dependent types?</a></li>
+<li><a href="#FAQ-WhatdatastructuresdoesX10have">What data structures does X10 have?</a></li>
+<li><a href="#FAQ-AreotherdatastructuresplannedforX10">Are other data structures planned for X10?</a></li>
+</ul>
+</li>
+<li><a href="#FAQ-CrashesbugsandotherIssues">Crashes, bugs, and other issues</a>
+<ul>
+<li><a href="#FAQ-WherecanIfindoutaboutknownbugs">Where can I find out about known bugs?</a></li>
+<li><a href="#FAQ-WherecanIreportanewbug">Where can I report a new bug?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section_1">
+<h2><a name="FAQ-GeneralinformationaboutX10"></a>General information about X10</h2>
+<div class="section_4"><strong><a name="FAQ-WhatisX10"></a>What is X10?</strong>
+<p>X10 is a strongly typed, concurrent, imperative, object-oriented programming language designed for productivity and performance on modern multi-core and clustered architectures. X10 augments the familiar class-based object-oriented programming model with constructs to support execution across multiple address spaces, including constructs for a global object model, asynchrony and atomicity.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatisthepurposeofX10"></a>What is the purpose of X10?</strong>
+<p>X10 is a language designed to support programming at scale in the multicore era.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatotherlanguagesisX10relatedto"></a>What other languages is X10 related to?</strong>
+<p>X10 is an APGAS language (Asynchronous Partitioned Global Address Space), much like Fortress, Chapel, and UPC.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatistheoriginofX10"></a>What is the origin of X10?</strong>
+<p>X10 has been under developed as a research project at the IBM T. J. Watson Research Center since 2004, in collaboration with academic partners. The X10 effort is part of the IBM PERCS project in the DARPA program on High Productivity Computer Systems.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatistheoriginofthenameX10"></a>What is the origin of the name X10?</strong>
+<p>"X10" is meant to represent a "ten-times productivity boost."</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-DontyouknowthatX10isthenameofindustrystandardcommunicationsprotocol"></a>Don't you know that X10 is the name of an industry-standard communications protocol?</strong>
+<p>Oops. C'est la vie. Next question, please.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatisX10especiallygoodfor"></a>What is X10 especially good for?</strong>
+<p>X10 is especially good at distributing your application over a cluster of distributed memory machines. In particular, with X10, there is a natural migration path from a single-threaded prototype, to a version that uses multiple cores on an SMP, to a distributed memory implementation that runs across a cluster of SMPs.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatisX10notsogoodat"></a>What is X10 not so good at?</strong>
+<p>Although the basic language specification is stable, X10 is in active development, so coding to X10 is still a bit of a moving target.&nbsp; Notable current gaps include library support, IDE and compiler performance, and runtime performance of certain X10 idioms. Of course, we are actively working on all these issues.</p>
+</div>
+</div>
+<div class="section_1">
+<h2><a name="FAQ-X10forDevelopers"></a>X10 for Developers</h2>
+<div class="section_4"><strong><a name="FAQ-HowIsX10Licensed"></a>How is X10 licensed?</strong>
+<p>X10 is released under the Eclipse Public License, v1.0.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Howmuchdoesitcost"></a>How much does it cost?</strong>
+<p>Nothing. X10 is released under the Eclipse Public License, v1.0.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whatsystemsisitavailableon"></a>What systems is it available on?</strong>
+<p>Broadly speaking, X10 should be available on most platforms that have either (1) a Java JVM or (2) a C++ compiler and a Unix-like environment. See the <a href="software/download-x10/latest-release.html">latest X10 Release</a> page for the list of pre-built binary platform-specific releases.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whoshouldusethelanguage"></a>Who should use the language?</strong>
+<p>For the moment, X10 is primarily suitable as a research vehicle, for education, and for developers willing to experiment with an emerging language.&nbsp; Although fairly mature and stable for a research system, X10 is not yet a production-level programming language.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-IsIBMusingX10"></a>Is IBM using X10?</strong>
+<p>X10 does not yet ship in any IBM products. There are efforts underway to develop X10-based application frameworks and middleware that are intended for eventual production use.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhoelseisusingX10"></a>Is there an active community of X10 users?</strong>
+<p>There are a number of collaborators exploring X10, adding to the language, testing it, developing courses for it, writing applications in it, and providing libraries and patterns.&nbsp; For more details see the <a href="x10-community/32-community.html">X10 Community</a> page.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoesX10relatetoEclipse"></a>How does X10 relate to Eclipse?</strong>
+<p>X10 is a programming language, while Eclipse is often used to build integrated programming environments (IDEs) for programming languages, most notably Java. There is an Eclipse-based IDE for X10 called X10DT.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoIreportabuginX10"></a>How do I report a bug in X10?</strong>
+<p>The X10 project uses <a class="external-link" href="http://jira.codehaus.org/browse/XTENLANG">JIRA</a> for issue tracking. To report a bug or request an enhancement or new feature in X10 please first check to see if an entry already exists in JIRA. If it doesn't please create a new one. The more details you have in the bug report, the easier it will be for us to reproduce the problem and get it fixed.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowcanIcontributecodetotheX10project"></a>How can I contribute code to the X10 project?</strong>
+<p>We welcome contributions from the community! All contributions will be licensed under the Eclipse Public License and must be accompanied by a Contributor's License Agreement. See <a href="x10-development/contributor-agreement.html">Contributing to X10</a> for details on the process.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoIgetgoodperformancefrommyX10code"></a>How do I get good performance from my X10 code?</strong>
+<p>Please see&nbsp;<a href="documentation/practical-x10-programming/performance-tuning.html">Performance Tuning</a> for advice on how to get the best performance out of your X10 application.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-IsthereadebuggerforX10"></a>Is there a debugger for X10?</strong>
+<p>There is a prototype debugger available for X10 2.2.&nbsp; It does not support X10 2.3 or later.&nbsp; See the <a href="index.php?option=com_content&amp;amp;view=article&amp;amp;id=191">X10 Debugger</a> page for more information.</p>
+</div>
+</div>
+<div class="section_1">
+<h2><a name="FAQ-WhatkindofprogramminglanguageisX10"></a>What kind of programming language is X10?</h2>
+<div class="section_4"><strong><a name="FAQ-IsX10anobjectorientedlanguage"></a>Is X10 an object-oriented language?</strong>
+<p>Yes. X10 support classes, interfaces, and inheritance, much like Java or Scala.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-IsX10afunctionallanguage"></a>Is X10 a functional language?</strong>
+<p>Like functional languages, X10 support first-class functions and closures, and encourages using immutable state. Unlike most functional languages, most X10 programs will feature some important mutable state. For this reason, X10 would not usually be called a functional language.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoesX10comparewithMPI"></a>How does X10 compare with MPI?</strong>
+<p>X10 is a higher level programming model than MPI. In general, X10 code should be much more concise than the equivalent MPI. There are at least two major philosophical differences between the MPI programming model and X10: the control flow, and the memory model.</p>
+<p>The MPI control flow model is SPMD (Single-Program Multiple Data): the program begins with a single thread of control in each process. In contrast, an X10 program begins with a single thread of control in the root place, and an X10 program spawns more threads of control across places using async and at.</p>
+<p>The MPI memory model is a completely distributed memory model. MPI processes communicate via message-passing. There is no shared global address space in MPI, so user code must manage the mappings between local address spaces in different processes. In contrast, X10 supports a global shared address space. While an X10 activity can only directly access memory in the local Place (address space), it can name a location in a remote place, and the system maintains the mapping between the global address space and each local address space.</p>
+</div>
+</div>
+<div class="section_1">
+<h2><a name="FAQ-WritingCodeinX10"></a>Writing Code in X10</h2>
+<div class="section_4"><strong><a name="FAQ-WhyisthesyntaxdifferentfromJava"></a>Why is the syntax different from Java?</strong>
+<p>The syntax for X10 allows programmers to write code where types can be elided in many cases, and the compiler automatically infers the correct types instead. It is difficult to support this with the C/C++/Java style syntax, while still preserving desirable syntactic properties (e.g. variables must be defined before use).</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-IsthereanX10programmingguide"></a>Is there an X10 programming guide?</strong>
+<p>We're working on a couple. The most up-to-date document is <a href="http://x10.sourceforge.net/documentation/intro/latest/html/">A Brief Introduction to X10</a>.&nbsp; Helping us to develop a more comprehensive overview would be greatly appreciated!</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-IstherealistofpatternsforX10"></a>Is there a list of patterns for X10?</strong>
+<p>No, but we would encourage any community effort in this direction.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WherecanIfindsomeexamplecode"></a>Where can I find some example code?</strong>
+<p>Some small examples are included in every X10 release.&nbsp; You can find information about larger benchmarks from the X10 release page as well.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-IsthereanIDEforX10"></a>Is there an IDE for X10?</strong>
+<p>Yes, there is an Eclipse-based IDE for X10 called X10DT.&nbsp; Find out more about <a href="documentation/x10dt-installation.html">installing X10DT</a>.</p>
+</div>
+</div>
+<div class="section_1">
+<h2><a name="FAQ-Implementation"></a>Implementation</h2>
+<div class="section_4"><strong><a name="FAQ-Whatcompilertechnologiesareusedtobuildthecompilers"></a>What compiler technologies are used to build the compilers?</strong>
+<p>The X10 compiler uses the LPG parser generator, the Polyglot compiler framework, and WALA. The X10DT builds on the Eclipse framework.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Howistheruntimeimplemented"></a>How is the runtime implemented?</strong>
+<p>Much of the X10 runtime is implemented in X10. The X10 runtime can be deployed as either native code (using a C++ backend), or as JVM bytecode (using the Java backend). For transport, the X10 runtime supports various options including sockets, MPI, and active messages via PAMI.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whyaretheretwocompilebackends"></a>Why are there two compile backends?</strong>
+<p>The X10 compiler can generate either C++ source code or Java source code. The two backends present different tradeoffs on different machines.</p>
+<p>In general, the C++ backend is currently more mature and faster, and it supports more communication protocols. In the medium term, the backends will support different models of interoperability with other languages. In particular, the Java backend will support interoperability will Java code running on JVMs; the C++ backend will support interoperability with certain libraries for hardware accelerators and GPUs.&nbsp; Eventually, we would like to make these two backends compatible with each other, so that some portions of a program can run on Java and other portions run natively.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoIcontrolthesizeofthethreadpoolinaplace"></a>How do I control the size of the thread pool in a place?</strong>
+<p>Set the environment variable <tt>X10_NTHREADS</tt> to control the number of initial workers in a place.</p>
+<p>Note that the <tt>ForkJoin</tt> scheduler may create more workers if the current worker suspends (e.g. to execute a <tt>when</tt>).</p>
+<p>See the runtime section of the&nbsp; <a href="documentation/practical-x10-programming/performance-tuning.html">Performance Tuning</a> page for more details.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whathappensifaplacediesduringtheexecution"></a>What happens if a place dies during the execution?&nbsp; Is it possible to detect it and recover the error?</strong>
+<p>By default, the X10 runtime system is not robust with respect to Place failures.&nbsp; However, starting with X10 2.4.1 X10 can be run in a resilient mode.&nbsp; Resiliency adds some overhead to finish/async operations but enables the program to be notified of Place failures and continue running.</p>
+</div>
+</div>
+<div class="section_1">
+<h2><a name="FAQ-LanguageDetails"></a>Language Details</h2>
+<div class="section_4"><strong><a name="FAQ-HowdoesX10dealwithvalues"></a>How does X10 deal with values?</strong>
+<p>In X10, variables can be declared with either the VAR keyword or the VAL keyword. If a variable <em>X</em> is declared with "val X = ..." then X is a value; it is immutable.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoesX10dealwithconcurrency"></a>How does X10 deal with concurrency?</strong>
+<p>X10 supports two levels of concurrency.</p>
+<p>The first level corresponds to concurrency within a single shared-memory process, which is represented by an X10 Place. Usually, you would use one Place per shared memory multiprocessor. The main construct for concurrency within a Place is the X10 "async" construct.</p>
+<p>The second level of X10 concurrency supports parallelism across Places, or analogously, across processes that do not share memory. Usually, this would correspond to concurrency across nodes in a cluster of workstations. The main construct for managing such concurrency in X10 is the "at" construct.</p>
+<p>Additionally, X10 provides various libraries and features to support particular concurrent operations and data structures, such as reductions and distributed arrays.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhenshouldIuseclocksandwhennot"></a>When should I use clocks and when not?</strong>
+<p>Clocks correspond to barriers in traditional parallel computing discussions, such as the bulk-synchronous model of parallel computation. You would use a clock when multiple activities are accessing shared storage, and need to synchronize at the end of a phase before all activities move on to the next phase.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whatoperationsareatomic"></a>What operations are atomic?</strong>
+<p>The "atomic" keyword marks operations that will perform atomically. Note that the X10 atomic keyword is an extremely heavy hammer: it grabs a lock that serializes all atomic operations in a Place. Usually, atomic should be used for prototyping, but it will probably not scale well in highly contended code.</p>
+<p>For better performance, the x10.util.concurrent library provides various atomic operation and locks, which are implemented more efficiently using operations such as compare-and-swap.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoesX10relatetoPGAS"></a>How does X10 relate to PGAS?</strong>
+<p>PGAS (Partitioned Global Address Space) is an abstract programming model, which presents an abstraction of a single shared address space, but the address space is partitioned into regions based on an underlying NUMA (non-uniform memory access) architecture. There are several PGAS languages, including X10, Fortress, Chapel, and UPC.</p>
+<p>APGAS (Asynchronous PGAS) is a variant of PGAS that supports asynchronous operations and control flow. X10 is an APGAS language.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatisPlaceandhowisitused"></a>What is Place and how is it used?</strong>
+<p>An X10 Place corresponds to a single operating system process. X10 activities can only directly access memory from the Place where they live; they must use constructs like "at" to access memory at remote places.</p>
+<p>Usually, in production, you would run with one X10 Place per node in a cluster of workstations. For debugging and development, it is possible to run with multiple Places installed in a single machine.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whatisasyncandhowisitused"></a>What is async and how is it used?</strong>
+<p>In X10, async S asynchronous executes statement S. In the meantime, the current thread continues. You can think of async as a starting an X10 activity, which is a lightweight thread.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whatisatandhowisitused"></a>What is at and how is it used?</strong>
+<p>In X10, at(x) executes statement S at the Place where X lives; namely, X.home.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Howisfinishused"></a>How is finish used?</strong>
+<p>In X10, finish S is used to synchronize with all the asynchronous activities that arise during the execution of S. Specifically, the finish statement will wait until all asyncs spawned (transitively) by S finish.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowdoesX10dealwithpointers"></a>How does X10 deal with pointers?</strong>
+<p>Like Java, X10 is a strongly-typed object-oriented language. X10 supports references to objects, but not pointer arithmetic or unconstrained casting between types.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-HowarefunctionsandmethodsexpressedinX10"></a>How are functions and methods expressed in X10?</strong>
+<p>In general, functions and methods in X10 resemble functions and methods in Java, C++, and Scala. The following code:</p>
+<div class="code panel" style="border: 1px solid;">
+<div class="codeHeader panelHeader" style="border-bottom: 1px solid;"><strong>Example.X10</strong></div>
+<div class="codeContent panelContent">
+<pre class="code-java">class X {<br />def foo(x:Int) : Int { ... }<br />}<br />{toc}</pre>
+</div>
+</div>
+<p>defines a member function called foo on class X. foo takes one parameter of type Int, and returns a type Int. The return type specification is optional; the X10 compiler can usually infer the return type from the method body.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whatarefunctiontypes"></a>What are function types?</strong>
+<p>Like functional languages, X10 supports functions as first-class objects in the language. In X10, each function has a type, such as (x:int) =&amp;gt; int, which denotes a function type that takes an integer parameter and returns an int.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whataregenericclasses"></a>What are generic classes?</strong>
+<p>X10 support generic types, which are types that take other types as parameters. This language construct is especially useful for collection frameworks, as the Java collections framework.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-Whataredependenttypes"></a>What are dependent types?</strong>
+<p>A dependent type is a type that depends on a value in the underlying programming language. X10 uses dependent types in the X10 "constraint types". Often, X10 constraint types are used to enforce safety in multi-place code.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WhatdatastructuresdoesX10have"></a>What data structures does X10 have?</strong>
+<p>X10 has a standard library of data structures. The x10.util package includes X10 versions of many of the standard collection classes from Java.</p>
+<p>Additionally, X10 provides some standard libraries of distributed data structures. Currently, the main supported distributed data structure is the distributed array, in the x10.array and x10.regionarray packages.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-AreotherdatastructuresplannedforX10"></a>Are other data structures planned for X10?</strong>
+<p>Yes, we plan to implement additional core collection classes, and also to expand the set of distributed data structures.&nbsp; This is an area where contributions from the community would be especially appreciated<strong>!</strong></p>
+</div>
+</div>
+<div class="section_1">
+<h2><a name="FAQ-CrashesbugsandotherIssues"></a>Crashes, bugs, and other issues</h2>
+<div class="section_4"><strong><a name="FAQ-WherecanIfindoutaboutknownbugs"></a>Where can I find out about known bugs?</strong>
+<p>The X10 project uses <a class="external-link" href="http://jira.codehaus.org/browse/XTENLANG">JIRA</a> for issue tracking. The JIRA interface supports searching the existing bug database.</p>
+</div>
+<div class="section_4"><strong><a name="FAQ-WherecanIreportanewbug"></a>Where can I report a new bug?</strong>
+<p>The X10 project uses <a class="external-link" href="http://jira.codehaus.org/browse/XTENLANG">JIRA</a> for issue tracking. To report a bug or request an enhancement or new feature in X10 please first check to see if an entry already exists in JIRA. If it doesn't please create a new one. The more details you have in the bug report, the easier it will be for us to reproduce the problem and get it fixed.</p>
+</div>
+</div>
+</div>

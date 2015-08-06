@@ -1,0 +1,102 @@
+---
+layout: page
+title: "PHP code"
+alias: "php-code"
+category: "uncategorised"
+---
+<p>[6:37:22 AM] Jackie de Vries: * &amp;nbsp; &amp;nbsp; &amp;nbsp;<a href="http://www.opensource.org/licenses/eclipse-1.0.php">http://www.opensource.org/licenses/eclipse-1.0.php</a></p>
+<p>/**<br />* This is a basic utility for buffering the elements of a rank-1 Array<br />* of unpredictable size. &amp;nbsp;It implements the Builder interface and<br />* virtually nothing else.<br />*/</p>
+<p>* @param initialCapacity the number of entries in the buffer initially</p>
+<p>/**<br /> * This is a basic utility for buffering the elements of a rank-1 Array<br /> * of unpredictable size. &amp;nbsp;It implements the Builder interface and <br /> * virtually nothing else.<br /> */</p>
+<p>public class ArrayBuilder[T] implements x10.util.Builder[T, Array[T]] {</p>
+<p>/** how many entries to allow by default in the initial buffer */</p>
+<p>public static DEFAULT_INITIAL_CAPACITY = 16;</p>
+<p>/** the default factor to multiply the capacity by when growing the buffer */</p>
+<p>public static DEFAULT_GROWTH_RATE = 2.0;</p>
+<p>private var buffer: Array[T](1);</p>
+<p>private var size: Int = 0; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;// the number of entries added</p>
+<p>private val maximumCapacity: Int; // don't let the buffer grow beyond this size</p>
+<p>private val growthRate: Double; // what to multiply the capacity by when growing the buffer</p>
+<p>/**</p>
+<p>* create a builder with the default initial capacity and growth rate,</p>
+<p>* and no capacity bound</p>
+<p>*/</p>
+<p>public def this() {</p>
+<p>this(DEFAULT_INITIAL_CAPACITY, Int.MAX_VALUE, DEFAULT_GROWTH_RATE);</p>
+<p>}</p>
+<p>/**</p>
+<p>* create a builder with the default growth rate and no capacity bound,</p>
+<p>* &amp;nbsp;but with the given initial capacity</p>
+<p>* @param initialCapacity the number of entries in the buffer initially</p>
+<p>*/</p>
+<p>public def this(initialCapacity: Int) {</p>
+<p>this(initialCapacity, Int.MAX_VALUE, DEFAULT_GROWTH_RATE);</p>
+<p>}</p>
+<p>/**</p>
+<p>* create a builder with the default growth rate, but with</p>
+<p>* the given initial capacity and overall capacity bound</p>
+<p>* @param initialCapacity the number of entries in the buffer initially</p>
+<p>* @param maximumCapacity do not allow more than this many entries</p>
+<p>*/</p>
+<p>public def this(initialCapacity: Int, maximumCapacity: Int) {</p>
+<p>this(initialCapacity, maximumCapacity, DEFAULT_GROWTH_RATE);</p>
+<p>}</p>
+<p>/**</p>
+<p>* create a builder with all of the parameters specified.</p>
+<p>* @param initialCapacity the number of entries in the buffer initially</p>
+<p>* @param maximumCapacity do not allow more than this many entries</p>
+<p>* @param growthRate what to multiply the capacity by when growing the buffer</p>
+<p>*/</p>
+<p>public def this(initialCapacity: Int, maximumCapacity: Int, growthRate: Double) {</p>
+<p>if (initialCapacity &amp;gt; maximumCapacity) {</p>
+<p>val msg = "Initial capacity, " &amp;nbsp; &amp;nbsp; +initialCapacity+</p>
+<p>", exceeds the maximum, "+maximumCapacity;</p>
+<p>throw new IllegalArgumentException(msg);</p>
+<p>}</p>
+<p>buffer = new Array[T](0..initialCapacity-1);</p>
+<p>this.maximumCapacity = maximumCapacity;</p>
+<p>this.growthRate = growthRate;</p>
+<p>}</p>
+<p>/**</p>
+<p>* add an entry, growing the buffer if need be</p>
+<p>* @param t the new item to be added</p>
+<p>* @return this builder</p>
+<p>*/</p>
+<p>public def add(t: T): ArrayBuilder[T] {</p>
+<p>if (this.size &amp;gt;= buffer.size) growTheBuffer();</p>
+<p>buffer(this.size++) = t;</p>
+<p>return this;</p>
+<p>}</p>
+<p>/**</p>
+<p>* return the current number of entries in the whole buffer</p>
+<p>* @return the currentnumber of entries in the whole buffer</p>
+<p>*/</p>
+<p>public def capacity() = buffer.size;</p>
+<p>/**</p>
+<p>* return the entries indexed by 0 through size-1 as an array</p>
+<p>* @return the entries indexed by 0 through size-1 as an array</p>
+<p>*/</p>
+<p>public def result(): Array[T](1) {</p>
+<p>return new Array[T](size, (n: Int)=&amp;gt;buffer((n)));</p>
+<p>}</p>
+<p>/**</p>
+<p>* return the number of entries added to the buffer</p>
+<p>* @return the number of entries added to the buffer</p>
+<p>*/</p>
+<p>public def size() = this.size;</p>
+<p>/**</p>
+<p>* a new buffer array is created whose capacity is the current</p>
+<p>* capacity multiplied by the growthRate, and then the current</p>
+<p>* entries are copied into the new buffer.</p>
+<p>*/</p>
+<p>public def growTheBuffer() {</p>
+<p>if (buffer.size &amp;gt;= maximumCapacity) {</p>
+<p>val msg = "Maximum capacity, "+maximumCapacity+" exceeded.";</p>
+<p>throw new IllegalArgumentException(msg);</p>
+<p>}</p>
+<p>var newSize:Int &amp;nbsp;= Math.floor(growthRate*buffer.size) as Int;</p>
+<p>if (newSize &amp;gt;= maximumCapacity) newSize = maximumCapacity;</p>
+<p>val newBuffer = new Array[T](newSize);</p>
+<p>Array.copy(buffer, 0, newBuffer, 0, size);</p>
+<p>}</p>
+<p>}</p>

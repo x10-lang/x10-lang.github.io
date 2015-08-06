@@ -1,0 +1,40 @@
+---
+layout: page
+title: "File I/O "
+alias: "file-io"
+category: "code-examples/small-examples"
+---
+<pre>/*
+ *  This file is part of the X10 project (http://x10-lang.org).
+ *
+ *  This file is licensed to You under the Eclipse Public License (EPL);
+ *  You may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *      http://www.opensource.org/licenses/eclipse-1.0.php
+ *
+ *  (C) Copyright IBM Corporation 2006-2010.
+ */
+import x10.io.File;
+
+public class FileIO {
+   /**
+    * First example: reading and writing line-by-line.  The File objects are
+	 * &amp;quot;passive&amp;quot;: they just name objects in the file system.  The calls
+	 * O.printer() and I.lines() open streams to write and read (respectively)
+	 * the files.  The X10 runtime will close the streams on exit, but we were
+	 * cautious and flushed the output stream anyway.
+    * @param args the first two entries in the array are the input file path
+    *    and the output file path respectively.
+    */
+   public static def main(args: Array[String](1)) {
+      val inputFile  = args(0);
+      val outputFile = args(1);
+      val I  = new File(inputFile);
+      val O  = new File(outputFile);
+      val P    = O.printer();
+      for (line in I.lines()) {
+         P.print(line);
+      }
+      P.flush();
+   } 
+ }</pre><p>&amp;nbsp;</p>

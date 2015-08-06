@@ -1,0 +1,123 @@
+---
+layout: page
+title: "X10DT Development Setup"
+alias: "x10dt-development-setup"
+category: "documentation/developer-info"
+---
+<div>
+<ul>
+<li><a href="#X10DTDevelopmentSetup-X10DTdevelopmentsetup"><span style="color: #0000ff;">X10DT</span></a><span style="color: #0000ff;"> development setup</span>
+<ul>
+<li><a href="#X10DTDevelopmentSetup-Part0%3ASetupyourEclipseworkbench"><strong><span style="color: #0000ff;">Part 0 : Set up your Eclipse workbench</span></strong></a></li>
+<li><a href="#X10DTDevelopmentSetup-Part1%3AInstalltheX10DTprereqs"><span style="color: #0000ff;">Part 1: Install the X10DT prereqs</span></a></li>
+<li><a href="#X10DTDevelopmentSetup-Part2%3AGetthesourcecodeforX10andtheX10DT"><span style="color: #0000ff;">Part 2: Get the source code for X10 and the X10DT</span></a></li>
+<li><a href="#X10DTDevelopmentSetup-Part3%3ABuildtheX10Runtime"><span style="color: #0000ff;">Part 3: Build the X10 Runtime</span></a></li>
+<li><a href="#X10DTDevelopmentSetup-Launchingaruntimeworkbench%28testingX10DTfromyourdevelopmentworkbench%29"><span style="color: #0000ff;">Launching a runtime workbench (testing X10DT from your development workbench)</span></a></li>
+<li><a href="#X10DTDevelopmentSetup-Reference"><span style="color: #0000ff;">Reference</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section_1">
+<h1><a name="X10DTDevelopmentSetup-X10DTdevelopmentsetup"></a>X10DT development setup</h1>
+<p>The following describes the procedure for setting up an Eclipse development environment to build and debug the X10DT.</p>
+<div class="section_3">
+<h3><a name="X10DTDevelopmentSetup-Part0:SetupyourEclipseworkbench"></a><strong>Part 0 : Set up your Eclipse workbench</strong></h3>
+<p>Note that this is starting with an entirely new Eclipse installation <strong>and</strong> workspace.</p>
+<ol>
+<li>Make sure you have at least Java 1.6.</li>
+<li>Install Eclipse 4.3.1 Kepler (the "Eclipse Standard" bundle) for your platform.</li>
+<li>Install and configure an SVN client.&nbsp; You can use either Subversive or Subclipse.</li>
+<li>Install SWTBot&nbsp;(an Eclipse UI testing framework) via Eclipse Update.</li>
+<li>Finish the install as above, and restart Eclipse when asked.</li>
+</ol></div>
+<div class="section_3">
+<h3><a name="X10DTDevelopmentSetup-Part1:InstalltheX10DTprereqs"></a>Part 1: Install the X10DT prereqs</h3>
+<p>Really, the easiest way to get all the prereqs is to install the X10DT itself into your development workbench. However, this might possibly interfere with normal workbench operation, so instead, we opt to install just the prerequisites.</p>
+<ol>
+<li>Download the latest X10DT update site zip from&nbsp; <a href="http://sourceforge.net/projects/x10/files/x10dt/"><span style="color: #0000ff;">our file downloads</span></a>. Select the most recent release, and download x10dt-update-site-VERSION.zip.</li>
+<li>As above, go to "Help" -&amp;gt; "Install New Software".</li>
+<li>Click on the "Add..." button next to the "Work with:" field.</li>
+<li>Click on "Archive..." and find the update site zip you just downloaded. Give the location any name you wish, and click "Ok".</li>
+<li>Install the following features from this update site zip. To see these individual features, uncheck the "Group items by category" box in the "Install New Software" dialog.<ol>
+<li>IMP Runtime</li>
+<li>IMP Support for Java-Hosted Languages</li>
+<li>IMP Program Analysis</li>
+<li>LPG Runtime</li>
+<li>ANTLR Runtime</li>
+<li>X10 WALA</li>
+</ol></li>
+<li>Finish the install and restart Eclipse when asked.</li>
+<li>Install PTP (Eclipse Parallel Tools Platforms) via Eclipse Software Update</li>
+</ol></div>
+<div class="section_3">
+<h3><a name="X10DTDevelopmentSetup-Part2:GetthesourcecodeforX10andtheX10DT"></a>Part 2: Get the source code for X10 and the X10DT</h3>
+<ol>
+<li>Go back to the Plug-in Development or JDT perspective.</li>
+<li>Get the Team Project Sets for X10DT and use them to get the source code.</li>
+<ol>
+<li>Checkout the project sets from SVN at <a href="https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt_project_sets/">https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt_project_sets/</a></li>
+<li>Right click on x10core-25.psf and select "Import Project Set..."</li>
+<li>Right click on x10dt-25.psf and select "Import Project Set..."</li>
+</ol></ol></div>
+<div class="section_3">
+<h3><a name="X10DTDevelopmentSetup-Part3:BuildtheX10Runtime"></a>Part 3: Build the X10 Runtime</h3>
+<ol>
+<li>Go to a console window, cd to the x10.dist project directory in your workspace. (Note: this step requires Internet access, as it pulls down jars for its dependencies from the web.)<ol>
+<li>ant dist update-host-fragment</li>
+</ol></li>
+<li>Note: This will take a few minutes. This includes building the X10 runtime for both the Java and C++ back-ends. It also copies certain key bits from&nbsp;the x10.dist project that you just built (like the&nbsp;"include" and "lib" folders that contain the X10 runtime's platform-specific headers and libraries) to the right spot in the platform fragment project. This is necessary to run the X10DT and perform local C++ back-end builds and launches.</li>
+<li>Once this is done, select the&nbsp;"x10.runtime", "x10.compiler", and "x10.dist" projects in the Package Explorer and&nbsp;invoke "Refresh" from the context menu. This gets Eclipse to "notice" a few .java files in the X10 runtime that got generated from .x10 source files.</li>
+<li>Go to Preferences -&amp;gt; Plugin Development -&amp;gt; API Baselines. Change the options for Missing API Baselines to Ignore.</li>
+<li>Your workspace projects should now all be compiling cleanly.</li>
+</ol></div>
+<div class="section_3">If you update the X10 core projects, you need to rebuild it from the console and refresh the workspace so eclipse will see the new versions</div>
+<div class="section_3"><ol>
+<li>In a console do: ant squeakyclean dist update-host-fragment</li>
+<li>Refresh your workspace in Eclipse (so it sees the new generated artifacts) and let it build.</li>
+</ol></div>
+<div class="section_3">
+<h3><a name="X10DTDevelopmentSetup-Launchingaruntimeworkbench(testingX10DTfromyourdevelopmentworkbench)"></a>Launching a runtime workbench (testing X10DT from your development workbench)</h3>
+<ul>
+<li>If all is well, everything should now be building and not bleeding red
+<ul>
+<li>if there are still any (red) compile errors, go back and fix them ...</li>
+</ul>
+</li>
+<li>Run
+<ul>
+<li>Open run launch config dialog (Run &amp;gt; Run Configurations...)</li>
+<li>Make a new "Eclipse Application" configuration; call it e.g. "x10dt"
+<ul>
+<li>Give it a clean (new) workspace location</li>
+<li>More heap space recommended: On the Arguments tab, add this to VM Arguments: -Xmx512m</li>
+</ul>
+</li>
+<li>Click Run</li>
+<li>In the new Eclipse workbench that launches
+<ul>
+<li>Open the X10 Perspective</li>
+<li>"New" &amp;gt; "X10 project (Java back-end)"; give it a name e.g. "Hello"</li>
+<li>Source file Hello.x10 opens in an editor</li>
+<li>Saving it starts a build.</li>
+<li>To see any errors that we log (for the brave), Open Error Log view: Window &amp;gt; Show View &amp;gt; Other... and under General (or, in older Eclipses, "PDE runtime"), select "Error Log"
+<ul>
+<li>Most are not fatal</li>
+</ul>
+</li>
+<li>To Run, Open Run Dialog... and create a new config for "X10 Application"
+<ul>
+<li>On Main tab, fill in"Project:" (use Browse...) ; fill in "Main Class:" (use Search... should find e.g. Hello$Main ... just Hello will work too)</li>
+<li>Click 'Run' and the program should execute and print output in the Console view</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section_3">
+<h3><a name="X10DTDevelopmentSetup-Reference"></a>Reference</h3>
+<a class="external-link" href="http://wiki.eclipse.org/Developer%27s_Guide_to_Getting_Started_with_IMP"><span style="color: #0000ff;">IMP instructions</span></a> - somewhat outdated but may still be useful</div>
+</div>

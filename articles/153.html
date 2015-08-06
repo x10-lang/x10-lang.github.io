@@ -1,0 +1,21 @@
+---
+layout: page
+title: "X10 Standard Library"
+alias: "x10-standard-library"
+category: "documentation/documentation"
+---
+<p>We are in the process of implementing <code>x10doc</code>, a <code>javadoc</code>-like tool for X10 programs. You can access the most recent x10doc-generated html for the current X10 standard libraries by following the link below. Note that x10doc (and the X10 standard libraries themselves) are still a work-in-progress. Some of the main limitations of x10doc are enumerated below. Despite these known issues, we believe the x10doc-generated html is sufficiently useful to make it publicly available. If you have comments or ideas for improvements, please open a <a href="http://jira.codehaus.org/browse/XTENLANG">JIRA issue</a> against the X10Doc component.</p>
+<h3><a href="http://x10.sourceforge.net/x10doc/latest">Online Documentation for the X10 Standard Library</a></h3>
+<p>Some of the main known limitations of x10doc are:</p>
+<ul>
+<li>X10 features that are not present in Java, such as properties, closures, constraints, and type definitions, are specified in detail in associated comment lines.
+<ul>
+<li>Properties are shown as fields, but with an attached "Property." line in the comment.</li>
+<li>Type definitions are shown as methods with an attached "Type Definition" comment line which also contains the X10 type definition.</li>
+<li>Similarly, there are "Field Type" and "Declaration" comment lines to display details of field types, method/constructor return types, method/constructor parameter types, and class declarations that contain X10-specific features.</li>
+</ul>
+</li>
+<li>Class invariants, and method and field constraints are currently not displayed.</li>
+<li>Constraints have blown-up representations, e.g.,<br /> <tt>Point{_self1408.x10.lang.Point#rank==x10.lang.Array#this.x10.lang.Array#dist.x10.lang.Dist#region.x10.lang.Region#rank}</tt><br /> for<br /> <tt>Point{self.rank==this.dist.region.rank}</tt>. The succinct version can be obtained by removing the underscore and number around <tt>self</tt>, and removing all "package.class#" substrings. For example, <tt>_self1408.x10.lang.Point#rank</tt> is <tt>self.rank</tt>.</li>
+<li>Sections "All Superinterfaces" for interfaces and "All Implemented Interfaces" for classes are incorrect. However, the declarations, "interface Foo extends ..." and "class Foo ... implements ..." provide accurate information about interfaces that are directly extended/implemented by interface/class Foo. In addition, Foo.html lists the members inherited from all superinterfaces.</li>
+</ul>
