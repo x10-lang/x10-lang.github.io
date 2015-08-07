@@ -30,5 +30,7 @@ gems:
 
 # These files should not be copied to the website
 exclude:
- - README.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
  
