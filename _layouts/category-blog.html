@@ -10,9 +10,10 @@ layout: default
 
   {{ content <!-- if there is any content, put it here as a header --> }}
   {% assign row = -1 %}
-  {% for p in site.pages %}
+  {% assign sorted_pages = site.pages | sort:"date", 'last' %}
+  {% for p in sorted_pages reversed %}
   {% if p.category == page.blog-category %}
-  {% unless p.blog-hidden %}
+  {% unless p.draft %}
   {% if row == -1 %}
      <div class="rt-leading-articles">
      <div class="leading-0">
@@ -23,7 +24,13 @@ layout: default
      <div class="rt-article">
      <div class="rt-article-bg">
        <!-- Article Source <a href="{{p.url}}">{{p.title}}</a> -->
-       {{ p.content }}
+       {% assign content = p.content | strip_newlines %}
+       {% if content != ""  %}
+       <div class="category-desc">
+	 <p>{{ p.content }}</p>
+	 <div class="clr"></div>
+       </div>
+       {% endif <!-- content != "" --> %}
      </div>
      </div>
        <div class="item-separator"></div>
