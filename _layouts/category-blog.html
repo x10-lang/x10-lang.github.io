@@ -2,9 +2,11 @@
 layout: default
 ---
 <div class="rt-blog">
+  {% unless page.is-front-page %}
   <h1 class="title">
     {{ page.title | xml_escape}}
   </h1>
+  {% endunless <!-- page.is-front-page --> %}
 
   <article class="post-content">
 

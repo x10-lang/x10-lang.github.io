@@ -1,58 +1,15 @@
-<!DOCTYPE html>
-<html>
-
-  {% include head.html %}
-
-<body>
-
-  <!--    {% include header.html %} -->
-
-   <div id="page-wraper">
-     <div id="in-page-wraper">
-       <div id="in-page-wraper-2">
-	 <div id="rt-header">
-	   <div class="rt-container">
-	     <div class="rt-grid-7 rt-alpha">
-	     <div class="rt-block">
-		 <div class="custom">
-		   <h1 style="text-align: justify;"><a href="{{site.baseurl }}/"><strong>{{ site.title }}</strong></a></h1>
-		 </div>
+---
+layout: generic
+---
+<div id="rt-content-top">
+  {% if page.is-front-page '%}
+  {% include front_page.html %}
+  {% endif <!-- page.is-front-page --> %}
 </div>
+<div class="rt-block">
+  <div id="rt-mainbody">
+    <div class="component-content">
+      {{ content }}
+    </div>
+  </div>
 </div>
-	     <div class="rt-grid-5 rt-omega">
-	     <div class="rt-block">
-	       SEARCH not currently implemented</div></div>
-		 <div class="clear"></div>
-</div></div> 
-<div id="rt-menu"><div class="rt-container">
-   {%include top_menu.html %}
-</div></div>
-<div id="rt-main" class="mb9-sa3">
-  <div class="rt-container">
-    <div class="rt-grid-9 ">
-      <div id="rt-content-top">
-      </div>
-      <div class="rt-block">
-	<div id="rt-mainbody">
-	  <div class="component-content">
-        {{ content }}
-								</div>
-	                        </div>
-						</div>
-                                                                    </div>
-                                <div class="rt-grid-3 ">
-             {%include side_menu.html %}
-            </div>
-
-                    <div class="clear"></div>
-                </div>
-            </div>
-																			</div>
-			</div>
-		</div>
-
-{% include footer.html %}
-
-</body>
-
-</html>
