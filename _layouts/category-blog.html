@@ -10,8 +10,8 @@ layout: default
 
   {{ content <!-- if there is any content, put it here as a header --> }}
   {% assign row = -1 %}
-  {% assign sorted_pages = site.pages | sort:"date", 'last' %}
-  {% for p in sorted_pages reversed %}
+  {% assign sorted_pages = site.pages | sort:"date", 'last' % | reverse %}
+  {% for p in sorted_pages %}
   {% if p.category == page.blog-category %}
   {% unless p.draft %}
   {% if row == -1 %}
