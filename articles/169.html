@@ -37,7 +37,7 @@ redirect_from: /x10-development/building-x10dt-from-source.html
 <p>Really, the easiest way to get all the prereqs is to install the X10DT itself into your development workbench. However, this might possibly interfere with normal workbench operation, so instead, we opt to install just the prerequisites.</p>
 <ol>
 <li>Download the latest X10DT update site zip from&nbsp; <a href="http://sourceforge.net/projects/x10/files/x10dt/"><span style="color: #0000ff;">our file downloads</span></a>. Select the most recent release, and download x10dt-update-site-VERSION.zip.</li>
-<li>As above, go to "Help" -&amp;gt; "Install New Software".</li>
+<li>As above, go to "Help" -&gt; "Install New Software".</li>
 <li>Click on the "Add..." button next to the "Work with:" field.</li>
 <li>Click on "Archive..." and find the update site zip you just downloaded. Give the location any name you wish, and click "Ok".</li>
 <li>Install the following features from this update site zip. To see these individual features, uncheck the "Group items by category" box in the "Install New Software" dialog.<ol>
@@ -69,7 +69,7 @@ redirect_from: /x10-development/building-x10dt-from-source.html
 </ol></li>
 <li>Note: This will take a few minutes. This includes building the X10 runtime for both the Java and C++ back-ends. It also copies certain key bits from&nbsp;the x10.dist project that you just built (like the&nbsp;"include" and "lib" folders that contain the X10 runtime's platform-specific headers and libraries) to the right spot in the platform fragment project. This is necessary to run the X10DT and perform local C++ back-end builds and launches.</li>
 <li>Once this is done, select the&nbsp;"x10.runtime", "x10.compiler", and "x10.dist" projects in the Package Explorer and&nbsp;invoke "Refresh" from the context menu. This gets Eclipse to "notice" a few .java files in the X10 runtime that got generated from .x10 source files.</li>
-<li>Go to Preferences -&amp;gt; Plugin Development -&amp;gt; API Baselines. Change the options for Missing API Baselines to Ignore.</li>
+<li>Go to Preferences -&gt; Plugin Development -&gt; API Baselines. Change the options for Missing API Baselines to Ignore.</li>
 <li>Your workspace projects should now all be compiling cleanly.</li>
 </ol></div>
 <div class="section_3">If you update the X10 core projects, you need to rebuild it from the console and refresh the workspace so eclipse will see the new versions</div>
@@ -87,7 +87,7 @@ redirect_from: /x10-development/building-x10dt-from-source.html
 </li>
 <li>Run
 <ul>
-<li>Open run launch config dialog (Run &amp;gt; Run Configurations...)</li>
+<li>Open run launch config dialog (Run &gt; Run Configurations...)</li>
 <li>Make a new "Eclipse Application" configuration; call it e.g. "x10dt"
 <ul>
 <li>Give it a clean (new) workspace location</li>
@@ -98,10 +98,10 @@ redirect_from: /x10-development/building-x10dt-from-source.html
 <li>In the new Eclipse workbench that launches
 <ul>
 <li>Open the X10 Perspective</li>
-<li>"New" &amp;gt; "X10 project (Java back-end)"; give it a name e.g. "Hello"</li>
+<li>"New" &gt; "X10 project (Java back-end)"; give it a name e.g. "Hello"</li>
 <li>Source file Hello.x10 opens in an editor</li>
 <li>Saving it starts a build.</li>
-<li>To see any errors that we log (for the brave), Open Error Log view: Window &amp;gt; Show View &amp;gt; Other... and under General (or, in older Eclipses, "PDE runtime"), select "Error Log"
+<li>To see any errors that we log (for the brave), Open Error Log view: Window &gt; Show View &gt; Other... and under General (or, in older Eclipses, "PDE runtime"), select "Error Log"
 <ul>
 <li>Most are not fatal</li>
 </ul>

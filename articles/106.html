@@ -18,12 +18,12 @@ import x10.util.HashMap;
 import utils.CmdLnArgs;
 
 /**
- * See section 1.5 of the companion for a discussion of Simpson&amp;#39;s rule and this code.
+ * See section 1.5 of the companion for a discussion of Simpson&#39;s rule and this code.
  */
 public class Simpson {
     /**
     * If the subintervals are too small we run into precision problems because we only
-    * have so many sig figs to work with.  Here we choose a &amp;quot;resaonable&amp;quot; default minimum.
+    * have so many sig figs to work with.  Here we choose a &quot;resaonable&quot; default minimum.
     * Real numerical analysts would tune this together with the relative precision
     * expected for the answer. 
     */
@@ -72,7 +72,7 @@ public class Simpson {
 
     // fields for the output
     public static class Out {
-        /** the approximation to the integral via Simpson&amp;#39;s Rule */
+        /** the approximation to the integral via Simpson&#39;s Rule */
         public var answer: Double = 0.0;
         /**  
         * the absolute error at the last iteration; when combining the contributions
@@ -94,16 +94,16 @@ public class Simpson {
 
         /** returns a JSON literal */
         public  def toString() {
-            return &amp;quot;{\r\n\t   answer: &amp;quot;  +answer +&amp;quot;,\r\n\t   delta: &amp;quot; +delta +
-            &amp;quot;,\r\n\t   h: &amp;quot;+h+&amp;quot;,\r\n\t   points_sampled: &amp;quot;+n+&amp;quot;\r\n\t}&amp;quot;;        
+            return &quot;{\r\n\t   answer: &quot;  +answer +&quot;,\r\n\t   delta: &quot; +delta +
+            &quot;,\r\n\t   h: &quot;+h+&quot;,\r\n\t   points_sampled: &quot;+n+&quot;\r\n\t}&quot;;        
         }
 
         /** 
         * combines the cumulutive results from some set of subintervals with another
-        * subinterval&amp;#39;s result
+        * subinterval&#39;s result
         */
         public def add(other: Out): Out {
-            //Console.OUT.println(&amp;quot;Add &amp;quot;+answer+&amp;quot; to &amp;quot;+other.answer);
+            //Console.OUT.println(&quot;Add &quot;+answer+&quot; to &quot;+other.answer);
             answer +=other.answer;
             delta += other.delta;
             h = Math.max(h, other.h);
@@ -117,16 +117,16 @@ public class Simpson {
     * @param args the command line arguments as a hash
     */
     public def this(args: CmdLnArgs) {
-        minDelta   = args.getDouble(&amp;quot;mindelta&amp;quot;, DEFAULT_PRECISION); 
-        x0         = args.getDouble(&amp;quot;x0&amp;quot;, 1.0e260); 
-        xn         = args.getDouble(&amp;quot;xn&amp;quot;, 1.0e-250); 
-        minH       = args.getDouble(&amp;quot;minh&amp;quot;, DEFAULT_MIN_H); 
-        firstN     = args.getInt(&amp;quot;firstn&amp;quot;, 2) as Double; 
-        lastN      = args.getInt(&amp;quot;lastn&amp;quot;, DEFAULT_LAST_N) as Double; 
-        nfactor    = args.getDouble(&amp;quot;nfactor&amp;quot;, 2.0); 
-        minN       = args.getDouble(&amp;quot;minn&amp;quot;, DEFAULT_MIN_N); 
-        isRelative = args.getBoolean(&amp;quot;relative&amp;quot;, true);
-        beStrict   = args.getBoolean(&amp;quot;strict&amp;quot;, false);
+        minDelta   = args.getDouble(&quot;mindelta&quot;, DEFAULT_PRECISION); 
+        x0         = args.getDouble(&quot;x0&quot;, 1.0e260); 
+        xn         = args.getDouble(&quot;xn&quot;, 1.0e-250); 
+        minH       = args.getDouble(&quot;minh&quot;, DEFAULT_MIN_H); 
+        firstN     = args.getInt(&quot;firstn&quot;, 2) as Double; 
+        lastN      = args.getInt(&quot;lastn&quot;, DEFAULT_LAST_N) as Double; 
+        nfactor    = args.getDouble(&quot;nfactor&quot;, 2.0); 
+        minN       = args.getDouble(&quot;minn&quot;, DEFAULT_MIN_N); 
+        isRelative = args.getBoolean(&quot;relative&quot;, true);
+        beStrict   = args.getBoolean(&quot;strict&quot;, false);
         out        = new Out();
     }
 
@@ -157,20 +157,20 @@ public class Simpson {
         lastN      = newLastN; 
         nfactor    = oldStuff.nfactor; 
         minN       = oldStuff.minN; 
-        isRelative = (1.0 == newStuff.getOrElse(&amp;quot;relative&amp;quot;, oldStuff.isRelative?1.0:0.0)); 
-        beStrict   = (1.0 == newStuff.getOrElse(&amp;quot;strict&amp;quot;, oldStuff.beStrict?1.0:0.0)); 
+        isRelative = (1.0 == newStuff.getOrElse(&quot;relative&quot;, oldStuff.isRelative?1.0:0.0)); 
+        beStrict   = (1.0 == newStuff.getOrElse(&quot;strict&quot;, oldStuff.beStrict?1.0:0.0)); 
         out = new Out();
     }
 
     /**
-    * computes the actual minimal subinterval length, the &amp;quot;target h&amp;quot;, that is
+    * computes the actual minimal subinterval length, the &quot;target h&quot;, that is
     * allowed by these input parameters
     * @return the length computed
     */
     public def getTargetH(): Double {
         val naiveValue =  Math.max(minH, (xn - x0)/lastN);
         var lastH: Double = Double.MAX_VALUE;
-        for (var h: Double = (xn - x0)/firstN; h &amp;gt;= naiveValue; h /= nfactor) lastH = h;
+        for (var h: Double = (xn - x0)/firstN; h &gt;= naiveValue; h /= nfactor) lastH = h;
          return lastH;
      }
 
@@ -178,39 +178,39 @@ public class Simpson {
      * checks whether the input parameters make sense.
      */
      public def isLegal() {
-         return (firstN as Int) % 2 == 0 &amp;amp;&amp;amp; (lastN as Int) % 2 == 0 &amp;amp;&amp;amp; 
-         xn &amp;gt; x0 &amp;amp;&amp;amp; xn-x0 &amp;gt; minH;
+         return (firstN as Int) % 2 == 0 &amp;&amp; (lastN as Int) % 2 == 0 &amp;&amp; 
+         xn &gt; x0 &amp;&amp; xn-x0 &gt; minH;
      }
 
 
      /** returns a JSON literal for the entire instance */
      public def toString() {
-         return &amp;quot;{\r\n\tinput: &amp;quot;+inputToString()+&amp;quot;,\r\n\tresult: &amp;quot;+out.toString()+&amp;quot;\r\n}&amp;quot;;
+         return &quot;{\r\n\tinput: &quot;+inputToString()+&quot;,\r\n\tresult: &quot;+out.toString()+&quot;\r\n}&quot;;
      }
 
      /** returns the paramters as a JSON literal */
      public def inputToString() {
          return 
-         &amp;quot;{\r\n\t    minDelta: &amp;quot;+ minDelta+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;x0: &amp;quot;+x0+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;xn: &amp;quot;+xn+&amp;quot;,\r\n\t    &amp;quot; + 
-         &amp;quot;minH: &amp;quot;+minH+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;firstN: &amp;quot;+firstN+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;lastN: &amp;quot;+lastN+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;nfactor:&amp;quot;+nfactor+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;minN: &amp;quot;+minN+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;isRelative: &amp;quot;+isRelative+&amp;quot;,\r\n\t    &amp;quot; +
-         &amp;quot;beStrict: &amp;quot;+beStrict+&amp;quot;\r\n\t}&amp;quot;; 
+         &quot;{\r\n\t    minDelta: &quot;+ minDelta+&quot;,\r\n\t    &quot; +
+         &quot;x0: &quot;+x0+&quot;,\r\n\t    &quot; +
+         &quot;xn: &quot;+xn+&quot;,\r\n\t    &quot; + 
+         &quot;minH: &quot;+minH+&quot;,\r\n\t    &quot; +
+         &quot;firstN: &quot;+firstN+&quot;,\r\n\t    &quot; +
+         &quot;lastN: &quot;+lastN+&quot;,\r\n\t    &quot; +
+         &quot;nfactor:&quot;+nfactor+&quot;,\r\n\t    &quot; +
+         &quot;minN: &quot;+minN+&quot;,\r\n\t    &quot; +
+         &quot;isRelative: &quot;+isRelative+&quot;,\r\n\t    &quot; +
+         &quot;beStrict: &quot;+beStrict+&quot;\r\n\t}&quot;; 
      }
 
      /**
-     * This is an iterative reapplication of Simpson&amp;#39;s rule, with smaller and smaller
-     * subintervals being used until the answer we get is &amp;quot;good enough&amp;quot;, or until the
+     * This is an iterative reapplication of Simpson&#39;s rule, with smaller and smaller
+     * subintervals being used until the answer we get is &quot;good enough&quot;, or until the
      * subinterval lengths reach an agreed minimum.  The parameters specify both the
-     * number of subintervals to start with, &amp;quot;firstN&amp;quot;, and the maximum number, &amp;quot;lastN&amp;quot;.
+     * number of subintervals to start with, &quot;firstN&quot;, and the maximum number, &quot;lastN&quot;.
      * If firstN == lastN, exactly one iteration will be made.  Otherwise, if on the 
-     * current iteration we don&amp;#39;t get a good enough approximation, we multiply the
-     * number of subintervals by the factor &amp;quot;nfactor&amp;quot;, which is 2 by default and try
+     * current iteration we don&#39;t get a good enough approximation, we multiply the
+     * number of subintervals by the factor &quot;nfactor&quot;, which is 2 by default and try
      * again...
      */ 
 
@@ -218,8 +218,8 @@ public class Simpson {
      * PROGRAMMING NOTE
      * 
      * The outer loop here is the loop over the subinterval lengths, and the inner loop
-     * is the sum specified in Simpson&amp;#39;s rule.  There are two ways one might want to
-     * measure one&amp;#39;s progress: if oldA is the last answer we computed, and newA is the
+     * is the sum specified in Simpson&#39;s rule.  There are two ways one might want to
+     * measure one&#39;s progress: if oldA is the last answer we computed, and newA is the
      * one computed now, we can look for either an absolute change |newA - oldA|,
      * or we can bound the relative change|(newA - oldA)/newA|.  We assume that newA
      * is always a better approximation to the real answer than oldA, so it makes sense
@@ -234,7 +234,7 @@ public class Simpson {
      *    if we did more than 1 iteration, the size of last subinterval we used and the
      *    number of subintervals.
      */
-     public def serial(f: (d:Double)=&amp;gt;Double) {
+     public def serial(f: (d:Double)=&gt;Double) {
          val intervalLength = xn - x0;
          val boundaryTerms  = f(x0) - f(xn);
          val firstH         = intervalLength / firstN;
@@ -242,29 +242,29 @@ public class Simpson {
          val lastH          = Math.max(minH, intervalLength / lastN);
          out.answer = out.delta =  0.0;
          out.h =  getTargetH();
-         // Console.OUT.println(&amp;quot;&amp;quot;+here.id+&amp;quot;: &amp;quot;+this);
+         // Console.OUT.println(&quot;&quot;+here.id+&quot;: &quot;+this);
          for (var hToTry: Double = firstH; 
-              hToTry &amp;gt;= lastH; 
+              hToTry &gt;= lastH; 
               hToTry = intervalLength/nextN) {
               var odds:  Double = 0.0;
               var evens: Double = 0.0;
-              for(var xOdd: Double = x0 + hToTry; xOdd &amp;lt; xn; xOdd += 2.0*hToTry) {
+              for(var xOdd: Double = x0 + hToTry; xOdd &lt; xn; xOdd += 2.0*hToTry) {
                   odds += f(xOdd); evens += f(xOdd + hToTry);          
               }
               val bestGuess = ((boundaryTerms + 4.0*odds + 2.0*evens)*hToTry)/3.0;
               out.delta = out.answer - bestGuess;
-              if (out.delta &amp;lt; 0.0) out.delta = -out.delta;
+              if (out.delta &lt; 0.0) out.delta = -out.delta;
               out.answer = bestGuess;
               if (hToTry != firstH ) { // enough progress to try again?
               if(isRelative) {
                   if(out.answer != 0.0) {
-                      if(out.delta &amp;lt; minDelta*out.answer) break;
+                      if(out.delta &lt; minDelta*out.answer) break;
                   }
                   else if (beStrict) {
-                      throw new IllegalArgumentException(&amp;quot;Cannot use relative errors on a 0 solution.&amp;quot;);
+                      throw new IllegalArgumentException(&quot;Cannot use relative errors on a 0 solution.&quot;);
                   }
               }
-              else if (out.delta &amp;lt;= minDelta) break;
+              else if (out.delta &lt;= minDelta) break;
           }
           var nextNAsInt: Int = Math.floor(nextN*nfactor) as Int;
           if (nextNAsInt %2 == 1) nextNAsInt++;
@@ -293,53 +293,53 @@ public class Simpson {
   * making sure that for our minimal subinterval length, there are enough
   * subintervals for each place.
   */
-  public def parallel(val f: (d:Double)=&amp;gt;Double) {
+  public def parallel(val f: (d:Double)=&gt;Double) {
       out.answer  = out.delta =  0.0;
-      out.h = getTargetH(); // smallest &amp;quot;h&amp;quot; value to shoot for.
+      out.h = getTargetH(); // smallest &quot;h&quot; value to shoot for.
       var placeCount: Double = Place.MAX_PLACES as Double;
-      for(; placeCount &amp;gt; 1.0; placeCount -= 1.0) {
+      for(; placeCount &gt; 1.0; placeCount -= 1.0) {
           var intervalAtEachPlace: Double = (xn-x0) / placeCount;
           val targetSubintervalCount = Math.floor(intervalAtEachPlace/out.h);
-          if (targetSubintervalCount &amp;gt;= minN) break;  
+          if (targetSubintervalCount &gt;= minN) break;  
       }
       val placeCountValue = placeCount as Int;
-      Console.OUT.println(&amp;quot;There are &amp;quot;+ placeCountValue + &amp;quot; places.&amp;quot;);
+      Console.OUT.println(&quot;There are &quot;+ placeCountValue + &quot; places.&quot;);
       val dist = Dist.makeUnique() | (0..(placeCountValue-1));
       val localMinDelta: Double = minDelta/placeCount;
       val outcomes = new Array[Out](placeCountValue, new Out());
-      finish for (var k: Int = 0; k &amp;lt; placeCount; ++k) {
+      finish for (var k: Int = 0; k &lt; placeCount; ++k) {
           val kval = k;
           async outcomes(kval) = 
           at(Place.place(kval)) new Simpson(this, kval, placeCountValue, localMinDelta).serial(f).out; 
   }
-  // you could use outcomes.reduce((a: Out, b: Out)=&amp;gt;a.add(b), this.out) here
-  for(var k: Int = 0; k &amp;lt; placeCountValue; ++k) this.out.add(outcomes(k));
+  // you could use outcomes.reduce((a: Out, b: Out)=&gt;a.add(b), this.out) here
+  for(var k: Int = 0; k &lt; placeCountValue; ++k) this.out.add(outcomes(k));
   return this;
    }
 
    // given the coefficients num for the numerator and den for the denominator,
    // create the rational function that is their quotient. The return value
-   // is the function (x: Double) =&amp;gt; num(x)/den(x).
+   // is the function (x: Double) =&gt; num(x)/den(x).
    private static def makeFunction(num: Array[Double](1), den: Array[Double](1)) {
-       var f : (x: Double) =&amp;gt; Double;
+       var f : (x: Double) =&gt; Double;
        if (den.size == 1) {
            if (num.size == 1) {
                val answer = num(0)/den(0);
-               f = (x: Double): Double =&amp;gt; answer;
+               f = (x: Double): Double =&gt; answer;
            }
-           else if (den(0) != 1.0) f = (x: Double): Double =&amp;gt; poly(num,x)/den(0);
-           else f = (x : Double): Double =&amp;gt; poly(num,x);
+           else if (den(0) != 1.0) f = (x: Double): Double =&gt; poly(num,x)/den(0);
+           else f = (x : Double): Double =&gt; poly(num,x);
        }
        else if (num.size == 1 ) {
-           f = (x: Double): Double =&amp;gt; num(0)/poly(den,x);
+           f = (x: Double): Double =&gt; num(0)/poly(den,x);
        }
-       else f = (x: Double): Double =&amp;gt; poly(num,x)/poly(den,x);
+       else f = (x: Double): Double =&gt; poly(num,x)/poly(den,x);
        return f;   	
    }
 
    // evaluates the polynomial with coefficients p at x. p(j) is the coefficient
    // of the term with exponent p.size - j.  The reason is to make the input from
-   // the command line translate sensibly: 1.0 2.0 3.0 =&amp;gt; 1.0*x*x  + 2.0*x + 3.0
+   // the command line translate sensibly: 1.0 2.0 3.0 =&gt; 1.0*x*x  + 2.0*x + 3.0
    // The point is that polynomials are usually written with the higher degree terms
    // to the left.  
    private static def poly(p: Array[Double](1), x: Double) {
@@ -352,16 +352,16 @@ public class Simpson {
 
    // transforms an array of Double literal Strings to an array of Doubles
    private static def convertToDoubles(s: Array[String](1)) {
-       return new Array[Double](s.size, (n: Int)=&amp;gt;Double.parse(s(n)));
+       return new Array[Double](s.size, (n: Int)=&gt;Double.parse(s(n)));
    }
 
    /**
-   * Carries out Simpson&amp;#39;s rule for a polynomial or rational function. The command
+   * Carries out Simpson&#39;s rule for a polynomial or rational function. The command
    * line arguments specifying the function look like
-   *     -num cn ... c0  -den c&amp;#39;m ... c&amp;#39;0
-   * in which ck and c&amp;#39;k are the coefficients of x to the k-th in the numerator and 
+   *     -num cn ... c0  -den c&#39;m ... c&#39;0
+   * in which ck and c&#39;k are the coefficients of x to the k-th in the numerator and 
    * denominator, respectively.  Both are optional: by default both numerator and
-   * denominator are 1.0, so you need&amp;#39;nt supply a denominator if all you want is a
+   * denominator are 1.0, so you need&#39;nt supply a denominator if all you want is a
    * polynomial.
    * 
    * The remaining command line arguments are:
@@ -371,7 +371,7 @@ public class Simpson {
    *   firstn nnn     number of subintervals to use initially
    *   lastn  nnn     maximum number of subintervals to use
    *   nfactor xxx    we multiply n by this factor after each iteration
-   *   mindelta xxx   the absolute or relative error in the result that&amp;#39;s good enough
+   *   mindelta xxx   the absolute or relative error in the result that&#39;s good enough
    *   minN xxx       minimum number of subintervals for each Place
    *   relative bbb   a boolean: if true, mindelta is a relative error
    *   strict bbb     a boolean: if true, and if we are looking at relative errors,
@@ -391,24 +391,24 @@ public class Simpson {
    public static def main(args: Array[String](1)): void {
        try {
            val argsHash = new CmdLnArgs(args); // converts args to a hash
-           val numArg   = argsHash.get(&amp;quot;num&amp;quot;, &amp;quot;1.0&amp;quot;); // an array of strings
+           val numArg   = argsHash.get(&quot;num&quot;, &quot;1.0&quot;); // an array of strings
            val num      = convertToDoubles(numArg);   // the array of doubles we want
-           val denArg   = argsHash.get(&amp;quot;den&amp;quot;, &amp;quot;1.0&amp;quot;); // ditto
+           val denArg   = argsHash.get(&quot;den&quot;, &quot;1.0&quot;); // ditto
            val den      = convertToDoubles(denArg);
            val serialData = new Simpson(argsHash);
-           Console.OUT.println(&amp;quot;Numerator &amp;quot;+num+&amp;quot;\r\nDenominator &amp;quot;+den);
+           Console.OUT.println(&quot;Numerator &quot;+num+&quot;\r\nDenominator &quot;+den);
            if (!serialData.isLegal()) {
-               Console.OUT.println(&amp;quot;The parameters are not consistent.&amp;quot;);
+               Console.OUT.println(&quot;The parameters are not consistent.&quot;);
            }
            else {
                val f = makeFunction(num, den);
                val sOut = serialData.serial(f);
                val pOut = new Simpson(argsHash).parallel(f);
-               Console.OUT.println(&amp;quot;Results:\r\n  parallel\r\n    &amp;quot;+pOut+&amp;quot;,\r\n  serial\r\n    &amp;quot;+sOut);
+               Console.OUT.println(&quot;Results:\r\n  parallel\r\n    &quot;+pOut+&quot;,\r\n  serial\r\n    &quot;+sOut);
            }
        } catch(e: Exception) {
            Console.ERR.println(e);
        } 
    }
 }
-</pre><p>&amp;nbsp;</p>
+</pre><p>&nbsp;</p>

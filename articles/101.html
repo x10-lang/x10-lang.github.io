@@ -34,12 +34,12 @@ import utils.QSort;
  * sparse graphs, by which we mean graphs whose mean number of edges per
  * vertex is small compared to the number of vertices.  Were the graph not
  * sparse--that is, were it dense--we would use an entirely different
- * representation, namely the graph&amp;#39;s full adjacency matrix.
+ * representation, namely the graph&#39;s full adjacency matrix.
  * 
  * The goal is computing maximal spanning trees for UNDIRECTED graphs.
  * The problem is not a lot harder for directed graphs, but involves enough
  * more code that it will distract from the points we want to make here:
- * the use of interfaces to achieve generic methods, and the use of &amp;quot;finish&amp;quot;
+ * the use of interfaces to achieve generic methods, and the use of &quot;finish&quot;
  * at a point long distant from the code that spawns the various threads.
  */
 public class Graph1(vertices: Int, edges: Int) {
@@ -49,19 +49,19 @@ public class Graph1(vertices: Int, edges: Int) {
 	// about is getting all vertices adjacent to a given vertex: the order we
 	// get them in is irrelevant.
 	private static struct Edge implements Ordered[Edge] {
-		public v: Vertex;  // this is the vertex we&amp;#39;ll sort on
+		public v: Vertex;  // this is the vertex we&#39;ll sort on
 	   public w: Vertex;
 	   public def this(a: Vertex, b: Vertex) {
 	   	v = a;
 	   	w = b;
 	   }
 	   // the ordered interface
-	   public operator this &amp;lt;  (that: Edge): Boolean = v&amp;lt;that.v || (v==that.v &amp;amp;&amp;amp; w&amp;lt;that.w);
-	   public operator this &amp;gt;  (that: Edge): Boolean = v&amp;gt;that.v || (v==that.v &amp;amp;&amp;amp; w&amp;gt;that.w);
-	   public operator this &amp;lt;= (that: Edge): Boolean = v&amp;lt;=that.v || (v==that.v &amp;amp;&amp;amp; w&amp;lt;=that.w);
-	   public operator this &amp;gt;= (that: Edge): Boolean = v&amp;gt;=that.v || (v==that.v &amp;amp;&amp;amp; w&amp;gt;=that.w);
+	   public operator this &lt;  (that: Edge): Boolean = v&lt;that.v || (v==that.v &amp;&amp; w&lt;that.w);
+	   public operator this &gt;  (that: Edge): Boolean = v&gt;that.v || (v==that.v &amp;&amp; w&gt;that.w);
+	   public operator this &lt;= (that: Edge): Boolean = v&lt;=that.v || (v==that.v &amp;&amp; w&lt;=that.w);
+	   public operator this &gt;= (that: Edge): Boolean = v&gt;=that.v || (v==that.v &amp;&amp; w&gt;=that.w);
 	   public operator - this: Edge = Edge(w, v);
-	   public def toString() = &amp;quot;&amp;quot;+v+&amp;quot;--&amp;gt;&amp;quot;+w;
+	   public def toString() = &quot;&quot;+v+&quot;--&gt;&quot;+w;
 	}
 	/**
 	 * as the name implies: one entry for each edge in the graph.
@@ -69,7 +69,7 @@ public class Graph1(vertices: Int, edges: Int) {
 	 * only need to keep one vertex, because once the edges are sorted, we
 	 * have an index into the edge set that tells us where the edges out of
 	 * each vertex are.  For really large edge sets, the storage savings
-	 * are worth the extra trouble.  If you&amp;#39;re interested, look at Graph3.x10
+	 * are worth the extra trouble.  If you&#39;re interested, look at Graph3.x10
 	 * for one such implementation.
 	 */
 	public val  edgeSet:  Array[Edge](1); 
@@ -82,8 +82,8 @@ public class Graph1(vertices: Int, edges: Int) {
 	 */
 	public val  first:    Array[Int](1); 
 	// For the spanning tree calculation:
-	private var treeEdge: Array[Edge](1);  // we accumulate the tree&amp;#39;s edges here
-	private var visited:  Array[AtomicBoolean](1); // tracks vertices we&amp;#39;ve processed
+	private var treeEdge: Array[Edge](1);  // we accumulate the tree&#39;s edges here
+	private var visited:  Array[AtomicBoolean](1); // tracks vertices we&#39;ve processed
 	private var nextInTree: AtomicInteger; // where to save the next tree edge
    private static val NOT_AN_EDGE = Edge(-1,-1); // default initial value
 
@@ -97,7 +97,7 @@ public class Graph1(vertices: Int, edges: Int) {
 	}
 
    /**
-    * Sorts the first &amp;quot;edges&amp;quot; entries in the edge set and indexes them
+    * Sorts the first &quot;edges&quot; entries in the edge set and indexes them
 	 * for use in the traversal.
     * @param vertices the vertices are labelled 0 through vertices-1
     * @param edges the number of edges: may be less than edgeSet.size
@@ -106,7 +106,7 @@ public class Graph1(vertices: Int, edges: Int) {
     * PROGRAMMING NOTE: Initializing the index is a two-pass algorithm.  The first
     * pass counts the edges out of each vertex v and sets the index, first(v),
     * equal to the the first entry in edgeSet for its edges.  The second pass is
-    * BACKWARD over &amp;quot;first&amp;quot; itself.  It sets first(v) for any v with no edges
+    * BACKWARD over &quot;first&quot; itself.  It sets first(v) for any v with no edges
     * leading out of it to first(v+1).  On exit, we that for every vertex v,
     * the number of edges leading out of it is f(v+1)-f(v), and the first such
     * edge is at index first(v).
@@ -118,14 +118,14 @@ public class Graph1(vertices: Int, edges: Int) {
       qsort.quicksort(edgeSet, firstEdge, lastEdge);
  		property(vertices,  edges);
 		this.edgeSet = edgeSet;
-		first  = new Array[Int](vertices+1, (k: Int)=&amp;gt;-1);
-		if (edges &amp;gt; 0) {
+		first  = new Array[Int](vertices+1, (k: Int)=&gt;-1);
+		if (edges &gt; 0) {
 			var e: Edge = edgeSet(firstEdge);
 			var v: Int = e.v;  // edges are sorted, so v is the min
-			first(v) = 0;      // and it is also v&amp;#39;s first edge
-			for(var k: Int = firstEdge+1; k &amp;lt;=lastEdge; k++) {
+			first(v) = 0;      // and it is also v&#39;s first edge
+			for(var k: Int = firstEdge+1; k &lt;=lastEdge; k++) {
 				e = edgeSet(k);
-				if (e.v &amp;gt; v) { // if so, we&amp;#39;re starting a new vertex
+				if (e.v &gt; v) { // if so, we&#39;re starting a new vertex
 					v = e.v;
 					first(v) = k;
 			   }
@@ -133,7 +133,7 @@ public class Graph1(vertices: Int, edges: Int) {
 		}
 		// now fill in the entries in first for vertices with NO edges:
 		var lastFirst: Int = first(vertices) = edges;
-		for(var v:Int = vertices-1; v&amp;gt;=0; --v) {
+		for(var v:Int = vertices-1; v&gt;=0; --v) {
 			if (first(v) == -1) first(v) = lastFirst;
 			else lastFirst = first(v);
 		}
@@ -145,8 +145,8 @@ public class Graph1(vertices: Int, edges: Int) {
 	 * @return the Graph1 representing the tree.
 	 */
    public def visitAllFrom(vertex: Vertex) {
-   	treeEdge = new Array[Edge](2*vertices, (k: Int) =&amp;gt; NOT_AN_EDGE);
-   	visited = new Array[AtomicBoolean](vertices, (k: Int) =&amp;gt; new AtomicBoolean(false));
+   	treeEdge = new Array[Edge](2*vertices, (k: Int) =&gt; NOT_AN_EDGE);
+   	visited = new Array[AtomicBoolean](vertices, (k: Int) =&gt; new AtomicBoolean(false));
    	nextInTree = new AtomicInteger(0);
    	visited(vertex).set(true);
       finish visit(vertex);
@@ -157,7 +157,7 @@ public class Graph1(vertices: Int, edges: Int) {
       return span;
    }
    /**
-    * Recursive breadth-first search marks v&amp;#39;s children as visited and saves the
+    * Recursive breadth-first search marks v&#39;s children as visited and saves the
     * edges from v to any child that has not already been visited.
     * @param v the vertex from which to start
     *
@@ -169,15 +169,15 @@ public class Graph1(vertices: Int, edges: Int) {
     * threads.
     * 
     * From an X10 learning point of view, the critical point here is that the 
-    * &amp;quot;finish&amp;quot; that synchronizes an async may be nowhere in view, and it may
+    * &quot;finish&quot; that synchronizes an async may be nowhere in view, and it may
     * be coordinating asyncs spawned by asyncs to an arbitrary depth within the
     * statement it guards. 
     */
    private def visit(var v: Vertex) {
-   	while(v &amp;gt;= 0) {
+   	while(v &gt;= 0) {
       	val lastV: Int = first(v+1)-1;
-	   	var pending: Vertex = -1;              // this thread&amp;#39;s next vertex to try
-	   	for (var nextV: Int = first(v); nextV &amp;lt;= lastV; nextV++) {
+	   	var pending: Vertex = -1;              // this thread&#39;s next vertex to try
+	   	for (var nextV: Int = first(v); nextV &lt;= lastV; nextV++) {
 	   		val w = edgeSet(nextV).w;
 	         val wHasBeenVisited = visited(w).getAndSet(true);
 	         if (!wHasBeenVisited)  {
@@ -194,11 +194,11 @@ public class Graph1(vertices: Int, edges: Int) {
 	// everything below is just here so we can exercise the code above
 	/**
 	 * writes out the graph as a directed graph in the following format:
-	 *    The first line is &amp;quot;n m&amp;quot; where n is the number of vertices and m
+	 *    The first line is &quot;n m&quot; where n is the number of vertices and m
 	 *        is the number of edges
 	 *    The remaining lines are either whitespace (the last line) or
-	 *       &amp;quot;v [ w1 w2 ... wk ]&amp;quot; in which v is a vertex number and each
-	 *       w is the other end of one of v&amp;#39;s edges.
+	 *       &quot;v [ w1 w2 ... wk ]&quot; in which v is a vertex number and each
+	 *       w is the other end of one of v&#39;s edges.
 	 * @return a pretty-printed string representation of the directed graph
 	 */
 	public def toString(): String {
@@ -208,41 +208,41 @@ public class Graph1(vertices: Int, edges: Int) {
 	/**
 	 * writes out the graph either as a directed or undirected graph.
 	 * The format is described in the comments to toString().  
-	 * @param directed: if false, only include those edges v--&amp;gt;w that
-	 *    satisfy v &amp;lt;= w.
+	 * @param directed: if false, only include those edges v--&gt;w that
+	 *    satisfy v &lt;= w.
 	 * @return a pretty-printed string representation of the graph
 	 */
 	public def toString(directed: Boolean): String {
 		val buffer = new StringBuilder();
 		val actualEdges = directed ? edges : edges/2;
-		buffer.add(&amp;quot;&amp;quot;+vertices+&amp;quot; &amp;quot;+actualEdges+&amp;quot;\r\n&amp;quot;);
-		for(var v: Vertex = 0; v&amp;lt;vertices; v++) {
+		buffer.add(&quot;&quot;+vertices+&quot; &quot;+actualEdges+&quot;\r\n&quot;);
+		for(var v: Vertex = 0; v&lt;vertices; v++) {
 			val firstV = first(v);
 			val lastV  = first(v+1) - 1;
-			buffer.add(v); buffer.add(&amp;quot; [&amp;quot;);
-			if (firstV &amp;lt;= lastV) {
+			buffer.add(v); buffer.add(&quot; [&quot;);
+			if (firstV &lt;= lastV) {
 				if (directed) {
-					for(var nextV: Int = firstV; nextV &amp;lt;= lastV; nextV++) {
-	               buffer.add(&amp;quot; &amp;quot;+edgeSet(nextV).w); 
+					for(var nextV: Int = firstV; nextV &lt;= lastV; nextV++) {
+	               buffer.add(&quot; &quot;+edgeSet(nextV).w); 
 		         }
 				}
 				else {
-					for(var nextV: Int = firstV; nextV &amp;lt;= lastV; nextV++) {
+					for(var nextV: Int = firstV; nextV &lt;= lastV; nextV++) {
 						val w = edgeSet(nextV).w;
-	               if(v &amp;lt;= w) buffer.add(&amp;quot; &amp;quot;+w); 
+	               if(v &lt;= w) buffer.add(&quot; &quot;+w); 
 		         }
 				}
 			}
-			buffer.add(&amp;quot; ]\r\n&amp;quot;);
+			buffer.add(&quot; ]\r\n&quot;);
 		}
 		return buffer.result();
 	}
 	
 	/**
 	 * Uses a random number generator to create a directed graph that represents
-	 * an undirected graph--that is, for every edge v--&amp;gt;w there is also an edge
-	 * w--&amp;gt;v.
-	 * @param vertices the number of vertices--we&amp;#39;ll label them from 0 up...
+	 * an undirected graph--that is, for every edge v--&gt;w there is also an edge
+	 * w--&gt;v.
+	 * @param vertices the number of vertices--we&#39;ll label them from 0 up...
 	 * @param edges the number of (undirected) edges.  
 	 * @param seed for the random number generator
 	 * @param allowCycles if true, do NOT allow any edges from a vertex to itself
@@ -253,7 +253,7 @@ public class Graph1(vertices: Int, edges: Int) {
 		val edgeSet = new Array[Edge](2*edges, NOT_AN_EDGE);
 		val size = 2*edges;
 		val rnBound = 100*vertices;
-		for(var k: Int = 0; k&amp;lt;size; k+=2) {
+		for(var k: Int = 0; k&lt;size; k+=2) {
 			val start = r.nextInt(rnBound) % vertices;
 			var end: Int = r.nextInt(rnBound) % vertices;
 			if(!allowCycles) while(end == start) {
@@ -275,18 +275,18 @@ public class Graph1(vertices: Int, edges: Int) {
       val inputFile  = path;
       val I  = new File(inputFile);
       val lines = I.lines();
-      val firstLine = lines.next().trim().split(&amp;quot; &amp;quot;);
+      val firstLine = lines.next().trim().split(&quot; &quot;);
       val vertices = Int.parseInt(firstLine(0));
       val edges = Int.parseInt(firstLine(1));
 		val edgeSet = new Array[Edge](edges);
 		var k: Int = 0;
       while(lines.hasNext()) {
-         val whole = lines.next().trim().split(&amp;quot;[&amp;quot;);
-         if (whole.length &amp;lt; 2) continue;
+         val whole = lines.next().trim().split(&quot;[&quot;);
+         if (whole.length &lt; 2) continue;
          val v = Int.parseInt(whole(0).trim());
-         val ender = whole(1).indexOf(&amp;#39;]&amp;#39;);
-         val wSet = whole(1).substring(0, ender).trim().split(&amp;quot; &amp;quot;);
-         for(var n: Int=0; n&amp;lt;wSet.length; n++) {
+         val ender = whole(1).indexOf(&#39;]&#39;);
+         val wSet = whole(1).substring(0, ender).trim().split(&quot; &quot;);
+         for(var n: Int=0; n&lt;wSet.length; n++) {
          	val w = Int.parseInt(wSet(n));
    			edgeSet(k++) = Edge(v, w);
           }
@@ -307,35 +307,35 @@ public class Graph1(vertices: Int, edges: Int) {
 	 *     -in bbb   if bbb is true, write the input graph to the console
 	 *     -out bbb  if bbb is true, write the output graph to the console
 	 *     -both bbb if bbb is true, write both the graphs to the console
-	 * nnn is an integer, and bbb is a boolean: any of the strings &amp;quot;yes&amp;quot;, &amp;quot;no&amp;quot;,
-	 * &amp;quot;1&amp;quot;, &amp;quot;0&amp;quot;, &amp;quot;true&amp;quot;, or &amp;quot;false&amp;quot;.  The default is to show only the output,
+	 * nnn is an integer, and bbb is a boolean: any of the strings &quot;yes&quot;, &quot;no&quot;,
+	 * &quot;1&quot;, &quot;0&quot;, &quot;true&quot;, or &quot;false&quot;.  The default is to show only the output,
 	 */
    public static def main(args: Array[String](1)): Void {
       try {
       	val g: Graph1;
          val argsHash = new CmdLnArgs(args);
-         if (argsHash.isKey(&amp;quot;f&amp;quot;)) {
-         	val path = argsHash.getFirstValue(&amp;quot;f&amp;quot;);
+         if (argsHash.isKey(&quot;f&quot;)) {
+         	val path = argsHash.getFirstValue(&quot;f&quot;);
          	g = makeFromFile(path);
          }
          else {
-         	val vertices = argsHash.getInt(&amp;quot;v&amp;quot;, 10);
-         	val edges = argsHash.getInt(&amp;quot;e&amp;quot;, 15); // will double with back edges
-         	val seed =  argsHash.getInt(&amp;quot;s&amp;quot;, 127);
-         	val allowCycles = argsHash.getBoolean(&amp;quot;c&amp;quot;, false);
+         	val vertices = argsHash.getInt(&quot;v&quot;, 10);
+         	val edges = argsHash.getInt(&quot;e&quot;, 15); // will double with back edges
+         	val seed =  argsHash.getInt(&quot;s&quot;, 127);
+         	val allowCycles = argsHash.getBoolean(&quot;c&quot;, false);
          	g = makeFromRandom(vertices, edges, seed, allowCycles);
          }
-         val start    = argsHash.getInt(&amp;quot;v0&amp;quot;, 0);
+         val start    = argsHash.getInt(&quot;v0&quot;, 0);
          val tree     = g.visitAllFrom(start);
-         val showBoth = argsHash.getBoolean(&amp;quot;both&amp;quot;, false);
-         val showIn   = argsHash.getBoolean(&amp;quot;in&amp;quot;, false) || showBoth;
-         val showOut  = argsHash.getBoolean(&amp;quot;out&amp;quot;, true) || showBoth;
+         val showBoth = argsHash.getBoolean(&quot;both&quot;, false);
+         val showIn   = argsHash.getBoolean(&quot;in&quot;, false) || showBoth;
+         val showOut  = argsHash.getBoolean(&quot;out&quot;, true) || showBoth;
          if (showIn)   Console.OUT.println(g);
-         if (showBoth) Console.OUT.println(&amp;quot;\r\n===============\r\n&amp;quot;);
+         if (showBoth) Console.OUT.println(&quot;\r\n===============\r\n&quot;);
          if (showOut)  Console.OUT.println(tree);
       }
       catch(e: Exception) {
          e.printStackTrace(Console.ERR);
       }
    }
-}</pre><p>&amp;nbsp;</p>
+}</pre><p>&nbsp;</p>

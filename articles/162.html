@@ -73,7 +73,7 @@ redirect_from: /documentation/practical-x10-programming/performance-tuning.html
 </tbody>
 </table>
 </div>
-<p>Depending on the kind of code you are running, -NO_CHECKS may or may not have significant performance impact. For array based code where the arrays have rank&amp;gt;1, -NO_CHECKS is currently critical for maximizing performance as the multi-dimensional&nbsp; array bounds checking code has not been designed for high performance.</p>
+<p>Depending on the kind of code you are running, -NO_CHECKS may or may not have significant performance impact. For array based code where the arrays have rank&gt;1, -NO_CHECKS is currently critical for maximizing performance as the multi-dimensional&nbsp; array bounds checking code has not been designed for high performance.</p>
 <p>You will also want to make sure that the X10 class libraries are compiled with the proper options as well. If you are using a pre-built binary release of X10, the standard library was compiled with -O, but not with -NO_CHECKS. For absolutely peak performance, you would need to rebuild the class libraries with -NO_CHECKS, however since the largest impact of -NO_CHECKS is for arrays and the basic array functions will be inlined into the application code with -O you may be able to simply compile the application code with -O -NO_CHECKS with minimal performance loss vs. recompiling the standard libraries as well.</p>
 <p>Here is how to build the X10 standard libraries from source for absolute peak performance.</p>
 <div class="code panel" style="border-width: 1px;">
@@ -86,7 +86,7 @@ ant distclean; ant dist -Doptimize=<span class="code-keyword">true</span> -DNO_C
 <p>And invoke x10c++ to compile your application like:</p>
 <div class="code panel" style="border-width: 1px;">
 <div class="codeContent panelContent">
-<pre class="code-java">x10c++ -O -NO_CHECKS &amp;lt;....<span class="code-keyword">rest</span> of command line...&amp;gt;</pre>
+<pre class="code-java">x10c++ -O -NO_CHECKS &lt;....<span class="code-keyword">rest</span> of command line...&gt;</pre>
 </div>
 </div>
 </div>
@@ -118,7 +118,7 @@ ant distclean; ant dist -Doptimize=<span class="code-keyword">true</span> -DNO_C
 </ul>
 </li>
 </ul>
-<p style="margin-left: 120px;">Place: 0&nbsp;&nbsp; msg_rx: 32/4&nbsp;&nbsp; msg_tx: 32/5<br />Place: 0&nbsp;&nbsp; put_rx: 0(&amp;amp;0)/0&nbsp;&nbsp; put_tx: 0(&amp;amp;0)/0<br />Place: 0&nbsp;&nbsp; get_rx: 0(&amp;amp;0)/0&nbsp;&nbsp; get_tx: 0(&amp;amp;0)/0<br />Place: 1&nbsp;&nbsp; msg_rx: 40/6&nbsp;&nbsp; msg_tx: 40/5<br />Place: 1&nbsp;&nbsp; put_rx: 0(&amp;amp;0)/0&nbsp;&nbsp; put_tx: 0(&amp;amp;0)/0<br />Place: 1&nbsp;&nbsp; get_rx: 0(&amp;amp;0)/0&nbsp;&nbsp; get_tx: 0(&amp;amp;0)/0</p>
+<p style="margin-left: 120px;">Place: 0&nbsp;&nbsp; msg_rx: 32/4&nbsp;&nbsp; msg_tx: 32/5<br />Place: 0&nbsp;&nbsp; put_rx: 0(&amp;0)/0&nbsp;&nbsp; put_tx: 0(&amp;0)/0<br />Place: 0&nbsp;&nbsp; get_rx: 0(&amp;0)/0&nbsp;&nbsp; get_tx: 0(&amp;0)/0<br />Place: 1&nbsp;&nbsp; msg_rx: 40/6&nbsp;&nbsp; msg_tx: 40/5<br />Place: 1&nbsp;&nbsp; put_rx: 0(&amp;0)/0&nbsp;&nbsp; put_tx: 0(&amp;0)/0<br />Place: 1&nbsp;&nbsp; get_rx: 0(&amp;0)/0&nbsp;&nbsp; get_tx: 0(&amp;0)/0</p>
 <p style="margin-left: 80px;">The first line indicates that Place 0 received 4 messages totaling 32 bytes and sent 5 messages totaling 32 bytes.&nbsp; Place 1 received 6 messages totaling 40 bytes and sent 5 messages totaling 40 bytes.&nbsp; The numbers don't exactly match because some additional messages are sent to coordinate the printing of the message counts.</p>
 <ul style="margin-left: 40px;">
 <li>Run your program on the same input at 2, 4, and 8 places.&nbsp; Plot the bytes/messages/bytes sent as a function of the number of places.&nbsp; Also plot <span>messages/bytes</span> sent divided by the number of places as a function of the number of places.&nbsp; A clear danger sign is if serialization costs are increasing faster than the number of places.&nbsp; It may be ok for the serialization to grow linearly with the number of places, but it is usually not desirable.&nbsp; Programs that are likely to scale well will almost always will show decreasing bytes/place when run on a constant input with an increasing number of places.</li>
@@ -159,7 +159,7 @@ ant distclean; ant dist -Doptimize=<span class="code-keyword">true</span> -DNO_C
 </ul>
 <p>There is an experimental Cilk-style workstealing scheduler available in recent X10 releases (use x10c++ -WORK_STEALING=true to compile your program), however it is still in development and may have implementation limitations that prevent it from working on some input programs.</p>
 <div class="section_4">
-<h6><a name="PerformanceTuninganX10Application-Capturingof&amp;quot;this&amp;quot;andotherexcessiveserializationofglobalfields"></a>Capturing of "this" and other excessive serialization of objects</h6>
+<h6><a name="PerformanceTuninganX10Application-Capturingof&quot;this&quot;andotherexcessiveserializationofglobalfields"></a>Capturing of "this" and other excessive serialization of objects</h6>
 <p><span>X10</span> makes it easy to capture object large object graphs within an at body and serialize them to another place. Be aware that within an instance method it is easy to capture <tt>this</tt> in an at or closure without realizing it (it will be captured by accessing a field or calling an instance method). Part of tuning an application may entail manually rewriting code to grab just the parts of an object that the at actually needs, storing them into local variables, and then using the local variables in the at body.&nbsp; In some cases, you may also want to make some instance fields of a class transient to avoid them being serialized when their containing object is serialized.</p>
 <h6><a name="PerformanceTuninganX10Application-serialization of large object graphs"></a>Serialization of very large object graphs</h6>
 <p>When an object graph is captured by an <span style="font-family: courier new,courier,monospace;">at</span>, X10 serialization semantics require that a new isomorphic object graph be created at the destination place.&nbsp; This requires that the serialization code do enough bookkeeping of class instances to detect repeated references to the same object and faithfully recreate the shared structure at the destination.&nbsp; Internally, this is implemented by tracking objects that are being serialized in a hash table.&nbsp; For very large object graphs (tens or hundreds of thousands of objects) this can become a significant overhead.</p>
@@ -168,7 +168,7 @@ ant distclean; ant dist -Doptimize=<span class="code-keyword">true</span> -DNO_C
 </div>
 <div class="section_4">
 <h6><a name="PerformanceTuninganX10Application-Avoidspecifyingexplicittypesforlocal{{val}}variables"></a>Avoid specifying explicit types for local <tt>val</tt> variables</h6>
-<p>Type inference of local <tt>val</tt> declarations based on the initialization expression will often infer a more precise type than a human is willing to declare. Sometimes the precise type is critical to enable optimization. Therefore in X10, one should either avoid declaring types on local variables entirely or use the <tt>val x&amp;lt;:T = ...</tt> form where the static type is taken as an upper bound, not a lower bound.</p>
+<p>Type inference of local <tt>val</tt> declarations based on the initialization expression will often infer a more precise type than a human is willing to declare. Sometimes the precise type is critical to enable optimization. Therefore in X10, one should either avoid declaring types on local variables entirely or use the <tt>val x&lt;:T = ...</tt> form where the static type is taken as an upper bound, not a lower bound.</p>
 </div>
 <div class="section_4">
 <h6><a name="PerformanceTuninganX10Application-Forloopoptimizationisoverlysensitivetotrivialdetailsofhowtheloopiswritten"></a>For loop optimization over x10.regionarray.Region is overly sensitive to trivial details of how the loop is written</h6>

@@ -21,11 +21,11 @@ redirect_from:
 <ol>
 <li>Change&nbsp; all imports of x10.array to x10.regionarray</li>
 <li>Add import x10.regionarray.* in any file that uses Array/DistArray/Region/etc.</li>
-<li>Update Array/DistArray constructors that use initialization closures from (int)=&amp;gt;T to (long)=&amp;gt;T</li>
+<li>Update Array/DistArray constructors that use initialization closures from (int)=&gt;T to (long)=&gt;T</li>
 <li>In X10 2.4, there is no longer a conversion from IntRange to x10.regionarray.Region.&nbsp; The * operator on IntRange was also removed.&nbsp; Region creation code like 1..10 * 1..10 needs to be re-written to Region.make(1..10, 1..10)</li>
 <li>Arrays, Regions, and Points are now long-based, so related variables/fields may need to be changed from Int to Long.</li>
 <li>If your code was using the "Rail[T]" typedef for a rank 1, zero-based, densely-indexed Array[T],&nbsp; usually the simplest change is to convert directly to using the new x10.lang.Rail[T] class.&nbsp; If attempting to use x10.lang.Rail[T] causes significant rippling changes, you may instead defer the non-local changes by initially replacing Rail[T] with Array[T]{rail}, then converting&nbsp; to x10.lang.Rail[T] in a second stage of porting.&nbsp; </li>
-<li>If you had any Array literals, use the Array constructor that takes a (long)=&amp;gt;T initialization closure passing in the literal. For example [1.0, 2.0] becomes new Array[Double]([1.0,2.0]).&nbsp; In Stage 2, you may change this to a Rail literal (back to [1.0, 2.0]).</li>
+<li>If you had any Array literals, use the Array constructor that takes a (long)=&gt;T initialization closure passing in the literal. For example [1.0, 2.0] becomes new Array[Double]([1.0,2.0]).&nbsp; In Stage 2, you may change this to a Rail literal (back to [1.0, 2.0]).</li>
 </ol>
 <li>Fix compilation errors related to the change in type of unqualified integral literals now being Longs instead of Ints.&nbsp; Usually the simplest fix is to add a "n" suffix to the literal to indicate that it is a 32 bit integer.&nbsp; In some cases a better fix is to change the type of the expression/variable to Long instead.</li>
 <li>Fix any remaining compilation errors (for example due to other places in the standard library APIs where Ints were changed to Longs) and verify that the program is functionally correct.</li>
@@ -42,7 +42,7 @@ redirect_from:
 <ol>
 <li>
 <p>&nbsp;A haszero&nbsp; constraint was added to the generic type of x10.lang.PlaceLocalHandle to enable PlaceLocalHandles to be cleared (set to null).&nbsp; If your code created a PlaceLocalHandle with a non-null constraint (for example PlaceLocalHandle[Array[Long]{self!=null}])&nbsp; in X10 2.4 you will get a somewhat opaque error message from the compiler.&nbsp; For example, for the code</p>
-<p>&nbsp;&nbsp;&nbsp; val t = PlaceLocalHandle.make[Rail[long]{self!=null}](PlaceGroup.WORLD, ()=&amp;gt;[2,4]);</p>
+<p>&nbsp;&nbsp;&nbsp; val t = PlaceLocalHandle.make[Rail[long]{self!=null}](PlaceGroup.WORLD, ()=&gt;[2,4]);</p>
 <p>The compiler will report an error</p>
 </li>
 </ol>

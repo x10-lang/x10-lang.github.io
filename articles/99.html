@@ -25,7 +25,7 @@ public class IntRange {
    private var high: Int; 
 
    /**
-    * constructs the range low &amp;lt;= x &amp;lt;= high
+    * constructs the range low &lt;= x &lt;= high
     * @param low the smallest integer in the range
     * @param high the largest integer in the range
     */
@@ -36,9 +36,9 @@ public class IntRange {
    /**
     * check whether the argument lies in the range
     * @param n any integer
-    * @return true &amp;lt;==&amp;gt; low &amp;lt;= n &amp;lt;= high
+    * @return true &lt;==&gt; low &lt;= n &lt;= high
     */
-   public def includes(n:Int) = low &amp;lt;= n &amp;amp;&amp;amp; n &amp;lt;= high; 
+   public def includes(n:Int) = low &lt;= n &amp;&amp; n &lt;= high; 
 
    /**
     * returns a function that checks whether an integer is between 0 and 9
@@ -47,7 +47,7 @@ public class IntRange {
     */
    public static def isDigitFcn() { 
       val digit = new IntRange(0,9); 
-      return (n: Int) =&amp;gt; digit.includes(n); 
+      return (n: Int) =&gt; digit.includes(n); 
    } 
 
    /**
@@ -56,7 +56,7 @@ public class IntRange {
     * @return the function described in the method comment.
     */
    public def inMeTester() { 
-      return (n: Int) =&amp;gt; low &amp;lt;= n &amp;amp;&amp;amp; n &amp;lt;= high; 
+      return (n: Int) =&gt; low &lt;= n &amp;&amp; n &lt;= high; 
    } 
 
    /**
@@ -65,8 +65,8 @@ public class IntRange {
     */
    public static def main(args: Array[String](1)): Void {
       val isDigit = isDigitFcn();
-      Console.OUT.println(&amp;quot;Is 5 a digit? &amp;quot;+isDigit(5)+&amp;quot;.  How about 15? &amp;quot;+isDigit(15)+&amp;quot;.&amp;quot;);
+      Console.OUT.println(&quot;Is 5 a digit? &quot;+isDigit(5)+&quot;.  How about 15? &quot;+isDigit(15)+&quot;.&quot;);
       val tester = new IntRange(4, 40).inMeTester();
-      Console.OUT.println(&amp;quot;Is 4 in me? &amp;quot;+tester(4)+&amp;quot;.  How about 55? &amp;quot;+tester(55)+&amp;quot;.&amp;quot;);
+      Console.OUT.println(&quot;Is 4 in me? &quot;+tester(4)+&quot;.  How about 55? &quot;+tester(55)+&quot;.&quot;);
    }
-}</pre><p>&amp;nbsp;</p>
+}</pre><p>&nbsp;</p>

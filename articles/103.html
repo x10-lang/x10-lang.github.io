@@ -29,7 +29,7 @@ public class MontePiCluster {
      * generates n random points and return the total number
      * (combining all of the threads results) that fell inside
      * the circle.
-     * @param pId: this process&amp;#39;s id: used to create the seed for the
+     * @param pId: this process&#39;s id: used to create the seed for the
      *    random number generator.
      * @param threads: how many threads to use at this Place
      * @param n: how many points for each thread to generate
@@ -38,11 +38,11 @@ public class MontePiCluster {
      */
     public static def countAtP(pId: Int, threads: Int, n: Long) {
         var count: Long = 0;
-        finish for (var j: Int = 1; j&amp;lt;= threads; j++)  {
+        finish for (var j: Int = 1; j&lt;= threads; j++)  {
             val jj = j;
             async {
                 val r = new Random(jj*Place.MAX_PLACES + pId);
-                val rand = () =&amp;gt; r.nextDouble();
+                val rand = () =&gt; r.nextDouble();
                 val jCount = countPoints(n, rand);
                 atomic count += jCount;
             }
@@ -57,12 +57,12 @@ public class MontePiCluster {
      * @param rand the function generating the random numbers
      * @return the number of points that landed in the circle
      */
-    public static def countPoints(n:Long, rand:()=&amp;gt;Double) {
+    public static def countPoints(n:Long, rand:()=&gt;Double) {
         var inCircle: Long = 0;
-        for (var j: Long=1; j&amp;lt;=n; j++) {
+        for (var j: Long=1; j&lt;=n; j++) {
             val x = rand();
             val y = rand();
-            if (x*x +y*y &amp;lt;= 1.0) inCircle++;
+            if (x*x +y*y &lt;= 1.0) inCircle++;
         }
         return inCircle;
     }
@@ -74,22 +74,22 @@ public class MontePiCluster {
     * threads to use at each Place.
     */
     public static def main(args: Array[String](1)) {
-        val N = args.size() &amp;gt; 0 ? Long.parse(args(0)) : 1000000L;
-        val places = args.size() &amp;gt; 1 ? Int.parse(args(1)) : Place.MAX_PLACES;
-        val tPerP = args.size() &amp;gt; 2 ? Int.parse(args(2)) : 4;
+        val N = args.size() &gt; 0 ? Long.parse(args(0)) : 1000000L;
+        val places = args.size() &gt; 1 ? Int.parse(args(1)) : Place.MAX_PLACES;
+        val tPerP = args.size() &gt; 2 ? Int.parse(args(2)) : 4;
         val nPerT = N/(places * tPerP);
         val inCircle = new Array[Long](1..places);
-        finish for(var k: Int = 1; k&amp;lt;=places; k++) {
+        finish for(var k: Int = 1; k&lt;=places; k++) {
             val kk = k;
             val pk = Place.place(k-1);
             async inCircle(kk) = at(pk) countAtP(kk, tPerP, nPerT);
         }
         var totalInCircle: Long = 0;
-        for(var k: Int =1; k&amp;lt;=places; k++) {
+        for(var k: Int =1; k&lt;=places; k++) {
             totalInCircle += inCircle(k);
         }
         val pi = (4.0*totalInCircle)/N;
-        Console.OUT.println(&amp;quot;The value of pi is &amp;quot; + pi);
+        Console.OUT.println(&quot;The value of pi is &quot; + pi);
     }
 }
-</pre><p>&amp;nbsp;</p>
+</pre><p>&nbsp;</p>

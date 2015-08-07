@@ -65,7 +65,7 @@ public class ArrayBuilder[T] implements x10.util.Builder[T, Array[T]] {
 	 * @param growthRate what to multiply the capacity by when growing the buffer
 	 */
 	public def this(initialCapacity: Int, maximumCapacity: Int, growthRate: Double) {
-		if (initialCapacity &amp;gt; maximumCapacity) {
+		if (initialCapacity &gt; maximumCapacity) {
 			val msg = "Initial capacity, "     +initialCapacity+
 						 ", exceeds the maximum, "+maximumCapacity;
 			throw new IllegalArgumentException(msg);
@@ -81,7 +81,7 @@ public class ArrayBuilder[T] implements x10.util.Builder[T, Array[T]] {
 	 * @return this builder
 	 */
 	public def add(t: T): ArrayBuilder[T] {
-		if (this.size &amp;gt;= buffer.size) growTheBuffer();
+		if (this.size &gt;= buffer.size) growTheBuffer();
 		buffer(this.size++) = t;
 		return this;
 	}
@@ -97,7 +97,7 @@ public class ArrayBuilder[T] implements x10.util.Builder[T, Array[T]] {
 	 * @return the entries indexed by 0 through size-1 as an array
 	 */
 	public def result(): Array[T](1) {
-		return new Array[T](size, (n: Int)=&amp;gt;buffer(n)); 
+		return new Array[T](size, (n: Int)=&gt;buffer(n)); 
 	}
 	
 	/**
@@ -112,12 +112,12 @@ public class ArrayBuilder[T] implements x10.util.Builder[T, Array[T]] {
 	 * entries are copied into the new buffer.
 	 */
 	public def growTheBuffer() {
-		if (buffer.size &amp;gt;= maximumCapacity) {
+		if (buffer.size &gt;= maximumCapacity) {
 			val msg = "Maximum capacity, "+maximumCapacity+" exceeded.";
 			throw new IllegalArgumentException(msg);
 		}
 		var newSize:Int  = Math.floor(growthRate*buffer.size) as Int;
-		if (newSize &amp;gt;= maximumCapacity) newSize = maximumCapacity;
+		if (newSize &gt;= maximumCapacity) newSize = maximumCapacity;
 		val newBuffer = new Array[T](newSize);
 		Array.copy(buffer, 0, newBuffer, 0, size);
 	}

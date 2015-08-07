@@ -21,7 +21,7 @@ public class AtomicQueue {
   var first : Int = 0;
   var size : Int = 0;
   def add(s:Double) {
-    await(size &amp;lt; maxSize) {
+    await(size &lt; maxSize) {
       size += 1;
     }    
   }
@@ -29,4 +29,4 @@ public class AtomicQueue {
     
   }
 }
-</pre><p>&amp;nbsp;</p>
+</pre><p>&nbsp;</p>
