@@ -1,0 +1,42 @@
+---
+layout: default
+---
+<div class="rt-blog">
+  <h1 class="title">
+    {{ page.title | xml_escape}}
+  </h1>
+
+  <article class="post-content">
+
+  {{ content <!-- if there is any content, put it here as a header --> }}
+  {% assign row = -1 %}
+  {% for p in site.pages %}
+  {% if p.category == page.blog-category %}
+  {% unless p.blog-hidden %}
+  {% if row == -1 %}
+     <div class="rt-leading-articles">
+     <div class="leading-0">
+  {% else <!-- row == -1 -->  %}
+     <div class="items-row cols-1 row-{{row}}">
+     <div class="item column-1">
+  {% endif <!-- row == -1 --> %}
+     <div class="rt-article">
+     <div class="rt-article-bg">
+       <!-- Article Source <a href="{{p.url}}">{{p.title}}</a> -->
+       {{ p.content }}
+     </div>
+     </div>
+       <div class="item-separator"></div>
+     </div>
+     {% if row != -1 %}
+            <span class="row-separator"></span>
+     {% endif <!-- row != -1 --> %}
+</div>
+{% capture row %}{{row | plus:1}}{% endcapture %}
+{% endunless <!-- p.hidden --> %}
+{% endif <!-- p.category == page.blog-category --> %}
+
+{% endfor <!-- for page in site.pages --> %}
+  
+  </article>
+</div>
