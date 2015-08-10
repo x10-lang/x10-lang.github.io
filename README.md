@@ -1,7 +1,3 @@
----
-layout: page
----
-	
 Welcome to the X10 website.  This website is generated with [Jekyll](http://jekyllrb.com/).
 
 # Getting Started: #
