@@ -18,7 +18,7 @@
  {% capture li_type %}{{li_type}} root{% endcapture %}
  {% endif %}
  
-<li class="{{li_type}}"> 
+<li class="{{li_type}} item"> 
  {% if menu.link %}
   <a class="{{span_type}} item bullet" href="{{menu.link}}"  >
     <span>
@@ -39,7 +39,9 @@
 {% include top_menu_rec.html level=level submenu=menu.submenu %}
 {% endif  <!-- menu.submenu --> %}
 </li>
-{% endfor <!-- menu in data.top-menu --> %} 
-      </ul>
-      <div class="drop-bot"></div>
+{% endfor <!-- menu in include.submenu --> %} 
+</ul>
+{% unless include.level == 1 %}
+<div class="drop-bot"></div>
+{% endunless %}
 </div>
