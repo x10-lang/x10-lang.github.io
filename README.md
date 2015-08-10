@@ -40,13 +40,13 @@ The top of each file must have
 [yaml front matter](http://jekyllrb.com/docs/frontmatter/).
 As an example:
 
-{% highlight yaml %}
+```yaml
 ---
 layout: page
 category: "documentation"
 date: 2010-10-08 13:13:31
 ---
-{% endhighlight %}
+```
 
 The two layout we currently use are _page_ and _category-blog_.  Most
 articles use the _page_ layout.
@@ -65,18 +65,18 @@ to the news.
 
 Articles should have a date specified in the front matter as
 
-{% highlight yaml %}
+```yaml
 date: YYYY-MM-DD HH:MM:SS
-{% endhighlight %}
+```
 
 They will be shown in reverse chronological order.
 
 To exclude an article from being included in the news feed, mark it in
 the front matter as
 
-{% highlight yaml %}
+```yaml
 draft: True
-{% endhighlight %}
+```
 
 ## category blog page ##
 
@@ -95,9 +95,9 @@ If a file is marked as a draft (has *draft: True* in its yaml front
 matter) then it is not included.
 
 Articles should have a date specified in the front matter as
-{% highlight yaml %}
+```yaml
 date: YYYY-MM-DD HH:MM:SS
-{% endhighlight  %}
+```
 They will be shown in reverse chronological order.
 
 ## finding an article ##
@@ -126,9 +126,9 @@ We would like to move away from the articles/###.html naming.  Please
 use normal names for new articles.  Also consider migrating existing
 articles.  This is done by moving the article to a new place, and
 adding in
-{% highlight yaml %}
+```yaml
 redirect_from: articles/###.html
-{% endhighlight %}
+```
 
 to the yaml front matter
 to preserve the old name.  If there is already a single redirection
@@ -136,19 +136,19 @@ there, turn it into a
 [yaml collection](http://www.yaml.org/spec/1.2/spec.html#id2759963).
 If the new location is the target of a redirect\_from in the file,
 remove it.  For example, one could move move article/2.html, which has
-{% highlight yaml %}
+```yaml
     redirect_from:
        - /x10-community/mailing-lists.html
        - /x10-mailing-lists.html
-{% endhighlight %}
+```
 
 to /x10-community/mailing-lists.html and replace the redirect from
 yaml with
-{% highlight yaml %}
+```yaml
     redirect_from:
        - /article/2.html
        - /x10-mailing-lists.html
-{% endhighlight %}
+```
 Note that this example may have already been done.
 
 # Website maintainers #
