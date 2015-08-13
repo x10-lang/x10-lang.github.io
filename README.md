@@ -191,6 +191,6 @@ pagination right now.
   make an article actually disappear, delete it.  Unlike joomla, we
   have actual source control to make this less scary.
 * Mobile browsing does not work well.
-** Viewport not working right
-** menus not functional
+  * Viewport not working right
+  * menus not functional
 
