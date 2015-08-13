@@ -190,3 +190,7 @@ pagination right now.
   article will still be "published" and accesible via its url.  To
   make an article actually disappear, delete it.  Unlike joomla, we
   have actual source control to make this less scary.
+* Mobile browsing does not work well.
+** Viewport not working right
+** menus not functional
+
