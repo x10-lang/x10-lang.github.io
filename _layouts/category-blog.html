@@ -28,8 +28,7 @@ layout: default
        <!-- Article Source <a href="{{p.url}}">{{p.title}}</a> -->
        {% assign content = p.content | strip_newlines %}
        {% if content != ""  %}
-       <div class="category-desc">
-	 <p>{{ p.content }}</p>
+       <div class="category-desc">{{ p.content }}</div>
 	 <div class="clr"></div>
        </div>
        {% endif <!-- content != "" --> %}
