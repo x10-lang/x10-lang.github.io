@@ -45,7 +45,7 @@ ant dist -DX10RT_CUDA=true -Doptimize=false -DDISABLE_GC=true
 </div>
 <p>Note that your application will be built with optimization if and only if you give the -O argument to x10c++.&nbsp; The optimization argument above only affects the optimization of the X10 runtime.&nbsp; It is possible, and sometimes useful, to have an unoptimized application linked against an optimized X10 runtime, and vice versa.</p>
 <h1><a name="X102.2.1CUDA-TestingTheBuildwithTheCUDASamples"></a>Testing The Build with The CUDA Samples</h1>
-<h2><a name="X102.2.1CUDA-Compiling"></a>Compiling</h2>
+<h2><a name="X102.2.1CUDA-Compiling2"></a>Compiling</h2>
 <p>In the x10.dist/samples/cuda directory there are 5 CUDA-capable X10 programs you can now try.&nbsp; Change to that directory and compile each one as follows:</p>
 <div class="preformatted panel" style="border-width: 1px;">
 <div class="preformattedContent panelContent">
@@ -227,7 +227,7 @@ X10RT_ACCELS=ALL ./CUDAMatMul
 <p>Because 'cmem' is immutable, we represent it with an instance the CUDAConstantRail object, which is constructed from an existing array on the host.&nbsp; A CUDAConstantRail object allows random access to the array, but not updates.</p>
 <p>Since 'shmem' is mutable we use an array which allows both random access and updates.&nbsp; However updates to shmem need to be synchronized between threads using the Clock.advanceAll() call, just like one would use __syncthreads() to synchronize shared memory in a native CUDA program.</p>
 <p>In both cases, since the object is not actually allocated on the heap, but in shared / constant memory that does not outlive the CUDA kernel, it is important not to leak the 'shmem' or 'cmem' reference by writing it to memory that will be accessed in a later kernel.</p>
-<h4><a name="X102.2.1CUDA-Limitations"></a><strong>Limitations</strong></h4>
+<h4><a name="X102.2.1CUDA-Limitations2"></a><strong>Limitations</strong></h4>
 <ul>
 <li>Only Rails of Int / Float may be specified in shared memory</li>
 <li>Only CUDAConstantRails of Int / Float may be specified in constant memory</li>
