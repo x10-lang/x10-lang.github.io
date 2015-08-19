@@ -24,7 +24,6 @@ markdown: kramdown
 
 # Jekyll plugins we enable.  These are all supported by GitHub pages
 gems:
-  - jekyll-mentions
   - jekyll-redirect-from
   - jekyll-sitemap
 
