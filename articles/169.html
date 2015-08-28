@@ -54,11 +54,16 @@ redirect_from: /x10-development/building-x10dt-from-source.html
 </ol></div>
 <div class="section_3">
 <h3><a name="X10DTDevelopmentSetup-Part2:GetthesourcecodeforX10andtheX10DT"></a>Part 2: Get the source code for X10 and the X10DT</h3>
+<p>Our goal is to checkout pretty much all the projects from the X10 and X10DT git repositories and get them into our Eclipse workspace.</p>
+<p>If you are most comfortable using command line tools, clone the X10 GitHub git repository at <a href="https://github.com/x10-lang/x10.git">https://github.com/x10-lang/x10.git</a> and the X10DT GitHub git repository at <a href="https://github.com/x10-lang/x10dt.git">https://github.com/x10-lang/x10dt.git</a>. Then import all of the Eclipse projects found in the two repositories into your workspace using the "Import existing projects into the workspace" wizard.</p>
+<p>If you are most comfortable doing things in Eclipse, do the following steps
 <ol>
 <li>Go back to the Plug-in Development or JDT perspective.</li>
-<li>Checkout the X10 source code from the GitHub git repository at <a href="https://github.com/x10-lang/x10.git">https://github.com/x10-lang/x10.git</a>.</li>
-<li>Checkout the X10DT source code from the GitHub git repository at <a href="https://github.com/x10-lang/x10dt.git">https://github.com/x10-lang/x10dt.git</a>.</li>
+<li>Checkout the x10dt_project_sets project from X10DT git at <a href="https://github.com/x10-lang/x10dt.git">https://github.com/x10-lang/x10dt.git</a></li>
+<li>Right click on x10core-25.psf and select "Import Project Set..."</li>
+<li>Right click on x10dt-25.psf and select "Import Project Set..."</li>
 </ol>
+</p>
 </div>
 <div class="section_3">
 <h3><a name="X10DTDevelopmentSetup-Part3:BuildtheX10Runtime"></a>Part 3: Build the X10 Runtime</h3>
