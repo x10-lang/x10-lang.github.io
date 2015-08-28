@@ -84,7 +84,7 @@
         - name: Latest Release
           link: /software/download-x10/latest-release.html
         - name: All Releases
-          link: /software/download-x10/release-list.html
+          link: /releases/x10-release-list.html
     - name: APGAS Releases
       submenu:
         - name: Latest Release
