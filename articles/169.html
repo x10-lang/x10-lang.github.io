@@ -29,8 +29,8 @@ redirect_from: /x10-development/building-x10dt-from-source.html
 <ol>
 <li>Make sure you have at least Java 1.6.</li>
 <li>Install Eclipse 4.3.1 Kepler (the "Eclipse Standard" bundle) for your platform.</li>
-<li>Install and configure an SVN client.&nbsp; You can use either Subversive or Subclipse.</li>
-<li>Install SWTBot&nbsp;(an Eclipse UI testing framework) via Eclipse Update.</li>
+<li>Install and configure EGit (the Eclipse Git client)</li>
+<li>Install SWTBot (an Eclipse UI testing framework) via Eclipse Update.</li>
 <li>Finish the install as above, and restart Eclipse when asked.</li>
 </ol></div>
 <div class="section_3">
@@ -56,12 +56,10 @@ redirect_from: /x10-development/building-x10dt-from-source.html
 <h3><a name="X10DTDevelopmentSetup-Part2:GetthesourcecodeforX10andtheX10DT"></a>Part 2: Get the source code for X10 and the X10DT</h3>
 <ol>
 <li>Go back to the Plug-in Development or JDT perspective.</li>
-<li>Get the Team Project Sets for X10DT and use them to get the source code.</li>
-<ol>
-<li>Checkout the project sets from SVN at <a href="https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt_project_sets/">https://svn.code.sourceforge.net/p/x10/code/x10dt/trunk/x10dt_project_sets/</a></li>
-<li>Right click on x10core-25.psf and select "Import Project Set..."</li>
-<li>Right click on x10dt-25.psf and select "Import Project Set..."</li>
-</ol></ol></div>
+<li>Checkout the X10 source code from the GitHub git repository at <a href="https://github.com/x10-lang/x10.git">https://github.com/x10-lang/x10.git</a>.</li>
+<li>Checkout the X10DT source code from the GitHub git repository at <a href="https://github.com/x10-lang/x10dt.git">https://github.com/x10-lang/x10dt.git</a>.</li>
+</ol>
+</div>
 <div class="section_3">
 <h3><a name="X10DTDevelopmentSetup-Part3:BuildtheX10Runtime"></a>Part 3: Build the X10 Runtime</h3>
 <ol>
