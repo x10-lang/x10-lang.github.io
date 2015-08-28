@@ -1,33 +1,33 @@
 ---
 layout: page
 title: "Building X10 From Source"
-alias: "building-from-svn-head"
+alias: "building-from-source"
 category: "documentation/developer-info"
 date: 2011-04-25 19:11:33
 redirect_from: /x10-development/building-x10-from-source.html
 ---
-<p>These instructions can be used either to build X10 from source code checked out of the repository or from an X10 source release obtained from the <a href="/articles/145.html">downloads page</a>. To checkout the source code tree that matches a particular X10 release from svn (instead of from a source code release) one simply uses a URL such as&nbsp;<a href="https://svn.code.sourceforge.net/p/x10/code/tags/SF_RELEASE_2_5_0/">https://svn.code.sourceforge.net/p/x10/code/tags/SF_RELEASE_2_5_0/</a> in place of <a href="https://svn.code.sourceforge.net/p/x10/code/trunk/"><span style="font-family: trebuchet ms,helvetica,sans-serif;">https://<span><span>svn.code.sourceforge.net</span></span>/<span><span>p</span></span>/<span><span>x10</span></span>/code/</span>trunk</a> in the instructions below, changing the tag to the release you want to use.</p>
+<p>These instructions can be used either to build X10 from source code checked out of the repository or from an X10 source release obtained from the <a href="/articles/145.html">downloads page</a>. To download the source code for a particular X10 release, visit <a href="https://github.com/x10-lang/x10/releases">https://github.com/x10-lang/x10/releases</a>.</p>
 <div class="section_3">
-<h3><a name="BuildingfromSVNhead-AssumptionsandPrerequisites"></a>Assumptions and Prerequisites</h3>
+<h3><a name="BuildingFromSource-AssumptionsandPrerequisites"></a>Assumptions and Prerequisites</h3>
 <p>This assumes that <tt>JAVA_HOME</tt> is set to a Java 6.0 compatible SDK.</p>
 <p>You will also need <a href="http://ant.apache.org/">Ant</a> 1.7.1 or better, as well as <tt>g++</tt> 4.4 or better (optionally <tt>xlC</tt> 11.1 or better), binutils, <tt>wget</tt>, and GNU <tt>make</tt>.</p>
 <p>Note for Linux users: The X10 build uses the <tt>javah</tt> task, which is not included in the default <tt>ant</tt> package. You would need to install <tt>ant-nodeps</tt> (on RedHat/Gentoo-based systems) or <tt>ant-optional</tt> (on Debian/SuSE-based systems).</p>
 <p>Note for MacOS users: The default Java installation on recent versions of MacOS is not a complete JDK even if it comes with the javac compiler. You must install a proper JDK to build X10 from sources, that is, either a Java Developer Package for Java 6 from Apple or a Java 7 JDK from Oracle. If JAVA_HOME is not set, the build will use the preferred Java installation as returned by /usr/libexec/java_home.</p>
-<p>Note for Windows users: You must build X10 within <a href="http://www.cygwin.com/">the cygwin environment</a>. The minimum Cygwin version required to build X10 is 1.7.1, as Cygwin releases prior to 1.7.1 broke the shared library behavior of g++ 4.3.2.&nbsp; Make sure you have these packages:&nbsp; gcc, g++, wget, make, binutils, diffutils, libtool, svn, patch, time.</p>
+<p>Note for Windows users: You must build X10 within <a href="http://www.cygwin.com/">the cygwin environment</a>. The minimum Cygwin version required to build X10 is 1.7.1, as Cygwin releases prior to 1.7.1 broke the shared library behavior of g++ 4.3.2.&nbsp; Make sure you have these packages:&nbsp; gcc, g++, wget, make, binutils, diffutils, libtool, git, patch, time.</p>
 </div>
 <div class="section_3">
-<h3><a name="BuildingfromSVNhead-InitialCheckoutandBuild"></a>Getting the source</h3>
-<p>If you are building from a source code release, simply untar or unzip it.&nbsp; If not, checkout the code from SVN.</p>
+<h3><a name="BuildingFromSource-InitialCheckoutandBuild"></a>Getting the source</h3>
+<p>If you are building from a source code release, simply untar or unzip it.&nbsp; If not, clone the <a href="https://github.com/x10-lang/x10">X10 GitHub repository</a>:</p>
 <div class="preformatted panel" style="border-width: 1px;">
 <div class="preformattedContent panelContent">
-<pre>svn co https://svn.code.sourceforge.net/p/x10/code/trunk x10-trunk
+<pre>git clone git@github.com:x10-lang/x10.git
 </pre>
 </div>
 </div>
 <p>Now that you have all the source; build it by doing:</p>
 <div class="preformatted panel" style="border-width: 1px;">
 <div class="preformattedContent panelContent">
-<pre>cd x10-trunk/x10.dist
+<pre>cd x10/x10.dist
 ant dist
 </pre>
 </div>
@@ -35,25 +35,25 @@ ant dist
 <p>See section below for arguments you may wish to pass to <tt>ant</tt>.</p>
 </div>
 <div class="section_3">
-<h3><a name="BuildingfromSVNhead-Updatingandrebuilding"></a>Updating and rebuilding</h3>
-<p>To refresh the code from svn, do</p>
+<h3><a name="BuildingFromSource-Updatingandrebuilding"></a>Updating and rebuilding</h3>
+<p>To refresh the code from git, do</p>
 <div class="preformatted panel" style="border-width: 1px;">
 <div class="preformattedContent panelContent">
-<pre>cd x10-trunk; svn update
+<pre>cd x10; git pull
 </pre>
 </div>
 </div>
-<p>Almost always after updating your code from SVN, you will need to do a fairly complete rebuild.</p>
+<p>After updating your code from git, you probably need to do a fairly complete rebuild.</p>
 <div class="preformatted panel" style="border-width: 1px;">
 <div class="preformattedContent panelContent">
-<pre>cd x10-trunk/x10.dist
+<pre>cd x10/x10.dist
 ant squeakyclean dist
 </pre>
 </div>
 </div>
 </div>
 <div class="section_3">
-<h3><a name="BuildingfromSVNhead-Optionalargumentsto{{ant}}"></a>Optional arguments to <tt>ant</tt></h3>
+<h3><a name="BuildingFromSource-Optionalargumentsto{{ant}}"></a>Optional arguments to <tt>ant</tt></h3>
 <p>If you want to build a maximally optimized versions of the class libraries, supply the arguments <tt>-D NO_CHECKS=true -Doptimize=true</tt>&nbsp; i.e. run</p>
 <div class="preformatted panel" style="border-width: 1px;">
 <div class="preformattedContent panelContent">
@@ -67,18 +67,18 @@ ant squeakyclean dist
 <p>If you want to use the MPI runtime, supply <tt>-DX10RT_MPI=true</tt>. For PAMI support, set <tt><span>-DX10RT_PAMI</span>=true</tt>. See <a href="/documentation/practical-x10-programming/x10rt-implementations.html">X10RT Implementations</a> for more details on these.</p>
 </div>
 <div class="section_3">
-<h3><a name="BuildingfromSVNhead-Exampleofhowtocheckoutandcompiletheentiresourcecodeonwindows"></a>Example of how to checkout and compile the entire source code on windows</h3>
+<h3><a name="BuildingFromSource-Exampleofhowtocheckoutandcompiletheentiresourcecodeonwindows"></a>Example of how to checkout and compile the entire source code on windows</h3>
 <ul>
-<li>Install cygwin to directory c:\cygwin,<br /> with the packages: gcc (all of them), wget, make, binutils, libtool, svn, patch.</li>
+<li>Install cygwin to directory c:\cygwin,<br /> with the packages: gcc (all of them), wget, make, binutils, libtool, git, patch.</li>
 <li>Download <a href="http://ant.apache.org/">Apache Ant</a> to C:\cygwin\home\USERNAME\apache-ant-1.8.0 (version 1.8.0 is current as of this writing, but be sure to use a path that corresponds to the version you downloaded).</li>
-<li>checkout the source code:<br /> svn co <a href="https://svn.code.sourceforge.net/p/x10/code/trunk">https://svn.code.sourceforge.net/p/x10/code/trunk</a> C:/cygwin/home/USERNAME/x10-trunk</li>
+<li>checkout the source code:<br /> git clone git@github.com:x10-lang/x10.git C:/cygwin/home/USERNAME/x10</li>
 <li>Edit the file C:\cygwin\home\USERNAME\.bash_profile<br />And add:
 <div class="code panel" style="border-width: 1px;">
 <div class="codeContent panelContent">
 <pre class="code-java"><span class="code-keyword">if</span> [ -d <span class="code-quote">"${HOME}/bin"</span> ] ; then
       PATH=${HOME}/bin:${PATH}
 fi
-PATH=${HOME}/apache-ant-1.8.0/bin:${HOME}/<span>x10-trunk</span>/x10.dist/bin:${PATH}
+PATH=${HOME}/apache-ant-1.8.0/bin:${HOME}/<span>x10</span>/x10.dist/bin:${PATH}
 export CYGWIN=<span class="code-quote">"nodosfilewarning"</span>
 LC_ALL=C
 LANG=C
@@ -90,8 +90,8 @@ LANG=C
 <div class="codeContent panelContent">
 <pre class="code-java">   #!/bin/sh
    cd ~
-   cd <span>x10-trunk</span>
-   svn up
+   cd <span>x10</span>
+   git pull
    cd x10.dist
    ant squeakyclean dist
    </pre>
@@ -100,4 +100,4 @@ LANG=C
 </li>
 </ul>
 </div>
-<p>&nbsp;</p>
+
