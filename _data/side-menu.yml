@@ -16,3 +16,5 @@
       link: http://x10.sourceforge.net/documentation/languagespec/x10-latest.pdf
     - name: Mailing Lists
       link: /x10-mailing-lists.html
+    - name: X10 on GitHub
+      link: https://github.com/x10-lang
