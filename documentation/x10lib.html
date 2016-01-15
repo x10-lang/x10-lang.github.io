@@ -4,141 +4,45 @@ title: "Building and Using X10 Libraries"
 alias: "x10lib"
 category: "documentation/documentation"
 date: 2015-02-13 14:41:26
-redirect_from: /documentation/practical-x10-programming/x10lib.html
+redirect_from:
+ - /documentation/practical-x10-programming/x10lib.html
+ - /articles/270.html
 ---
-<div>
-<div>
-<div>
-<div>
-<div>
-<div>
-<div>
-<h1>Building and Using X10 Libraries</h1>
-<div>&nbsp;</div>
 <div>X10 offers a rudimentary library mechanism to support separate compilation of code bases. The basic idea behind the library mechanism is to allow the compiler to separately compile library code once to produce artifacts that can be used in the compilation of a separate (X10) application program that uses this library.&nbsp; The library code is not required to have a class with a main method.</div>
-<div>&nbsp;</div>
 <div>During the compilation of the application program, the X10 sources of the library code need to be available and will be used for type-checking the application code. However, the X10 compiler will not generate code from the library source files; instead the library versions of the generated code and binaries will be used.</div>
-<div>&nbsp;</div>
 <div>The details of the implementation vary between the managed and native compiler, so we discuss each in turn.</div>
-<div>&nbsp;</div>
+
 <h2>Managed X10 (the x10c compiler)</h2>
 <div>To build a library, x10c should be invoked with arguments <span>&ldquo;-buildx10lib &lt;path1&gt; -o &lt;path2&gt;/&lt;name&gt;.jar&rdquo;.</span> This will cause the compiler to emit a file &lt;name&gt;.properties&nbsp; in the directory &lt;path1&gt; . This is a java property file which contains the entry &nbsp;&ldquo;X10LIB_SRC_JAR=&lt;path2&gt;/&lt;name&gt;.jar&rdquo; and an entry for the &ldquo;X10LIB_TIMESTAMP&rdquo; property. x10c will generate the &lt;path2&gt;/&lt;name&gt;.jar file (relative to the current directory if &lt;path2&gt; is a relative path name); this file will contain the X10 sources, the generated Java sources and the binary class files for the X10 code in the library.&nbsp;</div>
-<div>&nbsp;</div>
+
 <div>If the library needs to use native (C or C++) code (e.g. because the library uses the X10 @Native mechanism to provide some functionality in Java and the Java code uses the JNI mechanism to access some native code), then the programmer must arrange to produce the required binary files (e.g. .so or .a) and make them available in a directory which should be on the class path of applications using the library. x10c does not need to know the location of these binary files when compiling application (X10) code.&nbsp;</div>
-<div>&nbsp;</div>
+
 <div>To use this library, the user should compile X10 application code with x10c, and pass &ldquo;-x10lib &lt;path to property file&gt;&rdquo; argument. If the library has associated native code, the location of that code should be specified using &nbsp;&ldquo;-classpath &lt;dir&gt;&rdquo;.&nbsp;</div>
-<div>&nbsp;</div>
+
 <div>To run the application, use the x10 command with the name of the application class containing the main method, and specify the location of the source jar for the library through a &ldquo;-classpath&rdquo; argument. If native libraries need to be linked in, their location should be specified with a &ldquo;-libpath&rdquo; argument.<br /><br /></div>
-</div>
-</div>
-<div>
 <h3>Examples</h3>
-</div>
-<div>
-<div>
 <div>To create a managed x10lib in the current directory:</div>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
 <pre>$ x10c -buildx10lib . &lt;x10 files&gt; -o ./MyLib.jar</pre>
 <div>To compile against the created x10lib:</div>
-</div>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
 <pre>$ x10c -x10lib ./MyLib.properties MyApplication.x10</pre>
-</div>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
 <div>To run the compiled application:</div>
-</div>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
 <pre>$ x10 -classpath ./MyLib.jar MyApplication</pre>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
-<div>
-<div>
-<div>
-<div>&nbsp;</div>
+
 <h2>Native X10 (the x10c++ compiler)</h2>
 <div>To build a library, x10c++ should be invoked with &ldquo;-buildx10lib &lt;path&gt; -d &lt;path&gt;/include -o &lt;name&gt;&rdquo; arguments. Additionally, the user may specify various command line parameters (e.g. &ldquo;-Lxx&rdquo; and &ldquo;-lxx&rdquo; commands). On successful compilation, the compiler will generate a file &lt;name&gt;.properties in the directory &lt;path&gt;. This file will contain some other properties besides X10LIB_SRC_JAR and X10LIB_TIMESTAMP (described above). For example, the X10 Global Matrix Library properties file for MacOS looks like:</div>
-<div>&nbsp;</div>
+
 <pre>X10LIB_PLATFORM=darwin64<br />X10LIB_CXX=g++<br />X10LIB_CXXFLAGS="-DENABLE_BLAS" "-DENABLE_LAPACK"<br />X10LIB_LDFLAGS=<br />X10LIB_LDLIBS=-lnative_gml "-L/opt/OpenBLAS/lib" "-lopenblas" "-L/usr/local/lib" "-lgfortran"<br />X10LIB_SRC_JAR=native_gml.jar</pre>
-<div>&nbsp;</div>
+
 <div>The compiler will generate various *.cc and *.h files in the &lt;path&gt;/include directory, a binary object file lib&lt;name&gt;.so in the &lt;path&gt;/lib directory, and a jar file &lt;path&gt;/&lt;name&gt;.jar containing the X10 source files.</div>
-<div>&nbsp;</div>
+
 <div>To use this library, the user should compiler the X10 application code with x10c++ and pass &ldquo;-x10lib &lt;runpath&gt;/&lt;name&gt;.properties&rdquo; argument. &lt;runpath&gt; may be different from &lt;path&gt;, e.g. because the programmer installed the property file at some location other than the one where it was generated.&nbsp; However, in this case the programmer must make sure that &nbsp;the contents of &lt;path&gt;/lib and &lt;path&gt;/include directories are also moved in synchrony. When application code is being compiled, the post-compiler will expect to find the *.cc and *.h files generated during compilation of the library at &lt;runpath&gt;/include, and the binary object file in &lt;runpath&gt;/lib. (The compiler arranges for this by generating "-I&lt;runpath&gt;/include&rdquo; and &ldquo;-Wl,&lt;runpath&gt;/lib&rdquo; arguments for the post-compiler.)</div>
-<div>&nbsp;</div>
+
 <div>The application executable built by the compiler (e.g. a.out) can be executed directly. Any dynamically linked libraries must be in the library path for execution.</div>
-<div>&nbsp;</div>
-<div>
-<div>
+
 <h3>Examples</h3>
-</div>
-<div>
-<div>
 <div>To create a native x10lib in the current directory:</div>
-</div>
-</div>
-<div>
-<div>
-<div>
 <pre>$ x10c++ -buildx10lib . &lt;x10 files&gt; -o MyLib</pre>
 <div>To compile against the created x10lib:</div>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
 <pre>$ x10c++ -x10lib ./MyLib.properties MyApplication.x10 -o MyApplication.exe</pre>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
 <div>To run the compiled application:</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
-<div>
-<div>
-<div>
 <pre>$ ./MyApplication.exe</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
