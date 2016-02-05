@@ -144,6 +144,8 @@
       link: /x10-development/contributor-agreement.html
 - name: X10 Workshops
   submenu:
+    - name: X10'16 Workshop (at PLDI'16) 
+      link: /workshop/workshop16.html
     - name: X10'15 Workshop (at PLDI'15) 
       link: /workshop/workshop15.html
     - name: X10'14 Workshop (at PLDI'14) 
