@@ -8,7 +8,7 @@ redirect_from:
   - /software/download-apgas/latest-apgas-release.html
   - /articles/276.html
 ---
-<p>The APGAS library supports the APGAS programming model for resilient, elastic, parallel, and distributed programming in Java 8. See this <a href="http://x10.sourceforge.net/documentation/papers/X10Workshop2015/tardieu.pdf">short paper</a>&nbsp;for details.</p>
+<p>The APGAS library supports the APGAS programming model for resilient, elastic, parallel, and distributed programming in Java 8. See this <a href="http://x10-lang.org/documentation/papers/tardieu.pdf">short paper</a>&nbsp;for details.</p>
 <h2>Example</h2>
 <p>For instance, X10's HelloWorld program can be expressed in Java using APGAS as the following.</p>
 <pre>import static apgas.Constructs.*;<br />import apgas.Configuration;<br />import apgas.Place;<br /><br />final class HelloWorld {<br />  public static void main(String[] args) {<br />    // Run with two places unless specified otherwise<br />    if (System.getProperty(Configuration.APGAS_PLACES) == null) {<br />      System.setProperty(Configuration.APGAS_PLACES, "2");<br />    }<br /><br />    finish(() -&gt; {<br />      for (final Place place : places()) {<br />        asyncAt(place, () -&gt; System.out.println("Hello from " + here()));<br />      }<br />    });<br />    System.out.println("Bye");<br />  }<br />}</pre>
@@ -16,12 +16,17 @@ redirect_from:
 <pre>$ javac -cp .:apgas.jar HelloWorld.java<br /></pre>
 <p>To run with four places:</p>
 <pre>$ java -cp .:apgas.jar:hazelcast-3.4.jar -Dapgas.places=4 HelloWorld<br />Hello from place(0)<br />Hello from place(3)<br />Hello from place(1)<br />Hello from place(2)<br />Bye<br /></pre>
+
 <h2>Downloads</h2>
-<p>The simplest way to start out with APGAS is by installing the APGAS Development Tools for Eclipse&nbsp;using the&nbsp;<a href="http://x10.sourceforge.net/apgas/1.0.0/">APGAS update site</a>&nbsp;(or by downloading an <a href="http://sourceforge.net/projects/x10/files/apgas/1.0.0/apgas-update-site-1.0.0.zip/download" style="line-height: 1.3em;">archive</a> of the update site) and importing this <a href="http://sourceforge.net/projects/x10/files/apgas/1.0.0/apgas-example-project-1.0.0.zip/download">example project</a>&nbsp;in the Eclipse workspace.</p>
-<p>The pre-built APGAS library is also available as a <a href="http://sourceforge.net/projects/x10/files/apgas/1.0.0/apgas-1.0.0.zip/download">standalone archive</a> to be used with a command-line Java compiler.</p>
-<p>The&nbsp;<a href="http://x10.sourceforge.net/apgas/1.0.0/samples/">example codes</a>&nbsp;and&nbsp;<a href="http://x10.sourceforge.net/apgas/1.0.0/doc/">javadoc</a>&nbsp;for the APGAS library are included in both distributions and also available online.</p>
+<p>The simplest way to start out with APGAS is by downloading an <a href="https://github.com/x10-lang/x10/releases/download/APGAS_v1.0/apgas-update-site-1.0.0.zip">archive</a> of the update site and installing into Eclipse.</p>
+
+<p>The pre-built APGAS library is also available as a <a href="https://github.com/x10-lang/x10/releases/download/APGAS_v1.0/apgas-1.0.0.zip">standalone archive</a> to be used with a command-line Java compiler.</p>
+<p>The&nbsp;<a href="https://github.com/x10-lang/x10/tree/master/apgas.examples">example codes</a>&nbsp;and Javadoc for the APGAS library are included in both distributions.</p>
+
 <h2>Prerequisites</h2>
 <p>APGAS requires Java 8 and the APGAS Development Tools require Eclipse 4.2.2. These distributions are otherwise platform independent.&nbsp;These distributions include the <a href="http://central.maven.org/maven2/com/hazelcast/hazelcast/3.4/hazelcast-3.4.jar">hazelcast-3.4.jar</a> from&nbsp;<a href="https://hazelcast.com">Hazelcast</a>, which is required for running APGAS programs.</p>
+
 <h2>Source Code</h2>
-<p>The APGAS <a href="http://sourceforge.net/p/x10/code/HEAD/tree/trunk/apgas/" style="line-height: 1.3em;">source code</a> is available from <a href="http://sourceforge.net" style="line-height: 1.3em;">sourceforge</a> as part of the <a href="http://sourceforge.net/projects/x10/" style="line-height: 1.3em;">X10 project</a>. The standalone APGAS distribution can be built as the following:</p>
-<pre>$ svn co https://svn.code.sf.net/p/x10/code/trunk/apgas<br />$ svn co https://svn.code.sf.net/p/x10/code/trunk/apgas.examples # optional<br />$ cd apgas<br />$ ant</pre>
+<p>The APGAS <a href="https://github.com/x10-lang/x10/tree/master/apgas">source code</a> is available from the <a href="https://github.com/x10-lang">X10 Programming Language project on GitHub</a>.
+The standalone APGAS distribution can be built as follows:</p>
+<pre>$ git clone https://github.com/x10-lang/x10.git<br />$ cd x10/apgas<br />$ ant</pre>
