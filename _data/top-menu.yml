@@ -22,7 +22,7 @@
 - name: Documentation
   submenu:
     - name: An Introduction to X10
-      link: http://x10.sourceforge.net/documentation/intro/latest/html/
+      link: /documentation/intro/latest/html/
     - name: Getting Started
       link: /documentation/getting-started.html
     - name: Installing X10DT
@@ -32,7 +32,7 @@
     - name: Practical X10 Programming
       submenu:
         - name: An Introduction to X10
-          link: http://x10.sourceforge.net/documentation/intro/latest/html/
+          link: /documentation/intro/latest/html/
         - name: Using X10 Libraries
           link: /documentation/practical-x10-programming/x10lib.html
         - name: Elastic X10
