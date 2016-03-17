@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="intro-web">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="intro-web.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="intro-web.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+
+<A NAME="tex2html129"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html125"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html119"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html127"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html130"
+  HREF="node3.html">X10 basics</A>
+<B>Up:</B> <A NAME="tex2html126"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html120"
+  HREF="node1.html">Contents</A>
+<BR> <P>
+
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00200000000000000000"></A><A NAME="chap:intro"></A>
+<BR>
+Introduction
+</H1>
+The vast and omni-present computer industry of today is based
+fundamentally on what we shall call the <EM>standard</EM> model of
+computing.
+This is organized around the idea that a single stream of instructions
+operates on  <EM>memory</EM> - discrete cells holding <EM>values</EM>  -
+by <EM>reading</EM>  these values, operating on them to produce new
+values, and <EM>writing</EM> these values back into memory.
+
+<P>
+In the last few years this model has been changed fundamentally, and
+forever. We have entered the era of <EM>concurrency</EM> and <EM>  distribution</EM>. 
+
+<P>
+Moore's Law continues, unabated - making available twice the number
+of transistors every 18 months for the same silicon. Traditionally,
+computer  architects have used this extra real estate to provide
+faster implementations of the standard model by increasing clock speed
+and  deepening the pipelines needed to speculatively execute many
+instructions in parallel. Thus, the standard model has needed no
+change. 
+
+<P>
+Unfortunately, clock speeds have now run up against the <EM>heat
+  envelope</EM> - speed cannot be increased without causing the chips to
+run hotter  than can be tolerated by current packaging. 
+
+<P>
+What should this real estate be used for, then? Computer manufacturers
+have turned to multi-core parallelism, a radical idea for mainstream
+computing. Instead of
+using all the real estate to support the illusion of a single thread
+of execution, they have divided up the real estate to support 
+multiple such threads of control. Multiple threads may now read and
+write the same locations simultaneously.  
+
+<P>
+This change has been coupled with a second, less visible but equally
+powerful change. The widespread availability of cheap commodity
+processors  and advances in computer networking mean that <EM>  clusters</EM> of multiple computers are now commonplace. Further, a
+vast increase in the amount of data available for processing means
+that there is real economic value in using clusters to analyze this data, and
+act on it. 
+
+<P>
+Consequently, the standard model must now give way to a new programming
+model. This model must support execution of programs on thousands of
+multi-core computers, with tens of thousands of threads, operating on
+petabytes of data. The model should smoothly extend the original
+standard model so that familiar ideas, patterns, idioms continue to
+work, in so far as possible. It should permit easy problems to be
+solved easily, and must allow sophisticated programmers to solve hard
+problems.  It should permit programmers to make reasonably accurate
+performance predictions by just looking at the code. It should be
+practical and easily implementable on all existing computer systems.
+
+<P>
+Since 2004, we have been developing just such a new programming
+model. We began our work as part of the DARPA-IBM funded PERCS
+research project. The project set out to develop a petaflop computer
+(capable of <IMG
+ WIDTH="34" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$10^{15}$"> operations per second), which could be programmed
+ten times more  productively than computer of similar scale in 2002.
+Our specific charter was to develop a programming model for such large
+scale, concurrent systems that could be used to program a wide variety
+of computational problems, and could be accessible to a large class of
+professional programmers.  
+
+<P>
+The programming model we have been developing is called the <EM>  APGAS</EM> model, the <EM>Asynchronous, Partitioned Global Address
+  Space</EM> model. It extends the standard model with two core
+concepts: <EM>places</EM> and <EM>asynchrony</EM>. The collection of cells
+making up memory are thought of as partitioned into chunks called
+places, each with one or more simultaneously operating threads of
+control. A  cell in one place can refer to a cell in another - i.e.
+the cells make up a (partitioned) global address space. Four new basic
+operations are provided.  An <TT>async</TT> spawns a new thread of
+control that operates asynchronously with other threads.  An async may
+use an <TT>atomic</TT> 
+operation to
+execute a set of operations on cells located in the current place, as
+if in a single step.
+It may
+use the <TT>at</TT> operation to switch the place of execution. Finally,
+and most importantly it may use the <TT>finish</TT> operation to execute
+a sequence of statements and wait for all asyncs spawned (recursively)
+during their execution to terminate.  These operations 
+are orthogonal and
+can nest
+arbitrarily with few exceptions.
+The power of the APGAS model lies in that many patterns of
+concurrency, communication and control - including those expressible
+in other parallel models of computation such as PThreads, OpenMP, MPI,
+Cilk - can be effectively realized through appropriate combinations
+of these constructs. Thus APGAS is our proposed replacement for the
+standard model. 
+
+<P>
+Any language implementing the old standard model can be extended to
+support the APGAS model by supplying constructs to implement these
+operations. This has been done for Java<SUP><SMALL>TM</SMALL></SUP>(X10&nbsp;1.5), 
+C (Habanero C), and
+research efforts are underway to do this for 
+UPC. 
+
+<P>
+Our group has designed and implemented a new programming language, X10 ,
+organized around these ideas. X10  is a modern language in the strongly
+typed, object-oriented programming tradition. Its design draws on the
+experience of team members with foundational models of concurrency,
+programming language design and semantics, type systems, static
+analysis, compilers, runtime systems, virtual machines. Our goals
+were simple - design a language that fundamentally focuses on
+concurrency and distribution, and is capable of running with good
+performance at scale, while building on the established
+productivity of object-oriented languages. In this, we sought to span
+two distinct programming language traditions - the old tradition of
+statically linked, ahead-of-time compiled languages such as Fortran,
+C, C++, and the more modern dynamically linked, VM based languages
+such as Java, C#, F#. X10  supports both compilation to the JVM and,
+separately, compilation to native code. It runs on the PERCS machine
+(Power 7 CPUs, P7IH interconnect), on Blue Gene machines, on clusters
+of commodity nodes, on laptops; on AIX, Linux, MacOS; on PAMI, and MPI;
+on Ethernet and Infiniband. 
+<HR>
+<A NAME="tex2html129"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html125"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html119"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html127"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html130"
+  HREF="node3.html">X10 basics</A>
+<B>Up:</B> <A NAME="tex2html126"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html120"
+  HREF="node1.html">Contents</A>
+
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

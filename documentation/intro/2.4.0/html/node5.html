@@ -1,0 +1,1357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The X10 Performance Model</TITLE>
+<META NAME="description" CONTENT="The X10 Performance Model">
+<META NAME="keywords" CONTENT="intro-web">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="intro-web.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="intro-web.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+
+<A NAME="tex2html194"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html190"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html184"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html192"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html195"
+  HREF="node6.html">References</A>
+<B>Up:</B> <A NAME="tex2html191"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html185"
+  HREF="node4.html">The APGAS model</A>
+<BR> <P>
+
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html196"
+  HREF="node5.html#SECTION00510000000000000000">Fundamental X10  Performance Model</A>
+<UL>
+<LI><A NAME="tex2html197"
+  HREF="node5.html#SECTION00511000000000000000">X10  Type System</A>
+<LI><A NAME="tex2html198"
+  HREF="node5.html#SECTION00512000000000000000">Distribution</A>
+<LI><A NAME="tex2html199"
+  HREF="node5.html#SECTION00513000000000000000">Async and Finish</A>
+<LI><A NAME="tex2html200"
+  HREF="node5.html#SECTION00514000000000000000">Exceptions</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html201"
+  HREF="node5.html#SECTION00520000000000000000">X10  v2.4.0  Implementation Overview</A>
+<LI><A NAME="tex2html202"
+  HREF="node5.html#SECTION00530000000000000000">X10  v2.4.0  Runtime</A>
+<UL>
+<LI><A NAME="tex2html203"
+  HREF="node5.html#SECTION00531000000000000000">Distribution</A>
+<LI><A NAME="tex2html204"
+  HREF="node5.html#SECTION00532000000000000000">Concurrency</A>
+<LI><A NAME="tex2html205"
+  HREF="node5.html#SECTION00533000000000000000">Synchronization</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html206"
+  HREF="node5.html#SECTION00540000000000000000">X10  v2.4.0  Compilation</A>
+<UL>
+<LI><A NAME="tex2html207"
+  HREF="node5.html#SECTION00541000000000000000">Classes and Interfaces</A>
+<LI><A NAME="tex2html208"
+  HREF="node5.html#SECTION00542000000000000000">Primitives and Structs</A>
+<LI><A NAME="tex2html209"
+  HREF="node5.html#SECTION00543000000000000000">Closures and Function Types</A>
+<LI><A NAME="tex2html210"
+  HREF="node5.html#SECTION00544000000000000000">Generics</A>
+<LI><A NAME="tex2html211"
+  HREF="node5.html#SECTION00545000000000000000">Memory Management</A>
+<LI><A NAME="tex2html212"
+  HREF="node5.html#SECTION00546000000000000000">Other Considerations</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html213"
+  HREF="node5.html#SECTION00550000000000000000">Final Thoughts</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00500000000000000000"></A><A NAME="chap:PerfModel"></A>
+<BR>
+The X10  Performance Model
+</H1>
+
+<P>
+Programmers need an intuitive understanding of the performance
+characteristics of the core constructs of their programming language
+to be able to write applications with predictable performance.  We
+will call this understanding a <EM>performance model</EM> for the
+language.  Desirable characteristics of a performance model include
+simplicity, predictive ability, and stability across different
+implementations of the language. The performance model should abstract
+away all non-essential details of the language and its implementation,
+while still enabling reasoning about those details that do have
+significant performance impact.  Languages with straightforward
+mappings of language constructs to machine instructions usually have
+fairly straightforward performance models. As the degree of
+abstraction provided by the language's constructs and/or the
+sophistication of its implementation increase, its performance model
+also tends to become more complex.
+
+<P>
+In this chapter, we present an abridged version<A NAME="tex2html7"
+  HREF="#foot2184"><SUP>4.1</SUP></A> of the performance model for
+X10  v2.4.0  focusing on those aspects that are most relevant for
+the HPC programmer.  Although the rate of change of the X10 
+language has significantly decreased from earlier stages of the
+project, the language specification and its implementations are still
+evolving more rapidly than production languages such as C++ and Java.
+Therefore, we break this chapter into two logical sections: aspects
+that we believe are fundamental to the language itself and aspects
+that are more closely tied to specific choices embodied in the
+X10  v2.4.0  implementation and thus more likely to change in future
+versions.  The second logical section is presented simultaneously with
+a discussion of some of the central implementation decisions embodied
+in the X10  v2.4.0  runtime system and compiler.
+
+<P>
+
+<H1><A NAME="SECTION00510000000000000000"></A>
+<A NAME="sec:langModel"></A>
+<BR>
+Fundamental X10  Performance Model
+</H1>
+
+<P>
+The core language model of X10  is that of a type-safe object-oriented
+language.  Thus much of the core performance model is intended to be
+similar to that of Java.  We believe the Java performance model is
+generally well-understood.  Therefore in this section we focus on
+areas where the performance models for X10  and Java diverge or where
+X10  has new constructs that do not trivially map to Java constructs.
+
+<P>
+
+<H2><A NAME="SECTION00511000000000000000">
+X10  Type System</A>
+</H2>
+The type systems of X10  and Java differ in three ways that have
+important consequences for the X10  performance model.  First, although
+X10  classes are very similar to Java's, X10  adds two additional kinds
+of program values: functions and structs.  Second, X10 's generic type
+system does not have the same erasure semantics as Java's generic
+types do. Third, X10 's type system includes <EM>constrained types</EM>,
+the ability to enhance type declarations with boolean expressions that
+more precisely specify the acceptable values of a type.
+
+<P>
+Functions in X10  can be understood by analogy to closures in
+functional languages or local classes in Java. They encapsulate a
+captured lexical environment and a code block into a single object
+such that the code block can be applied multiple times on different
+argument values.  X10  does not restrict the lifetime of function
+values; in particular they may escape their defining lexical
+environment. Thus, the language implementation must ensure that the
+necessary portions of the lexical environment are available for the
+lifetime of the function object. In terms of the performance model,
+the programmer should expect that an unoptimized creation of a
+function value will entail the heap allocation of a closure object and
+the copying of the needed lexical environment into that object.  The
+programmer should also expect that trivial usage of closures (closures
+that do not escape and are created and applied solely within the same
+code block) will be completely eliminated by the language
+implementation via inlining of the function body at the application
+site.
+
+<P>
+Structs in X10  are designed to be space-efficient alternatives to
+full-fledged classes. Structs may implement interfaces and define
+methods and fields, but do not support inheritance.  Furthermore
+structs are immutable: a struct's instance fields cannot be modified
+outside of its constructor. This particular design point was chosen
+specifically for its implications for the performance model.  Structs
+can be implemented with no per-object meta-data and can be freely
+inlined into their containing context (stack frame, containing
+struct/object, or array). Programmers can consider structs as
+user-definable primitive types, that carry none of the space or
+indirection overheads normally associated with objects.
+
+<P>
+The X10  generic type system differs from Java's primarily because it
+was designed to fully support the instantiation of generic types on
+X10  structs without losing any of the performance characteristics of
+structs.  For example, <TT>x10.lang.Complex</TT> is a struct type
+containing two double fields; <TT>x10.util.ArrayList[T]</TT> is a generic
+class that provides a standard list abstraction implemented by storing
+elements of type <TT>T</TT> in a backing array that is resized as needed.
+In Java, a <TT>java.util.ArrayList[Complex]</TT>, would have a backing
+array of type <TT>Object[]</TT> that contained pointers to heap-allocated
+<TT>Complex</TT> objects.  In contrast, the backing storage for X10 's
+<TT>x10.util.ArrayList[Complex]</TT> is an array of inline Complex
+structs without any indirection or other object-induced space
+overheads. This design point has a number of consequences for the
+language implementations and their performance model.  Much of the
+details are implementation-specific so we defer them to
+Section&nbsp;<A HREF="#sec:compiler">4.4</A> and to the paper by Takeuchi et
+al&nbsp;[<A
+ HREF="node6.html#Takeuchi:2011:CXJ:2212736.2212739">10</A>].  However, one high-level
+consequence of this design is generally true: to implement the desired
+semantics the language implementation's runtime type infrastructure
+must be able to distinguish between different instantiations of a
+generic class (since instantiations on different struct types will
+have different memory layouts).
+
+<P>
+Constrained types are an integral part of the X10  type system and
+therefore are intended to be fully supported by the runtime type
+infrastructure.  Although we expect many operations on constrained
+types can be checked completely at compile time (and thus will not
+have a direct runtime overhead), there are cases where dynamic checks
+may be required. Furthermore, constrained types can be used in dynamic
+type checking operations (<TT>as</TT> and <TT>instanceof</TT>).  We have also
+found that some programmers prefer to incrementally add constraints to
+their program, especially while they are still actively prototyping
+it.  Therefore, the X10  compiler supports a compilation mode where
+instead of rejecting programs that contain type constraints that
+cannot be statically entailed it, will generate code to check the
+non-entailed constraint at runtime (in effect, the compiler will
+inject a cast to the required constrained type). When required, these
+dynamic checks do have a performance impact. Therefore part of
+performance tuning an application as it moves from development to
+production is reducing the reliance on dynamic checking of constraints
+in frequently executed portions of the program.
+
+<P>
+
+<H2><A NAME="SECTION00512000000000000000">
+Distribution</A>
+</H2>
+An understanding of X10 's distributed object model is a key component
+to the performance model of any multi-place X10  computation.  In
+particular, understanding how to control what objects are serialized
+as the result of an <TT>at</TT> can be critical to performance
+understanding.
+
+<P>
+Intuitively, executing an <TT>at</TT> statement entails copying the
+necessary program state from the current place to the destination
+place. The body of the <TT>at</TT> is then executed using this fresh copy
+of the program state. What is necessary program state is precisely
+defined by treating each upwardly exposed variable as a root of an
+object graph. Starting with these roots, the transitive closure of all
+objects reachable by properties and non-transient instance fields is
+serialized and an isomorphic copy is created in the destination
+place. Furthermore, if the <TT>at</TT> occurs in an instance method of a
+class or struct and the body of the <TT>at</TT> refers to an instance
+field or calls an instance method, <TT>this</TT> is also implicitly
+captured by the <TT>at</TT> and will be serialized.  It is important to
+note that an isomorphic copy of the object graph is created even if
+the destination place is the same as the current place.  This design
+point was chosen to avoid a discontinuity between running a program
+using a single place and with multiple places.
+
+<P>
+Serialization of the reachable object graph can be controlled by the
+programmer primarily through injection of transient modifiers on
+instance fields and/or GlobalRefs.  It is also possible to have a
+class implement a custom serialization protocol<A NAME="tex2html8"
+  HREF="#foot2187"><SUP>4.2</SUP></A> to gain even more precise
+control. An X10  implementation may be able to eliminate or otherwise
+optimize some of this serialization, but it must ensure that any
+program visible side-effects caused by user-defined custom
+serialization routines happen just as they would have in an
+unoptimized program.  Thus, the potential of user-defined custom
+serialization makes automatic optimization of serialization behavior a
+fairly complex global analysis problem. Therefore, the base
+performance model for object serialization should not assume that the
+implementation will be able to apply serialization reducing
+optimizations to complex object graphs with polymorphic or generic
+types.
+
+<P>
+The X10  standard library provides the <TT>GlobalRef</TT>
+and <TT>GlobalRail</TT> types as the
+primitive mechanisms for communicating object references across
+places. Because of a strong requirement for type safety, the
+implementation must ensure that once an object has been encapsulated
+in one of these types and sent to a remote place via an <TT>at</TT>, the
+object will be available if the remote place ever attempts to spawn an
+activity to return to the object's home place and access it. For the
+performance model, this implies that cross-place object references
+should be managed carefully as they have the potential for creating
+long-lived objects.  Even in the presence of a sophisticated
+distributed garbage collector&nbsp;[<A
+ HREF="node6.html#Kawachiya:2012:DGC:2246056.2246061">6</A>]
+<A NAME="tex2html9"
+  HREF="#foot2188"><SUP>4.3</SUP></A>, the programmer should expect that collection of
+cross-place references may take a significant amount of time and incur
+communication costs and other overheads.
+
+<P>
+Closely related to the remote pointer facility provided by
+<TT>GlobalRef</TT> is the <TT>PlaceLocalHandle</TT> functionality.  This
+standard library class provides a place local storage facility in
+which a key (the <TT>PlaceLocalHandle</TT> instance) can be used to look
+up a value, which may be different in different places.  The library
+implementation provides a collective operation for key creation and
+for initializing the value associated with the key in each place.
+Creation and initialization of a <TT>PlaceLocalHandle</TT> is an
+inherently expensive operation as it involves a collective
+operation. On the other hand cross-place serialization of a
+<TT>PlaceLocalHandle</TT> value and the local lookup operation to access
+its value in the current place are relatively cheap operations.
+
+<P>
+
+<H2><A NAME="SECTION00513000000000000000">
+Async and Finish</A>
+</H2>
+The <TT>async</TT> and <TT>finish</TT> constructs are intended to allow the
+application programmer to explicitly identify potentially concurrent
+computations and to easily synchronize them to coordinate their
+interactions.  The underlying assumption of this aspect of the
+language design is that by making it easy to specify concurrent work,
+the programmer will be able to express most or all of the useful
+fine-grained concurrency in their application.  In many cases, they
+may end up expressing more concurrency than can be profitably
+exploited by the implementation.  Therefore, the primary role of the
+language implementation is to manage the efficient scheduling of all
+the potentially concurrent work onto a smaller number of actually
+concurrent execution resources. The language implementation is not
+expected to automatically discover more concurrency than was expressed
+by the programmer.  In terms of the performance model, the programmer
+should be aware that an <TT>async</TT> statement is likely to entail some
+modest runtime cost, but should think of it as being a much lighter
+weight operation than a thread creation.
+
+<P>
+As discussed in more detail in Section&nbsp;<A HREF="#sec:runtime">4.3</A>, the most
+general form of <TT>finish</TT> involves the implementation of a
+distributed termination algorithm. Although programmers can assume
+that the language implementation will apply a number of static and
+dynamic optimizations, they should expect that if a <TT>finish</TT> needs
+to detect the termination of activities across multiple places, then
+it will entail communication costs and latency that will increase with
+the number of places involved in the <TT>finish</TT>. 
+
+<P>
+
+<H2><A NAME="SECTION00514000000000000000">
+Exceptions</A>
+</H2>
+The X10  exception model differs from Java's in two significant ways.
+First, X10  defines a ``rooted'' exception model in which a
+<TT>finish</TT> acts as a collection point for any exceptions thrown by
+activities that are executing under the control of the
+<TT>finish</TT>. Only after all such activities have terminated (normally
+or abnormally) does the <TT>finish</TT> propagate exceptions to its
+enclosing environment by collecting them into a single
+<TT>MultipleExceptions</TT> object which it will then throw.  Second, the
+current X10  language specification does not specify the exception
+semantics expected within a single activity.  Current implementations
+of X10  assume a non-precise exception model that enables the
+implementation to more freely reorder operations and increases the
+potential for compiler optimizations.
+
+<P>
+
+<H1><A NAME="SECTION00520000000000000000"></A>
+<A NAME="sec:implOverview"></A>
+<BR>
+X10  v2.4.0  Implementation Overview
+</H1>
+X10  v2.4.0  is implemented via source-to-source compilation to another
+language, which is then compiled and executed using existing
+platform-specific tools.  The rationale for this implementation
+strategy is that it allows us to achieve critical portability,
+performance, and interoperability objectives.  More concretely, X10  v2.4.0 
+can be either compiled to C++ or Java.  The resulting C++ or Java
+program is then compiled by either a platform C++ compiler to produce
+an executable or compiled to class files and then executed on a
+cluster of JVMs. We term these two implementation paths <EM>Native X10 </EM> and <EM>  Managed X10 </EM> respectively.
+
+<P>
+Portability is important because we desire implementations of X10  to
+be available on as many platforms (hardware/operating system
+combinations) as possible.  Wide platform coverage both increases the
+odds of language adoption and supports productivity goals by allowing
+programmers to easily prototype code on their laptops or small
+development servers before deploying to larger cluster-based systems
+for production.
+
+<P>
+X10  programs need to be capable of achieving close to peak hardware
+performance on compute intensive kernels.  Therefore some form of
+platform-specific optimizing compilation is required. Neither
+interpretation nor unoptimized compilation is sufficient.  However, by
+taking a source-to-source compilation approach we can focus our
+optimization efforts on implementing a smaller set of high-level,
+X10 -specific optimizations with significant payoff while still
+leveraging all of the classical and platform-specific optimization
+found in optimizing C++ compilers and JVMs.
+
+<P>
+Finally, X10  needs to be able to co-exist with existing libraries and
+application frameworks. For scientific computing, these libraries are
+typically available via C APIs; therefore Native X10  is the best
+choice.  However, for more commercial application domains existing
+code is often written in Java; therefore Managed X10  is also an
+essential part of the X10  implementation strategy.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:x10compiler"></A><A NAME="1903"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4.1:</STRONG>
+X10 Compiler Architecture</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><IMG
+  WIDTH="630" HEIGHT="473" ALIGN="BOTTOM" BORDER="0"
+ SRC="./compiler.png"
+ ALT="Image compiler"></DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The overall architecture of the X10  compiler is depicted in
+Figure&nbsp;<A HREF="#fig:x10compiler">4.1</A>.  This compiler is composed of two main
+parts: an AST-based front-end and optimizer that parses X10  source
+code and performs AST based program transformation; Native/Java
+backends that translate the X10  AST into C++/Java source code and
+invokes a post compilation process that either uses a C++ compiler to
+produce an executable binary or a Java compiler to produce bytecode.
+
+<P>
+Using source-to-source compilation to bootstrap the optimizing
+compilation of a new programming language is a very common approach. A
+multitude of languages are implemented via compilation to either C/C++
+and subsequent post-compilation to native code or via compilation to
+Java/C# (source or bytecodes) and subsequent execution on a managed
+runtime with an optimizing JIT compiler.  An unusual aspect of the X10 
+implementation effort is that it is pursuing both of these paths
+simultaneously.  This decision has both influenced and constrained
+aspects of the X10  language design (consideration of how well/poorly a
+language feature can be implemented on both backends is required) and
+provided for an interesting comparison between the strengths and
+limitations of each approach.  It also creates some unfortunate
+complexity in the X10  performance model because the performance
+characteristics of C++ and Java implementations are noticeably
+different.
+
+<P>
+
+<H1><A NAME="SECTION00530000000000000000"></A>
+<A NAME="sec:runtime"></A>
+<BR>
+X10  v2.4.0  Runtime
+</H1>
+
+<DIV ALIGN="CENTER"><A NAME="fig:x10runtime"></A><A NAME="1918"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 4.2:</STRONG>
+X10 Runtime Architecture</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><IMG
+  WIDTH="673" HEIGHT="705" ALIGN="BOTTOM" BORDER="0"
+ SRC="./X10Runtime.png"
+ ALT="Image X10Runtime"></DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Figure&nbsp;<A HREF="#fig:x10runtime">4.2</A> depicts the major software components of
+the X10 runtime.  The runtime bridges the gap between X10 application
+code and low-level facilities provided by the network transports (PAMI
+<EM>etc.</EM>) and the operating system.  The lowest level of the X10 
+runtime is X10RT which abstracts and unifies the capabilities of the
+various network layers to provide core functionality such as active
+messages, collectives, and bulk data transfer. 
+
+<P>
+The core of the runtime is <EM>XRX</EM>, the <EM>X</EM>10 <EM>R</EM>untime
+in <EM>X</EM>10.  It implements the primitive X10  constructs for
+concurrency and distribution (<I>async</I>, <I>at</I>, <I>finish</I>,
+<I>atomic</I>, and <I>when</I>). The X10  compiler replaces these
+constructs with calls to the corresponding runtime services.  The XRX
+runtime is primarily written in X10  on top of a series of
+low-level APIs that provide a platform-independent view of processes,
+threads, primitive synchronization mechanisms (e.g., locks), and
+inter-process communication. For instance, the <I>x10.lang.Lock</I>
+class is mapped to <I>pthread_mutex</I>
+(resp. <I>java.util.concurrent.locks.ReentrantLock</I>) by Native
+X10  (resp. Managed X10 ).
+
+<P>
+The X10  Language Native Runtime layer implements the object-oriented
+features of the sequential X10  language (dynamic type checking,
+interface invocation, memory management, <EM>etc.</EM>) and is written in
+either C++ (Native X10 ) or Java (Managed X10 ). 
+
+<P>
+The runtime also provides a set of core class libraries that provide
+fundamental data types, basic collections, and key APIs for
+concurrency and distribution such as <I>x10.util.Team</I> for
+multi-point communication or <I>x10.lang.Rail.asyncCopy</I> for
+large data transfers.
+
+<P>
+In this section, we review the specifics of the X10  v2.4.0  runtime
+implementation focusing on performance aspects.
+
+<P>
+
+<H2><A NAME="SECTION00531000000000000000">
+Distribution</A>
+</H2>
+
+<P>
+The X10  v2.4.0  runtime maps each place in the application to one
+process.<A NAME="tex2html12"
+  HREF="#foot2193"><SUP>4.4</SUP></A> Each process runs the exact same executable
+(binary or bytecode).
+
+<P>
+Upon launch, the process for place 0 starts executing the main
+activity.
+
+<P>
+<PRE>
+finish { main(args); }
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION00531010000000000000">
+Static fields.</A>
+</H4>
+Static fields are lazily initialized in each place when they are first
+accessed. Both X10  v2.4.0  backend compilers map static fields initialized with
+compile time constants to static fields of the target language.  Other
+static fields are mapped to method calls. The method checks to see if
+the field has already been initialized in the current place, evaluates
+the initialization expression if it has not, and then returns the
+value of the field.  Therefore accessing a static field with a
+non-trivial initialization expression will be more modestly more
+expensive in X10  than the corresponding operations in either C++ or Java. 
+
+<P>
+
+<H4><A NAME="SECTION00531020000000000000">
+X10RT.</A>
+</H4>
+The X10  v2.4.0  distribution comes with a series of pluggable libraries
+for inter-process communication referred to as X10RT libraries
+[<A
+ HREF="node6.html#x10rt-spec">11</A>,<A
+ HREF="node6.html#x10rt-impl">12</A>]. The default X10RT
+library--<I>sockets</I>--relies on POSIX TCP/IP connections. The
+<I>standalone</I> implementation supports SMPs via shared memory
+communication. The <I>mpi</I> implementation maps X10RT APIs to MPI
+[<A
+ HREF="node6.html#MPI-2.2">8</A>]. Other implementations support various IBM transport
+protocols (DCMF, PAMI).
+
+<P>
+Each X10RT library has its own performance profile--latency,
+throughput, etc. For instance, the X10  v2.4.0  <I>standalone</I> library
+is significantly faster than the <I>sockets</I> library used on a
+single host.
+
+<P>
+The performance of X10RT can be tuned via the configuration of the
+underlying transport implementation. For instance, the <I>mpi</I>
+implementation honors the usual MPI settings for task affinity, fifo
+sizes, etc.
+
+<P>
+
+<H4><A NAME="SECTION00531030000000000000">
+Teams.</A>
+</H4>
+The <I>at</I> construct only permits point-to-point messaging. The 
+X10  v2.4.0  runtime provides the <I>x10.util.Team</I> API for efficient
+multi-point communication.
+
+<P>
+Multi-point communication
+primitives--a.k.a. <I>collectives</I>--provided by the
+<I>x10.util.Team</I> API are hardware-accelerated when possible, e.g.,
+<I>broadcast</I> on BlueGene/P. When no hardware support is available,
+the Team implementation is intended to make a reasonable effort at
+minimizing communication and contention using standard techniques such
+as butterfly barriers and broadcast trees.
+
+<P>
+
+<H4><A NAME="SECTION00531040000000000000">
+AsyncCopy.</A>
+</H4>
+The X10  v2.4.0  tool chain implements <I>at</I> constructs via
+serialization. The captured environment gets encoded before
+transmission and is decoded afterwards. Although such an encoding is
+required to correctly transfer object graphs with aliasing, it has
+unnecessary overhead when transmitting immediate data, such as arrays
+of primitives.
+
+<P>
+As a work around, the X10  v2.4.0  <I>x10.lang.Rail</I> class provides
+specific methods--<I>asyncCopy</I>--for transferring array contents
+across places with lower overhead.  These methods guarantee the raw
+data is transmitted as efficiently as permitted by the underlying
+transport with no redundant packing, unpacking, or copying.  Hardware
+permitting, they initiate a direct copy from the source array to the
+destination array using RDMAs.<A NAME="tex2html13"
+  HREF="#foot1980"><SUP>4.5</SUP></A>
+<P>
+
+<H2><A NAME="SECTION00532000000000000000">
+Concurrency</A>
+</H2>
+
+<P>
+The cornerstone of the X10  runtime is the scheduler. The X10 
+programming model requires the programmer to specify the place of each
+activity. Therefore, the X10  scheduler makes per-place decisions,
+leaving the burden of inter-place load balancing to the library writer
+and ultimately the programmer.
+
+<P>
+The X10  v2.4.0  scheduler assumes a symmetrical, fixed number of
+concurrent execution units (CPU cores) per process for the duration of
+the execution. This assumption is consistent with the HPCS
+context--job controllers typically assign concurrently running
+applications to static partitions of the available computing
+resources--but will be relaxed in subsequent releases of X10 .
+
+<P>
+
+<H4><A NAME="SECTION00532010000000000000">
+Work-Stealing scheduler.</A>
+</H4>
+The X10  v2.4.0  scheduler belongs to the family of <I>work-stealing</I>
+schedulers
+[<A
+ HREF="node6.html#Blumofe:1999:SMC:324133.324234">2</A>,<A
+ HREF="node6.html#Frigo:1998:ICM:277650.277725">3</A>]
+with a <I>help-first</I> scheduling policy
+[<A
+ HREF="node6.html#YiGuo:2009:WHS:1586640.1587670">5</A>]. It uses a pool of worker
+threads to execute activities. Each worker thread owns a double-ended
+queue of pending activities. A worker pushes one activity for each
+<I>async</I> construct it encounters. When a worker completes one
+activity, it pops the next activity to run from its deque. If the
+deque is empty, the worker attempts to <I>steal</I> a pending activity
+from the deque of a randomly selected worker.
+
+<P>
+Since each worker primarily interacts with its own deque, contention
+is minimal and only arises with load imbalance. Moreover, a
+<I>thief</I> tries to grab an activity from the top of the deque
+whereas the <I>victim</I> always pushes and pops from the bottom,
+further reducing contention.
+
+<P>
+In X10  v2.4.0 , the <I>thief</I> initially chooses a <I>victim</I> at
+random then inspects the deque of every worker in a cyclic manner
+until it manages to steal a pending activity.
+
+<P>
+The X10  scheduler borrows the deque implementation of Doug Lea's
+Fork/Join framework [<A
+ HREF="node6.html#Lea:2000:JFF:337449.337465">7</A>].
+
+<P>
+
+<H4><A NAME="SECTION00532020000000000000">
+Life cycle.</A>
+</H4>
+A worker may be in one of four states:
+<DL>
+<DT><STRONG>running</STRONG></DT>
+<DD>one activity,
+</DD>
+<DT><STRONG>searching</STRONG></DT>
+<DD>for an activity to execute,
+</DD>
+<DT><STRONG>suspended</STRONG></DT>
+<DD>because the activity it is running has executed a
+  blocking construct, such as <I>finish</I> or <I>when</I>, or method,
+  such as <I>System.sleep</I> or <I>x10.util.Team.barrier</I>,
+</DD>
+<DT><STRONG>stopped</STRONG></DT>
+<DD>because there are already enough workers running or
+  searching.
+</DD>
+</DL>
+
+<P>
+Suspended and stopped workers are idle. Starting in X10  2.3, the
+runtime will mostly suspend excess idle workers, but even if the place
+is entirely inactive the runtime still requires one worker to be
+polling the network (i.e., busy waiting) to respond to incoming
+messages.  We expect that at least for some x10rt implementations that
+in later X10  release it will be possible to eliminate the need for
+busy waiting entirely.
+
+<P>
+
+<H4><A NAME="SECTION00532030000000000000">
+Cooperative scheduler.</A>
+</H4>
+The X10  v2.4.0  scheduler never preempts a worker running user code. The
+X10  v2.4.0  runtime is designed to enable achieving the highest possible
+performance on MPI-like distributed X10  applications where the
+programmer use matching send and receive instructions to achieve total
+control over the communication and execution schedule.  If the user
+code never yields to the runtime then pending activities (local or
+remote) are not processed. In other words, the runtime does not make
+any fairness guarantee.
+
+<P>
+A worker may yield either by executing a blocking statement or by
+invoking the <I>Runtime.probe</I> method. The latter executes all the
+pending activities at the time of the call before returning to the
+caller. This includes all the pending remote activities--activities
+spawned here from other places--and all the activities already in
+this worker deque, but does not include activities in other deques.
+
+<P>
+
+<H4><A NAME="SECTION00532040000000000000">
+Parallelism.</A>
+</H4>
+The user can specify the number of workers in the pool in each place
+using the <TT>X10_NTHREADS</TT> environment variable.<A NAME="tex2html14"
+  HREF="#foot2018"><SUP>4.6</SUP></A> The X10  v2.4.0  scheduler may create
+additional threads during the execution. But it strives to maintain
+the number of <I>non-idle</I> workers close to the requested value.
+
+<UL>
+<LI>If a worker suspends, the scheduler wakes a stopped worker if
+  available or allocates and starts a new worker if not.
+</LI>
+<LI>If a suspended worker resumes, the scheduler preempts and stops
+  a searching worker if any.
+</LI>
+<LI>If there are more than <TT>X10_NTHREADS</TT> workers running then
+  the scheduler preempts and stops the first one who empties its
+  deque.
+</LI>
+</UL>
+
+<P>
+As a result, the current scheduler guarantees the following properties
+that are intended to hold for any X10  implementation.
+
+<OL>
+<LI>If there are <TT>X10_NTHREADS</TT> pending activities or more then
+  there are <TT>X10_NTHREADS</TT> or more workers processing them, that
+  is, running them or searching for them.
+</LI>
+<LI>If there are ``<!-- MATH
+ $n<\texttt{X10\_NTHREADS}$
+ -->
+<IMG
+ WIDTH="133" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img43.png"
+ ALT="$n&lt;\texttt{X10\_NTHREADS}$">'' workers running user
+  code then there are ``<!-- MATH
+ $\texttt{X10\_NTHREADS}-n$
+ -->
+<IMG
+ WIDTH="131" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img44.png"
+ ALT="$\texttt{X10\_NTHREADS}-n$">'' workers searching
+  for pending activities.
+</LI>
+<LI>If there are <!-- MATH
+ $\texttt{X10\_NTHREADS}$
+ -->
+<IMG
+ WIDTH="102" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img45.png"
+ ALT="$\texttt{X10\_NTHREADS}$"> or more workers running then
+  there are no workers spinning.
+</LI>
+</OL>
+
+<P>
+Property 1 is the goal of any work-stealing scheduler: assuming the
+effort of finding pending activities is negligible, parallel
+activities are processed in parallel using <TT>X10_NTHREADS</TT>
+parallel processing units.
+
+<P>
+Property 2 guarantees that available cores are used to find pending
+activities quickly.
+
+<P>
+Property 3 mitigates the penalty of busy waiting in the current
+implementation: spinning workers are never getting in the way of the
+application provided the user makes sure that <TT>X10_NTHREADS</TT> is
+at most equal to the number of hardware cores available to the runtime
+for each place. For instance, if running 8 places on a 32-core node,
+<TT>X10_NTHREADS</TT> must not be larger than 4 workers per place.
+
+<P>
+
+<H4><A NAME="SECTION00532050000000000000">
+Joining.</A>
+</H4>
+In order to minimize pool size adjustments, the scheduler implements
+one key optimization. If a worker blocks on a <I>finish</I> construct
+but its deque is not empty, it does not suspend but instead processes
+the pending activities from its deque. It only eventually suspends if
+its deque becomes empty or if it reaches some other blocking construct
+(different from <I>finish</I>). By design, the pending activities that
+get processed by the worker in this phase must have been spawned from
+the blocked <I>finish</I> body. In the X10  v2.4.0  implementation, the
+worker will not attempt to steal activities from others if the
+<I>finish</I> construct is still waiting for spawned activities to
+terminate when the deque gets empty as this would require to carefully
+pick activities the <I>finish</I> construct is waiting for.
+
+<P>
+Thanks to this behavior, <I>finish</I> has much less scheduling
+overhead than other synchronization mechanisms, e.g., <I>when</I>
+constructs, and should be preferred when possible.
+
+<P>
+While this optimization is typically very effective at improving
+performance without observable drawbacks, it may lead to unbounded
+stack growth for pathological programs. Therefore, it may be disabled
+by setting the environment variable
+<TT>X10_NO_STEALS</TT>.<A NAME="tex2html15"
+  HREF="#foot2194"><SUP>4.7</SUP></A>
+<P>
+
+<H4><A NAME="SECTION00532060000000000000">
+Overhead.</A>
+</H4>
+For each <I>async</I> statement, the current worker must make work
+available to other workers. In the best implementation and best case
+scenario (no contention) this requires at least one CAS
+instruction<A NAME="tex2html16"
+  HREF="#foot2048"><SUP>4.8</SUP></A> per <I>async</I>. As a
+result, <I>async</I> constructs should only be used to guard
+computations that require (significantly) more resources than a CAS.
+
+<P>
+The X10  v2.4.0  runtime also allocates one small heap object per
+<I>async</I>. Again, anything smaller than that should be executed
+sequentially rather than wrapped with an <I>async</I>. Moreover,
+memory allocation and garbage collection can become a bottleneck if
+vast amounts of activities are created concurrently. The runtime
+therefore exposes the <I>Runtime.surplusActivityCount</I> method that
+returns the current size of the current worker deque. Application and
+library code may invoke this method to decide whether or not to create
+more asynchronous activities, as in:
+<PRE>
+if (Runtime.surplusActivityCount() &gt;= 3) m(); else async m();
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00533000000000000000">
+Synchronization</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION00533010000000000000">
+Finish.</A>
+</H4>
+Within a place, one only needs to count activity creation and
+termination events to decide the completion of a <I>finish</I>
+construct. The story is different across places as inter-process
+communication channels are likely to reorder messages so that
+termination events may be observed ahead of the corresponding creation
+events. The X10  v2.4.0  implementation of <I>finish</I> keeps track of
+these events on an unambiguous, per-place basis.
+
+<P>
+In the worst-case scenario, with <IMG
+ WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img46.png"
+ ALT="$p$"> places, there will be <IMG
+ WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img46.png"
+ ALT="$p$">
+counters in each place, that is, <IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img47.png"
+ ALT="$p\times p$"> counters for each
+<I>finish</I>. Moreover, there could be one inter-process message for
+each activity termination event. Messages could contain up to <IMG
+ WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img46.png"
+ ALT="$p$"> data
+elements.
+
+<P>
+In practice however much fewer counters, fewer messages, and smaller
+messages are necessary thanks to various optimizations embedded in the
+X10  v2.4.0  implementation.  In particular, events are accumulated locally
+and only transmitted to the <I>finish</I> place when local quiescence
+is detected--all local activities for this <I>finish</I> have
+completed. Counters are allocated lazily. Messages use sparse
+encodings.
+
+<P>
+To complement these runtime mechanisms, the programmer may also specify
+finish <I>pragmas</I>, which inform the runtime system about the kind of
+concurrent tasks that the finish will wait for, as in:
+<PRE>
+@Pragma(Pragma.FINISH_ASYNC) finish at (p) async s;
+</PRE>
+
+<P>
+The pragmas key the usage of more efficient implementations of
+distributed termination detection. 
+
+<P>
+Currently, the runtime system supports five finish pragmas. Below the
+``home'' place of a <TT>finish</TT> is the place at which the
+<TT>finish</TT> statement was spawned. A ``remote'' place is a place
+that is not home.
+<DL>
+<DT><STRONG>FINISH_ASYNC</STRONG></DT>
+<DD>A <TT>finish</TT> for a unique (possibly remote)
+  async. This <TT>finish</TT> serves as an indicator at the origin for the
+  completion of the <TT>async</TT>. 
+</DD>
+<DT><STRONG>FINISH_LOCAL</STRONG></DT>
+<DD>All <TT>async</TT>s created under this <TT>finish</TT>
+  (recursively) execute at home.
+</DD>
+<DT><STRONG>FINISH_SPMD</STRONG></DT>
+<DD>A <TT>finish</TT> whose remote activities have the property
+  that any nested activities they spawn must themselves be nested
+  within a <TT>finish</TT>. This corresponds to the ``Single Program Multiple
+  Data'' idioms (e.g. using MPI) where each place runs a single
+  top-level activity. In X10, the nested <TT>finish</TT> nested blocks (containing
+  <TT>async</TT>'s and <TT>at</TT>'s) may be used for (possibly overlapping)
+  communication between places.
+
+<P>
+</DD>
+<DT><STRONG>FINISH_HERE</STRONG></DT>
+<DD>A <TT>finish</TT> that does not count the remote creation or termination of
+activities (controlled by it). 
+
+<P>
+For this scheme to be a correct implementation of <TT>finish</TT>, it
+must be the case that the number of remote creations and terminations
+of activities is equal, and these events happen before the count of
+local creation and termination events (for <TT>async</TT>s controlled by
+this <TT>finish</TT>) reaches <IMG
+ WIDTH="12" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.png"
+ ALT="$0$">. 
+
+<P>
+For example, this idiom is applicable for this (often used) ``ping
+pong''  idiom:
+<PRE>
+val home=here;
+finish
+   at (other) async /*Ping*/ {
+     S;
+     at (home) async /*Pong*/
+       S1;
+   }
+</PRE>
+According to the semantics of <TT>finish</TT> the statement will
+terminate when both <TT>Ping</TT> and <TT>Pong</TT> have terminated.  A
+naive implementation would require the <TT>finish</TT> to be informed of
+the creation of <TT>Pong</TT> and the termination of <TT>Ping</TT>. Note
+however, that both of these events are remote - we consider <TT>at (other) async</TT>
+as a ``fused'' construct which starts at the home place and finishes at the remote place.
+The <TT>FINISH_HERE</TT> implementation will only
+count the creation of <TT>Ping</TT> and the termination of <TT>Pong</TT>
+(both of these are local events).  
+
+<P>
+</DD>
+<DT><STRONG>FINISH_DENSE</STRONG></DT>
+<DD>A scalable finish implementation for large place
+  counts using indirect routes for control messages so as to reduce
+  network contention at the expense of latency. 
+
+<P>
+</DD>
+</DL>
+For now, neither the compiler nor the runtime makes any attempt at checking the validity of the pragma.
+Therefore a pragma, if misused, may result in the spurious (early) termination of the annotated finish or in a deadlock.
+
+<P>
+
+<H4><A NAME="SECTION00533020000000000000"></A> <A NAME="chap:UncountedAsync"></A>
+<BR>
+Uncounted Async.
+</H4>
+
+<P>
+There are some situations in which an <TT>async</TT> may be annotated
+with <TT>@Uncounted</TT> (from the <TT>x10.compiler</TT> package). This
+annotation tells the compiler and runtime not to perform any of the
+book-keeping necessary to ensure that the governing <TT>finish</TT>
+progresses only after this <TT>async</TT> has terminated. 
+
+<P>
+There are two principle cases in which the use of <TT>Uncounted</TT> is
+recommended. First, the programmer may be able to establish that the
+lifetime of this <TT>async</TT> and all <TT>async</TT>s spawned in its
+dynamic extent is contained within the lifetime of the current
+activity. For instance one situation in which this happens is if the
+<TT>async</TT> corresponds to a remote message send, and on the remote
+side the body of the message executes some local operations and
+responds with a message send to the originator. In the meantime, the
+originator sits waiting in a loop for the return message (e.g. by
+executing <TT>Runtime.probe()</TT>. This is a safe use of
+<TT>Uncounted</TT> (see&nbsp;chap:Unbalanced).
+
+<P>
+The second situation is one in which the <TT>async</TT> corresponds to a
+message send directly implemented in the hardware, and some other
+reasoning is used to establish that these messages complete in time
+(see&nbsp;chap:RA).
+
+<P>
+
+<H4><A NAME="SECTION00533030000000000000">
+Atomic and When.</A>
+</H4>
+
+<P>
+The X10  v2.4.0  implementation of the <I>atomic</I> construct uses a
+place-wide lock. The lock is acquired for the duration of the atomic
+section.  The <I>when</I> construct is implemented using the same
+lock. Moreover, every suspended <I>when</I> statement is notified on
+every exit from an atomic section, irrespective of condition.
+
+<P>
+The per-place lock effectively serializes all atomic operation in a
+place whether they might inerfere or not. This implementation does not
+scale well beyond a few worker threads. Similarly, the <I>when</I>
+implementation does not scale well beyond a few occurrences (distinct
+condition variables).
+
+<P>
+The X10  standard library provides various atomic classes and locks
+that enable better scaling. Both the <I>collecting finish</I> idiom
+and the <I>x10.util.WorkerLocalStorage</I> API may be also used to
+minimize contention.
+
+<P>
+
+<H1><A NAME="SECTION00540000000000000000"></A>
+<A NAME="sec:compiler"></A>
+<BR>
+X10  v2.4.0  Compilation
+</H1>
+
+<P>
+When an application programmer writes X10  code that they are intending
+to execute using Native X10 , their base performance model should be
+that of C++.  Unless discussed below, the expected performance of an
+X10  language construct in Native X10  is the same as the
+corresponding C++ construct.
+
+<P>
+
+<H2><A NAME="SECTION00541000000000000000">
+Classes and Interfaces</A>
+</H2>
+X10  classes are mapped to C++ classes and the compiler
+directly uses the C++ object model to implement inheritance, instance
+fields, and instance methods.  Interfaces are also mapped to C++
+classes to support method overloading, but the X10  implements
+relationship is not implemented using the C++ object model.  Instead,
+additional interface dispatch tables (akin to ITables in
+Java<A NAME="tex2html17"
+  HREF="#foot2196"><SUP>4.9</SUP></A>) are generated by the X10  compiler
+``outside'' of the core C++ object model. The motivation for this
+design decision was to stay within the simpler, single-inheritance
+subset of C++ that minimizes per-object space overheads and also
+preserves the useful property that a pointer to an object always
+points to the first word of the object and that no ``this pointer
+adjustment'' needs to be performed on assignments or during the
+virtual call sequence.
+
+<P>
+Non-interface method dispatch corresponds directly to a C++
+virtual function call. Interface method dispatch will involve
+additional table lookups and empirically is 3 to 5 times slower than a
+virtual function call. C++ compilers typically do not aggressively
+optimize virtual calls, and will certainly not be able to optimize
+away the dispatch table lookup used to implement interface dispatch.
+Therefore, as a general rule, non-final and interface method
+invocations will not perform as well in Native X10  as they will in
+Managed X10 .
+
+<P>
+Unless specially annotated, all class instances will be heap allocated
+and fields/variables of class types will contain a pointer to the heap
+allocated object.
+
+<P>
+
+<H2><A NAME="SECTION00542000000000000000">
+Primitives and Structs</A>
+</H2>
+The dozen X10  struct types that directly correspond to the built-in C
+primitive types (int, float, etc.) are implemented by directly mapping
+them to the matching primitive type.  Any X10  level functions defined
+on this types are implemented via static inline methods. 
+The performance characteristics of the primitive C++ types is exactly
+the performance of their X10  counterparts.
+
+<P>
+All other X10  structs are mapped to C++ classes.  However, all of the
+methods of the C++ class are declared to be non-virtual.  Therefore, the
+C++ class for a struct will not include a vtable word.  Unlike object
+instances, struct instances are not heap allocated. They are instead
+embedded directly in their containing object or stack-allocated in the
+case of local variables.  When passed as a parameter to a function, a
+struct is passed by value, not by reference.  In C++ terms, a variable
+or field of some struct type S is declared to be of type S, not S*. 
+
+<P>
+This implementation strategy optimizes the space usage for structs and
+avoids indirections.  Programmers can correctly think of structs as
+taking only the space directly implied by their instance fields
+(modulo alignment constraints). However, passing structs, especially
+large structs, as method parameters or return value is significantly
+more expensive than passing/returning a class instance.  In future versions
+of X10  we hope to be able to pass structs by reference (at the
+implementation level) and thus ameliorate this overhead. 
+
+<P>
+
+<H2><A NAME="SECTION00543000000000000000">
+Closures and Function Types</A>
+</H2>
+An X10  function type is implemented exactly the same as other X10 
+interface types. An X10  closure literal is mapped to a
+C++ class whose instance fields are the captured lexical environment
+of the closure.  The closure body is implemented by an instance method
+of the C++ class. The generated closure class implements the
+appropriate function type interface. Closure instances are heap
+allocated. If the optimizer is able to propagate a closure literal to
+a program point where it is evaluated, the closure literal's body is
+unconditionally inlined.  In many cases this means that the closure
+itself is completely eliminated as well.
+
+<P>
+
+<H2><A NAME="SECTION00544000000000000000">
+Generics</A>
+</H2>
+Generic types in X10  are implemented by using C++'s template
+mechanism.  Compilation of a generic class or struct results in the
+definition of a templatized C++ class. When the generic type is
+instantiated in the X10  source, a template instantiation happens in
+the generated C++ code.  
+
+<P>
+The performance of an X10  generic class is very similar to that of a
+similar C++ templatized class.  In particular, instantiation based
+generics enable X10  generic types instantiated on primitives and structs
+to be space efficient in the same way that a C++ template instantiated
+on a primitive type would be.
+
+<P>
+
+<H2><A NAME="SECTION00545000000000000000">
+Memory Management</A>
+</H2>
+On most platforms Native X10  uses the Boehm-Demers-Weiser conservative
+garbage collector as its memory manager. A runtime interface to
+explicitly free an object is also available to the X10  programmer. The
+garbage collector is only used to automatically reclaim memory within
+a single place. The BDWGC does not yield the same level of memory
+management performance as that of the memory management subsystem of a
+modern managed runtime.  Therefore, when targeting Native X10  the
+application programmer may need to be more conscious of avoiding
+short-lived objects and generally reducing the application's
+allocation rate.
+
+<P>
+Because the X10  v2.4.0  implementation does not include a distributed
+garbage collector, if a <TT>GlobalRef</TT> to an object is sent to a
+remote place, then the object (and therefore all objects that it
+transitively refers to) become uncollectable.  The life-time of all
+multi-place storage must currently be explicitly managed by the
+programmer.  This is an area of the implementation that needs further
+investigation to determine what mix of automatic distributed garbage
+collection and additional runtime interfaces for explicit storage
+control will result in the best balance of productivity and
+performance while still maintaining memory safety.
+
+<P>
+
+<H2><A NAME="SECTION00546000000000000000">
+Other Considerations</A>
+</H2>
+In general, Native X10  inherits many of the strengths and weaknesses
+of the C++ performance model.  C++ compilers may have aggressive
+optimization levels available, but rarely utilize profile-directed
+feedback. C++ compilers are generally ineffective at optimizing
+non statically-bound virtual function calls.  Over use of
+object-oriented features, interfaces, and runtime type information is
+likely to reduce application performance more in Native X10  than it
+does in Managed X10 .
+
+<P>
+The C++ compilation model is generally file-based, rather than
+program-based.  In particular, cross-file inlining (from one .cc file
+to another) is performed fairly rarely and only at unusually high
+optimization levels.  Since the method bodies of non-generic X10 
+classes are mostly generated into .cc files, this implies that they
+are not easily available to be inlined except within their own
+compilation unit (X10  file).  Although for small programs, this could
+be mitigated by generating the entire X10  application into a single
+.cc file, this single-file approach is not viable for the scale of
+applications we need Native X10  to support. 
+
+<P>
+
+<H1><A NAME="SECTION00550000000000000000">
+Final Thoughts</A>
+</H1>
+
+<P>
+Clearly, the performance models described in this chapter are not the
+final and definitive X10  performance model.  However, we do believe
+that the language specification and its implementations are
+well-enough understood that it is possible for significant X10 
+programs to be written and for programmers to obtain predictable and
+understandable performance behavior from those programs. As the
+X10  implementations continue to mature, we expect to be able to
+eliminate some of the less desirable features of the X10  v2.4.0 
+performance models.
+
+<P>
+We hope that the open discussion of our design decisions in
+implementing X10  and their implications for its performance will be
+useful to the X10  programmer community and to the broader research
+community that is engaged in similar language design and
+implementation projects.  
+
+<P>
+
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot2184">... version</A><A
+ HREF="node5.html#tex2html7"><SUP>4.1</SUP></A></DT>
+<DD>based on the
+  discussion in&nbsp;[<A
+ HREF="node6.html#Grove:X1011">4</A>]
+
+</DD>
+<DT><A NAME="foot2187">... protocol</A><A
+ HREF="node5.html#tex2html8"><SUP>4.2</SUP></A></DT>
+<DD>
+<TT>x10.io.CustomSerialization</TT>
+
+</DD>
+<DT><A NAME="foot2188">...Kawachiya:2012:DGC:2246056.2246061
+</A><A
+ HREF="node5.html#tex2html9"><SUP>4.3</SUP></A></DT>
+<DD>which is not available in
+  Native X10  v2.4.0 
+
+</DD>
+<DT><A NAME="foot2193">...
+process.</A><A
+ HREF="node5.html#tex2html12"><SUP>4.4</SUP></A></DT>
+<DD>The X10  v2.4.0  runtime may launch additional processes
+  to monitor the application processes. These helper processes are
+  idle most of the time.
+
+</DD>
+<DT><A NAME="foot1980">... RDMAs.</A><A
+ HREF="node5.html#tex2html13"><SUP>4.5</SUP></A></DT>
+<DD>RDMA: remote direct memory
+  access.
+
+</DD>
+<DT><A NAME="foot2018">... variable.</A><A
+ HREF="node5.html#tex2html14"><SUP>4.6</SUP></A></DT>
+<DD>Some
+  X10RT libraries may internally use additional threads for network
+  management. See documentation.
+
+</DD>
+<DT><A NAME="foot2194">...X10_NO_STEALS.</A><A
+ HREF="node5.html#tex2html15"><SUP>4.7</SUP></A></DT>
+<DD>The <TT>X10_NO_STEALS</TT> flag
+  essentially turns deep stacks into large collections of mostly-idle
+  threads with smaller stacks, avoiding stack overflow errors. But
+  ultimately, this only matters to unscalable programs of little
+  practical relevance.
+
+</DD>
+<DT><A NAME="foot2048">...
+instruction</A><A
+ HREF="node5.html#tex2html16"><SUP>4.8</SUP></A></DT>
+<DD>CAS: compare-and-swap.
+
+</DD>
+<DT><A NAME="foot2196">...
+Java</A><A
+ HREF="node5.html#tex2html17"><SUP>4.9</SUP></A></DT>
+<DD>see the description of ``searched ITables'' in Alpern et
+  al.&nbsp;[<A
+ HREF="node6.html#Alpern:2001:EIJ">1</A>]
+
+</DD>
+</DL><HR>
+<A NAME="tex2html194"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html190"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html184"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html192"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html195"
+  HREF="node6.html">References</A>
+<B>Up:</B> <A NAME="tex2html191"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html185"
+  HREF="node4.html">The APGAS model</A>
+
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

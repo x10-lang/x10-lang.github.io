@@ -1,0 +1,1085 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>X10 basics</TITLE>
+<META NAME="description" CONTENT="X10 basics">
+<META NAME="keywords" CONTENT="intro-web">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="intro-web.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="intro-web.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<A NAME="tex2html141"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html137"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html131"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html139"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html142"
+  HREF="node4.html">The APGAS model</A>
+<B>Up:</B> <A NAME="tex2html138"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html132"
+  HREF="node2.html">Introduction</A>
+<BR> <P>
+
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html143"
+  HREF="node3.html#SECTION00310000000000000000">Core Object-oriented features</A>
+<UL>
+<LI><A NAME="tex2html144"
+  HREF="node3.html#SECTION00311000000000000000">Class</A>
+<UL>
+<LI><A NAME="tex2html145"
+  HREF="node3.html#SECTION00311100000000000000">Fields</A>
+<LI><A NAME="tex2html146"
+  HREF="node3.html#SECTION00311200000000000000">Properties</A>
+<LI><A NAME="tex2html147"
+  HREF="node3.html#SECTION00311300000000000000">Methods</A>
+<LI><A NAME="tex2html148"
+  HREF="node3.html#SECTION00311400000000000000">Constructors</A>
+</UL>
+<LI><A NAME="tex2html149"
+  HREF="node3.html#SECTION00312000000000000000">Structs</A>
+<LI><A NAME="tex2html150"
+  HREF="node3.html#SECTION00313000000000000000">Function literals</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html151"
+  HREF="node3.html#SECTION00320000000000000000">Statements</A>
+<UL>
+<LI><A NAME="tex2html152"
+  HREF="node3.html#SECTION00320100000000000000">Assignment.</A>
+<LI><A NAME="tex2html153"
+  HREF="node3.html#SECTION00320200000000000000">Conditionals.</A>
+<LI><A NAME="tex2html154"
+  HREF="node3.html#SECTION00320300000000000000">While loops.</A>
+<LI><A NAME="tex2html155"
+  HREF="node3.html#SECTION00320400000000000000">For loops.</A>
+<LI><A NAME="tex2html156"
+  HREF="node3.html#SECTION00320500000000000000">Throw statement.</A>
+<LI><A NAME="tex2html157"
+  HREF="node3.html#SECTION00320600000000000000">Try catch statement.</A>
+<LI><A NAME="tex2html158"
+  HREF="node3.html#SECTION00320700000000000000">Return statement.</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html159"
+  HREF="node3.html#SECTION00330000000000000000">Types</A>
+<UL>
+<LI><A NAME="tex2html160"
+  HREF="node3.html#SECTION00331000000000000000">Generic types</A>
+<LI><A NAME="tex2html161"
+  HREF="node3.html#SECTION00332000000000000000">Constrained types</A>
+<LI><A NAME="tex2html162"
+  HREF="node3.html#SECTION00333000000000000000">Type definitions</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00300000000000000000"></A><A NAME="chap:x10-basics"></A>
+<BR>
+X10 basics
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000">
+Core Object-oriented features</A>
+</H1>
+The core object-oriented features of X10  are very similar to those of Java or C#.
+
+<P>
+A program consists of a collection of top-level compilation units
+(``unit'' for short).  A unit is either a <EM>class</EM>, a <EM>struct</EM>
+or an <EM>interface</EM>.  
+
+<BR>
+<IMG
+ WIDTH="458" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{xtennum}[]
+package examples;
+import x10.io.Console;
+public class Hello {
+...
+...'The answer is: ''+result);
+}
+public def run():Boolean=true;
+}
+\end{xtennum}">
+<BR>
+
+<P>
+Classes, structs and interfaces live in <EM>packages</EM> (e.g.
+<TT>examples</TT> above). Packages typically consist of a sequence of 
+identifiers separated by ``<TT>.</TT>'' (with no spaces). 
+
+<P>
+Packages are used to control access to top-level units. If they are
+marked <TT>public</TT> they can be accessed from code in any other
+package. If they have no accessibility modifier, they can be accessed
+only by code living in the same package.
+
+<P>
+A file can contain multiple units - however only one of them may be
+marked <TT>public</TT>. The name of the file must be the same as the name
+of the <TT>public</TT> unit, with the suffix ``<TT>.x10</TT>''.
+
+<P>
+
+<P>
+The <EM>fully qualified name</EM> (FQN) of a class, a struct or an interface is the
+name of the class, the struct or the interface prefixed with the name
+of the package 
+that unit lives in. For instance, the FQN for the class above is <TT>examples.Hello</TT>. A unit <TT>A</TT> must use the FQN of another unit <TT>B</TT> unless it has an explicit <TT>import</TT> statement.
+
+<P>
+For instance:
+<BR>
+<IMG
+ WIDTH="132" HEIGHT="11" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="\begin{xtennoindent}
+import x10.io.Console;
+\end{xtennoindent}">
+<BR>
+permits the name <TT>Console</TT> to be used in all the units
+in the file without being qualified by the package name.
+
+<P>
+Packages are ``flat'' - importing a package <TT>x10</TT> does not imply
+(for instance) that the package <TT>x10.examples</TT> is imported
+automatically.  However, the name of a package is connected to the
+directory structure of the code. All the units defined in a package
+<TT>x10.examples</TT> must live in files in the directory <TT>  x10/examples</TT> (relative to some base directory). All the units
+defined in the package <TT>x10</TT> must live in files in the directory
+<TT>x10</TT>.  
+
+<P>
+
+<H2><A NAME="SECTION00311000000000000000">
+Class</A>
+</H2>
+
+<P>
+A class is a basic <EM>bundle</EM> of data and code. It specifies a number of
+<EM>members</EM>, namely <EM>fields</EM>, <EM>methods</EM>, <EM>constructors</EM>,
+and member classes and interfaces.  Additionally a class specifies the name of
+another class from which it <EM>inherits</EM> (the <EM>superclass</EM>) and zero
+or more interfaces which it <EM>implements</EM>. 
+
+<P>
+The members available at a class (i.e. that can be used by variables
+whose type is that class) are those defined at a class, and those
+defined in superclasses.
+
+<P>
+A class may be marked <TT>final</TT>. <TT>final</TT> classes cannot be subclassed.
+
+<P>
+
+<H3><A NAME="SECTION00311100000000000000">
+Fields</A>
+</H3>
+
+<P>
+A field specifies a data item that belongs to the class:
+
+<BR>
+<IMG
+ WIDTH="487" HEIGHT="56" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.png"
+ ALT="\begin{xtennum}[]
+var nSolutions:Long = 0;
+public static val expectedSolutions =...
+..., 724, 2680, 14200, 73712, 365596, 2279184, 14772512];
+val N:Long;
+\end{xtennum}">
+<BR>
+
+<P>
+Fields may be mutable (<TT>var</TT>) or immutable (<TT>val</TT>). The type
+of a mutable field must always be specified (it follows the name of
+the variable, and a ``<TT>:</TT>''). A mutable field may or may not be
+initialized.  The type of an immutable field may be omitted if the
+field declaration specifies an <EM>initializer</EM>.  For instance, in
+the above fragment the type <TT>Rail[Long]</TT> is inferred for the field
+<TT>expectedSolutions</TT>. The value of an immutable field does not have
+to be specified through an initializer - as long as it is supplied in
+every constructor for the class. However, if an initializer is not
+specified the type of the field must be specified.
+
+<P>
+Fields may be instance or static. By default fields are instance
+fields, static fields are marked with the flag <TT>static</TT> (as
+illustrated above). Every object has one copy of an instance
+field. However, in each place, there is only one copy of each static field for all
+instances of that class in the place. In X10  static fields are required to be
+immutable.
+
+<P>
+Instance fields are inherited by subclasses. This means that an object
+always has enough space for the instance fields of the class of which
+the object is an instance, and all of the object's superclasses.
+
+<P>
+A field defined in a class may be <EM>shadowed</EM> in a subclass if the
+subclass defines a field with the same name (but possibly a different
+type). The value of a shadowed field can always be accessed by using
+the qualifier <TT>super</TT>.
+
+<P>
+It is a compile-time error for a class to declare two fields with the
+same name.
+
+<P>
+
+<H3><A NAME="SECTION00311200000000000000"></A> <A NAME="x10-basic-properties"></A>
+<BR>
+Properties
+</H3>
+A class may specify one or more properties. Properties are immutable
+instance fields that can be used in constrained types
+sec:x10-basic-constrained-types.  They are also distinguished
+from other instance fields in that they are initialized in a
+particular way, through the invocation of a <TT>property</TT> call
+during execution of the constructor sec:x10-basic-constructor for
+the object or struct. It is a compile time error for a constructor to
+have a normal execution path which does not contain a <TT>property</TT>
+call. 
+
+<P>
+To make the compile-time type-checking of constraints more tractable,
+X10 v&nbsp;2.4.0  requires 
+that the types of properties are ``simpler'' than the type of the
+class or struct they occur in. Specifically, the graph formed with
+classes or structs as nodes and an edge from node <IMG
+ WIDTH="13" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.png"
+ ALT="$v$"> to node <IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$w$"> if
+the class or struct corresponding to <IMG
+ WIDTH="13" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.png"
+ ALT="$v$"> has a field whose base type
+is <IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$w$"> cannot have cycles. One consequence of this restriction is that
+if a class or struct has a type parameter <TT>T</TT>, then the type of a
+field cannot be <TT>T</TT>. 
+
+<P>
+
+<P>
+
+<H3><A NAME="SECTION00311300000000000000"></A><A NAME="x10-basic-methods"></A>
+<BR>
+Methods
+</H3>
+
+<P>
+A method is a named piece of code, parametrized by zero or more
+variables (the <EM>parameters</EM>). A method may be <TT>void</TT> - in
+which case it returns no value and is usually called just for its
+effect on the store - or it may return a value of a given type. 
+
+<P>
+A method may have one or more type parameters; such a method is said
+to be <EM>type generic</EM>.  A method may have a <EM>method guard </EM>: the
+guard may specify constraints on the type parameters. 
+
+<P>
+
+<P>
+The <EM>signature</EM> of a method consists of its name and the types of
+its arguments. A class may not contain two methods whose signatures
+are the same. Additionally, a method specifies a <EM>return type</EM>.
+and zero or more <EM>checked exceptions</EM> that the body of the method
+is permitted to throw. (The body of the method may throw any number of
+unchecked exceptions.)
+
+<P>
+A value <TT>e</TT> may be returned from the body of a method by executing
+a <TT>return e;</TT> statement.  The return type of a method may be
+inferred in X10  (that is, it does not need to be explicitly
+supplied by the user).  It is the least upper bound of the types of
+all expressions <TT>e</TT> where the body of the method contains a <TT>return e</TT> statement.
+
+<P>
+Methods may be <EM>instance</EM> methods or <EM>static</EM> methods. 
+By default methods are instance methods. Methods are marked static by using 
+the qualifier <TT>static</TT>.
+
+<P>
+Consider the code in Table&nbsp;<A HREF="#table:NQueens-Board">2.1</A>.  The methods
+<TT>safe(j:Long)</TT>, <TT>search(R:LongRange)</TT> and <TT>search()</TT>
+are instance methods.  The instance methods of a class are available
+for every object that is an instance of the class.  Instance methods
+are invoked using the syntax <TT>e.m(e1,..., en)</TT>.  <TT>e</TT> is said
+to be the <EM>receiver</EM> of the method invocation, and <TT>e1,...,en</TT>
+the <EM>arguments</EM>.
+
+<P>
+Each expression in X10  has a <EM>static type</EM>(Section
+&nbsp;sec:static-type).  The compiler reports an error when
+processing a method invocation <TT>e.m(e1,..., en)</TT> if it cannot find
+precisely one method named <TT>m</TT> on the static type of <TT>e</TT> which
+has <TT>n</TT> arguments and which is such that the static type of <TT>  ei</TT> is a subtype of the declared type of the <TT>i</TT>th argument.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="table:NQueens-Board"></A><A NAME="346"></A>
+<TABLE>
+<CAPTION><STRONG>Table 2.1:</STRONG>
+NQueens Board</CAPTION>
+<TR><TD><IMG
+ WIDTH="413" HEIGHT="468" BORDER="0"
+ SRC="img7.png"
+ ALT="\begin{table}\fromfile{NQueens.x10}
+\begin{xtennum}[]
+class Board {
+val q: Rail...
+...nSolutions++;
+return;
+}
+this.search(0..(N-1));
+}
+}
+\end{xtennum}\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+The body of an instance method may access the state of the receiver
+(called the <EM>current object</EM>) through the special variable <TT>  this</TT> (Line&nbsp;nqueens-board-search29).  Unless there is risk
+of ambiguity, the prefix ``<TT>this.</TT>'' may be omitted; thus the
+code can also be written as:  
+<BR>
+<IMG
+ WIDTH="157" HEIGHT="44" ALIGN="BOTTOM" BORDER="0"
+ SRC="img8.png"
+ ALT="\begin{xtennoindent}
+def search() {
+for (k in R) searchOne(k);
+}
+\end{xtennoindent}">
+<BR>
+The code for static methods does not have an associated current
+object, and hence cannot use <TT>this</TT>. Static methods are invoked
+by naming the class as the receiver, e.g. <TT>NQueens.main(null)</TT>.
+
+<P>
+
+<H4><A NAME="SECTION00311310000000000000">
+Inheritance</A>
+</H4>
+Methods may be inherited. That is, methods defined on superclasses are
+available as methods on a subclass, unless they are overridden by
+another method declaration with the same signature. Instance methods
+are said to be <EM>virtually dispatched</EM>: this means that when a
+method is invoked on an object <TT>o</TT> that is an instance of class
+<TT>C</TT>, the inheritance tree for <TT>C</TT> is searched (starting from
+<TT>C</TT>) for a method definition with the same signature. The first
+definition found is executed. The type rules for X10  guarantee
+that at runtime such a method will exist.
+
+<P>
+
+<H4><A NAME="SECTION00311320000000000000">
+Overloading</A>
+</H4>
+In X10  methods may be overloaded. This means that a class may have
+multiple methods with the same name - of necessity they must have a
+different signature. These methods have nothing to do with each other. 
+
+<P>
+Overloading is very convenient - it permits the programmer to use a
+method name for some abstract concept and than provide instantiations
+of that concept for different parameter types through different
+overloaded methods with the same name. The name <TT>search</TT> is overloaded in 
+Table&nbsp;<A HREF="#table:NQueens-Board">2.1</A>, for instance.
+
+<P>
+
+<H4><A NAME="SECTION00311330000000000000">
+Access control</A>
+</H4>
+The qualifiers <TT>private, public, protected</TT> may be used to limit
+access to a method. <TT>private</TT> methods may be accessed only by code
+in the same class. <TT>public</TT> methods can be accessed from any
+code. <TT>protected</TT> methods can only be accessed in the same class
+or its subclasses. If no qualifier is provided, a method can be
+accessed by code in the same package (it is said to be <EM>package protected</EM>).
+
+<P>
+
+<H3><A NAME="SECTION00311400000000000000"></A><A NAME="sec:x10-basic-constructor"></A>
+<BR>
+Constructors
+</H3>
+
+<P>
+A class may specify zero or more <EM>constructors</EM>. For instance:
+
+<BR>
+<IMG
+ WIDTH="182" HEIGHT="29" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="\begin{xtennum}[]
+def this() { this(8);}
+def this(N:Long) { this.N=N;}
+\end{xtennum}">
+<BR>
+
+<P>
+Constructors may be overloaded just like methods.  The
+qualifiers <TT>private, public, protected</TT> may be used to limit access
+to a constructor.
+
+<P>
+Instances of a class are created by invoking constructors using the
+<TT>new</TT> expression:
+<BR>
+<IMG
+ WIDTH="85" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.png"
+ ALT="\begin{xtennoindent}
+new Board(q, k)
+\end{xtennoindent}">
+<BR>
+The compiler declares an error if it cannot find a constructor for the
+specified class with the same number of formal arguments such that the
+formal type of each argument is a supertype of the type of each actual
+argument.
+
+<P>
+If a class does not have a constructor an <EM>implicit</EM> constructor
+is created. If the class has no properties then the implicit
+constructor is of the form: 
+<BR>
+<IMG
+ WIDTH="74" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="\begin{xtennoindent}
+def this() {}
+\end{xtennoindent}">
+<BR>
+If the class has properties <TT>x1:T1</TT>, ..., <TT>xn:Tn</TT> then the
+implicit constructor is of the form:
+<BR>
+<IMG
+ WIDTH="144" HEIGHT="44" ALIGN="BOTTOM" BORDER="0"
+ SRC="img12.png"
+ ALT="\begin{xtennoindent}
+def this(x1:T1,...,xn:Tn) {
+property(x1,...,xn);
+}
+\end{xtennoindent}">
+<BR>
+<H2><A NAME="SECTION00312000000000000000"></A><A NAME="sec:x10-basic-structs"></A>
+<BR>
+Structs
+</H2>
+An object is typically represented through <EM>handles</EM>, indirect references to
+a contiguous chunk of data on the heap. The space allocated
+for an object typically consists of space for its fields and space for
+a <EM>header</EM>. A header contains some bytes of data that represent
+meta-information about the object, such as a reference to the table of
+methods used to implement virtual dispatching on the object.  X10 also permits
+the definition of <EM>structs</EM>, which are different.
+
+<P>
+A <TT>struct</TT> is a ``header-less'' object. It can be represented by
+exactly as much memory as is necessary to represent the fields of the
+struct (modulo alignment constraints) and with its methods compiled to
+``static'' methods.  This is accomplished by imposing certain
+restrictions on structs (compared to objects).  A <TT>struct</TT>
+definition is just like a <TT>class</TT> definition except that it is
+introduced by the keyword <TT>struct</TT> rather than by <TT>  class</TT>.  Like a class, a struct may define zero or more fields,
+constructors and methods and may implement zero or more
+interfaces. However, a struct does not support inheritance; it may not
+have an <TT>extends</TT> clause. A struct may not be recursive: that
+is, there can be no cycles in the graph whose nodes are struct
+definitions and whose edges from <IMG
+ WIDTH="13" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$a$"> to <IMG
+ WIDTH="11" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img14.png"
+ ALT="$b$"> record that the struct <IMG
+ WIDTH="13" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$a$">
+has a field of type (struct) <IMG
+ WIDTH="11" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img14.png"
+ ALT="$b$">.  
+
+<P>
+For instance the struct:
+
+<BR>
+<IMG
+ WIDTH="288" HEIGHT="28" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="\begin{xtennum}[]
+package examples;
+public struct Complex(re:Double, im:Double){}
+\end{xtennum}">
+<BR>
+defines a <TT>Complex</TT> struct, instances of which can be
+represented by  exactly two doubles. An <TT> Array[Complex]</TT> with
+<TT>N</TT> elements can be implemented (in the Native backend) with a
+block of memory containing <TT>2*N</TT> doubles, with each <TT>Complex</TT>
+instance inlined.  
+
+<P>
+X10  does not support any notion of a reference to a struct. 
+Structs are passed by value. Equality <TT>==</TT> on structs is defined as
+point-wise equality on the fields of the struct. Further, structs are
+immutable; no syntax is provided to update fields of a struct in
+place.  While these decisions simplify the language, they make it
+awkward to express certain kinds of code, hence mutability and
+references to structs may be introduced in future versions of the
+language. 
+
+<P>
+
+<H2><A NAME="SECTION00313000000000000000"></A><A NAME="sec:x10-basic-functions"></A><A NAME="sec:x10-basics-functions"></A>
+<BR>
+Function literals
+</H2>
+X10 permits the definition of functions via literals. 
+Such a literal consists of a parameter list, followed optionally by a
+return type, followed by <TT>=&gt;</TT>, followed by the body (an
+expression).
+
+<P>
+For instance the function that takes an argument <TT>i</TT> that is an <TT>Int</TT> and returns
+<TT>old(i)</TT> if <TT>i &lt; n</TT> and <TT>newItem</TT> otherwise, is written as:
+<BR>
+<IMG
+ WIDTH="204" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img16.png"
+ ALT="\begin{xtennoindent}
+(i:Int) =&gt; (i &lt; n ? old(i) : newItem)
+\end{xtennoindent}">
+<BR>
+The type of this value is <TT>(Int)=&gt;Int</TT>. Note that the return type is inferred in the above definition. We could also have written it explicitly as:
+<BR>
+<IMG
+ WIDTH="228" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img17.png"
+ ALT="\begin{xtennoindent}
+(i:Int):Int =&gt; (i &lt; n ? old(i) : newItem)
+\end{xtennoindent}">
+<BR>
+
+<P>
+For instance:
+<BR>
+<IMG
+ WIDTH="291" HEIGHT="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="img18.png"
+ ALT="\begin{xtennoindent}
+(a:Int) =&gt; a // the identity function on Int's
+(a:Int, b:Int):Int =&gt; a &lt; b ? a : b // min function
+\end{xtennoindent}">
+<BR>
+Above, the type of the first value is <TT>(Int)=&gt;Int</TT>, the type of
+functions from <TT>Int</TT> to <TT>Int</TT>. The type of the second is
+<TT>(Int,Int)=&gt;Int</TT>. 
+
+<P>
+A function is permitted to access immutable variables defined outside
+its body (such functions are sometimes called closures). Note that the
+immutable variable may itself contain an object with mutable state.
+
+<P>
+The return type can often be omitted  - it is inferred to be the
+type of the return expression.
+
+<P>
+If <TT>x</TT> is a  function value of type <TT>(S1, ..., Sn) =&gt; T</TT>, and 
+<TT>s1, ..., sn</TT> are values of the given types, then <TT>  x(s1,...,sn)</TT> is of type <TT>T</TT>. 
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000"></A> <A NAME="sec:x10-basic-statements"></A>
+<BR>
+Statements
+</H1>
+
+<P>
+The sequential statements of X10  should be familiar   from Java
+and C++.
+
+<P>
+
+<H3><A NAME="SECTION00320100000000000000">
+Assignment.</A>
+</H3>
+The statement <TT>x=e</TT> evaluates the expression
+ <TT>e</TT> and assigns it to the local variable <TT>x</TT>.
+
+<P>
+The statement
+ <TT>d.f=e</TT> evaluates <TT>d</TT> to determine an object <TT>o</TT>. This
+ object must have a field <TT>f</TT> that is mutable. This value is
+ changed to the value obtained by evaluating <TT>e</TT>.
+
+<P>
+In both cases the compiler
+ checks that the type of the right hand side expression is a subtype
+ of the declared type.<A NAME="tex2html2"
+  HREF="#foot456"><SUP>2.1</SUP></A>
+<P>
+
+<H3><A NAME="SECTION00320200000000000000">
+Conditionals.</A>
+</H3> <TT>if (c) then S else S</TT>. The first branch is
+ executed if the condition <TT>c</TT> evaluates to true, else the second
+ branch is executed. One-armed conditionals are also permitted (the
+ <TT>else S</TT> may be dropped).
+
+<P>
+
+<H3><A NAME="SECTION00320300000000000000">
+While loops.</A>
+</H3> <TT>while (c) S</TT>. The condition <TT>c</TT> is
+ evaluated. If it is true, the body <TT>S</TT> is executed, and the
+ control returns to the top of the loop and the cycle of condition
+ evluation and body execution repeats. Thus the loop terminates only
+ when the condition evaluates to false.
+
+<P>
+A while loop may be labeled <TT>l: while (c) S</TT> (just as any other
+ statement). The body of a <TT>while</TT> loop may contain the statements
+ <TT>continue l;</TT> and <TT>break l;</TT>. The first causes control to
+ jump to the top of the loop labeled <TT>l</TT>, i.e. the rest of the
+ code in the body of the loop following the <TT>continue l;</TT>
+ statement is not executed. <TT>break l;</TT> causes control to jump
+ after the loop labeled <TT>l</TT> (that is, control exits from that
+ loop).
+
+<P>
+
+<H3><A NAME="SECTION00320400000000000000">
+For loops.</A>
+</H3>
+X10  supports the usual sort of <TT>for</TT> loop.
+The body of a <TT>for</TT> loop
+may contain <TT>break</TT> and <TT>continue</TT> statements just like <TT>while</TT> loops.
+
+<P>
+Here is an example of an explicitly enumerated for loop:
+
+<BR>
+<IMG
+ WIDTH="236" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
+ SRC="img19.png"
+ ALT="\begin{xtennum}[]
+def sum0(a:Rail[Long]):Long {
+var result:Long=0;
+for (var x:Long=0; x &lt; a.size; ++x)
+result += a(x);
+return result;
+}
+\end{xtennum}">
+<BR>
+X10  also supports enhanced for loops.
+The for loop may take an index specifier <TT> v in r</TT>, where <TT> r</TT>
+is any value that implements <TT> x10.lang.Iterable[T]</TT> for some type
+<TT> T</TT>. The body of the loop is executed once for every value
+generated by <TT> r</TT>, with the value bound to <TT> v</TT>. 
+
+<BR>
+<IMG
+ WIDTH="206" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
+ SRC="img20.png"
+ ALT="\begin{xtennum}[]
+def sum1(a:Rail[Long]):Long {
+var result:Long=0;
+for (v in a)
+result += v;
+return result;
+}
+\end{xtennum}">
+<BR>
+Of particular interest is <TT> LongRange</TT>. The expression <TT> e1
+  .. e2</TT> produces an instance of <TT> LongRange</TT> from <TT> l</TT> to <TT>
+  r</TT> if <TT> e1</TT> evaluates to <TT> l</TT> and <TT> e2</TT>
+evaluates to <TT> r</TT>. On iteration it enumerates all the values (if
+any) from <TT> l</TT> to <TT> r</TT> (inclusive). Thus we can sum the numbers
+from <TT> 0</TT> to <TT> N</TT>:
+
+<BR>
+<IMG
+ WIDTH="184" HEIGHT="75" ALIGN="BOTTOM" BORDER="0"
+ SRC="img21.png"
+ ALT="\begin{xtennum}[]
+def sum2(N:Long):Long {
+var result:Long=0;
+for (v in 0..N) result +=v;
+return result;
+}
+\end{xtennum}">
+<BR>
+One can iterate over multiple dimensions at the same time using <TT>  Region</TT>. A <TT>Region</TT> is a data-structure that compactly
+represents a set of <EM>points</EM>. For instance, the region <TT>  Region.make(0..5, 1..6)</TT> is a 2-d region of points <TT>(x,y)</TT> where <TT>x</TT>
+ranges over <TT>0..5</TT> and <TT>y</TT> over <TT>1..6</TT>. (The bounds are
+inclusive.) The natural iteration order for a region is
+lexicographic. Thus one can sum the coordinates of all points in a
+given rectangle:
+
+<BR>
+<IMG
+ WIDTH="329" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
+ SRC="img22.png"
+ ALT="\begin{xtennum}[]
+def sum2(M:Long,N:Long):Long {
+var result:Long=0;
+val R = x...
+...0..M, 0..N);
+for ([x,y] in R) result += x + y;
+return result;
+}
+\end{xtennum}">
+<BR>
+
+<P>
+Here the syntax <TT>[x,y]</TT> is said to be <EM>destructuring syntax</EM>;
+it destructures a 2-d point into its coordinates <TT>x</TT> and <TT>  y</TT>. One can write <TT>p[x,y]</TT> to bind <TT>p</TT> to the entire point.
+
+<P>
+
+<H3><A NAME="SECTION00320500000000000000">
+Throw statement.</A>
+</H3> X10  has a non-resumptive exception
+  model. This means that an exception can be thrown at any point in
+  the code.  Starting with X10  2.3.0, exceptions may be either
+  <EM>checked</EM> or <EM>unchecked</EM> to more closely match the Java
+  programming model for exceptions. Checked exceptions will be
+  subclasses of <TT>x10.lang.CheckedException</TT>; if a method throws
+  such an exception then it must declare that it does so with a
+  <TT>throws</TT> clause (placed after the return type of the method,
+  if any, and the body of the method).
+
+<P>
+Throwing an exception causes the call stack to be unwound until a
+catcher can be found (see below). If no catcher can be found the
+exception is thrown to the closest dyamically enclosing <TT>finish</TT>
+surrounding the throw point. 
+
+<P>
+
+<H3><A NAME="SECTION00320600000000000000">
+Try catch statement.</A>
+</H3> A <TT>try/catch/finally</TT> statement works
+  just as in Java. It permits exceptions to be caught (through a <TT>    catch</TT> clause) and computation resumed from the point of
+  capture. A <TT>finally</TT> clause specifies code that must be run
+  whenever control exits the <TT>try</TT> block - regardless of whether
+  the return is normal or exceptional.
+
+<P>
+
+<H3><A NAME="SECTION00320700000000000000">
+Return statement.</A>
+</H3> The statement <TT>return;</TT> causes control to
+  return from the current method. The method must be a <TT>void</TT>
+  method. The statement <TT>return e;</TT> causes control to return from
+  the current method with the value <TT>e</TT>.
+
+<P>
+A description of the other control constructs may be found in [<A
+ HREF="node6.html#x10-lang-spec">9</A>].
+
+<P>
+
+<H1><A NAME="SECTION00330000000000000000"></A><A NAME="sec:x10-basics-types"></A><A NAME="sec:static-type"></A>
+<BR>
+Types
+</H1>
+
+<P>
+X10  is a statically type-checked language. This means that
+  the compiler checks the type of each expression, and ensures that
+  the operations performed on an expression are those that are
+  permitted by the type of the expression.  
+
+<P>
+The name <TT>C</TT> of a class or interface is the most basic form of a type in
+X10. X10  also supports
+
+<UL>
+<LI><EM>generic types</EM> (e.g.
+<TT>Array[Int]</TT>) that take types as parameters, 
+</LI>
+<LI><EM>constrained types</EM> (e.g. <TT>Array{self.rank==1}</TT>)
+  that specify an additional constraint on the properties of the base
+  type, 
+</LI>
+<LI><EM>nested types</EM> (e.g. <TT>MyArray[T].Reducer</TT>
+</LI>
+<LI><EM>functional type</EM> (e.g. <TT>(Int)=&gt;Int</TT>.
+</LI>
+</UL>
+
+<P>
+A type specifies a set of members (fields, methods,
+constructors) that are defined on expressions of that type.
+
+<P>
+The availability of members of a type also depends on the
+accessibility relation. That is, a member of a type may be defined
+but not accessible (e.g. it is marked <TT>private</TT>).
+
+<P>
+A variable of a type <TT>S</TT> can only be assigned values whose
+static type <TT>T</TT> is the same as <TT>S</TT> or is a <EM>subtype</EM>
+of <TT>S</TT>.  
+
+<P>
+A type <TT>C</TT> is a subtype of type <TT>E</TT> if there is some
+type <TT>D</TT> such that 
+<TT>C</TT> is a subtype of <TT>D</TT> and
+<TT>D</TT> is a subtype of <TT>E</TT>.
+
+<P>
+If (class or interface) <TT>C[X1,...,Xm]</TT> <TT>extends</TT> or 
+<TT>implements</TT> type <TT>D[S1,..., Sn]</TT> (for <TT>m</TT> and
+<TT>n</TT> non-negative integers) then for every
+mapping <TT>A</TT> from type variables to types, the type obtained by applying 
+<TT>A</TT> to <TT>C[X1,...,Xm]</TT> is a subtype of the type obtained by
+applying <TT>A</TT> to <TT>D[S1,...,Sn]</TT>.
+
+<P>
+A constrained type <TT>C{c}</TT> is a subtype of <TT>D{d}</TT> if
+<TT>C</TT> is a subtype of <TT>D</TT> and <TT>c</TT> implies
+<TT>d</TT>. 
+
+<P>
+A nested type <TT>A.B</TT> is a subtype of <TT>C.D</TT>  if 
+<TT>A</TT> is the same as <TT>C</TT> and <TT>B</TT> is a subtype of
+<TT>D</TT>.
+
+<P>
+A function type <TT>(A1,...,Am)=&gt;B</TT> is a subtype of 
+<TT>(D1,...,Dn)=&gt;E</TT> if <TT>m=n</TT>, <TT>Di</TT> is a subtype of
+<TT>Ai</TT> (for <TT>i</TT> in <TT>1..n</TT>) and <TT>B</TT> is a
+subtype of <TT>E</TT>. 
+
+<P>
+
+<H2><A NAME="SECTION00331000000000000000"></A><A NAME="x10-basics-generic-types"></A>
+<BR>
+Generic types
+</H2>
+X10  permits <EM>generic types</EM>. That is a class or interface may be declared parametrized by types:
+
+<BR>
+<IMG
+ WIDTH="192" HEIGHT="75" ALIGN="BOTTOM" BORDER="0"
+ SRC="img23.png"
+ ALT="\begin{xtennum}[]
+class List[T] {
+var item:T;
+var tail:List[T]=null;
+def this(t:T){item=t;}
+}
+\end{xtennum}">
+<BR>
+
+<P>
+This specifies that the class definition actually specifies an
+infinite family of classes, namely those obtained by replacing the type
+parameter <TT>T</TT> with any concrete type. For instance, <TT>List[Int]</TT> is the class obtained by replacing <TT>T</TT> in the body
+of the class with <TT>Int</TT>:
+
+<BR>
+<IMG
+ WIDTH="205" HEIGHT="75" ALIGN="BOTTOM" BORDER="0"
+ SRC="img24.png"
+ ALT="\begin{xtennum}[]
+class List_Int {
+var item:Int;
+var tail:List_Int=null;
+def this(t:Int){item=t;}
+}
+\end{xtennum}">
+<BR>
+
+<P>
+Clearly generic types are very convenient - after all they let you
+figure out the code of the class once, and then use it an unbounded
+number of times ... in a type-safe fashion.
+
+<P>
+X10  types are available at runtime, unlike Java (which erases
+them).
+Therefore, Array[Int] and Array[Float] can be overloaded.
+X10 does not have primitive types and Int etc. can be used to instantiate type parameters.
+Bounds may be specified on type parameters and methods can be
+invoked on variables whose type is that parameter, as long as those
+methods are defined and accessible on the bound.
+
+<P>
+
+<H2><A NAME="SECTION00332000000000000000"></A><A NAME="sec:x10-basic-constrained-types"></A>
+<BR>
+Constrained types
+</H2>
+Constrained types are a key innovation of X10.
+
+<P>
+A constrained type is of the form <TT>T{c}</TT> where <TT>T</TT> is a
+type and <TT>c</TT> is a <TT>Boolean</TT> expression of a restricted
+kind. <TT>c</TT> may contain references to the special variable
+<TT>self</TT>, and to any final variables visible at its point of
+definition. 
+
+<P>
+Such a type is understood as the set of all entities <TT>o</TT> which
+are of type <TT>T</TT> and satisfy the constraint <TT>c</TT> when
+<TT>self</TT> is bound to <TT>o</TT>.
+
+<P>
+The permitted constraints include the predicates <TT>==</TT> and
+<TT>!=</TT>.  These predicates may be applied to constraint terms. A
+constraint term is either a final variable visible at the point of
+definition of the constraint, or the special variable <TT>self</TT> or
+of the form <TT>t.f</TT> where <TT>f</TT> names a field, and <TT>t</TT> is 
+(recursively) a constraint term. In a term <TT>self.p</TT> <TT>p</TT> must
+name a property of <TT>self</TT>. 
+
+<P>
+Examples:
+
+<P>
+<BR>
+<IMG
+ WIDTH="378" HEIGHT="29" ALIGN="BOTTOM" BORDER="0"
+ SRC="img25.png"
+ ALT="\begin{xtennoindent}
+Matrix[Int]{self.I==100, self.J==200} // 100 x 200 matrix
+Matrix[Int]{self.I==self.J} // the type of square matrices.
+\end{xtennoindent}">
+<BR>
+
+<P>
+Constraints may also include occurrences of user-defined
+predicates. See [<A
+ HREF="node6.html#x10-lang-spec">9</A>] for details.
+
+<P>
+
+<H2><A NAME="SECTION00333000000000000000">
+Type definitions</A>
+</H2>
+
+<P>
+A type definition permits a simple name to be supplied for a
+complicated type, and for type aliases to be defined. A type
+definition consists of a name, an optional list of type parameters, an
+optional list of (typed arguments), an ``<TT>=</TT>'' symbol, followed by
+a type in which the type parameters and arguments may be used.
+
+<P>
+For instance the type definition:
+
+<P>
+<BR>
+<IMG
+ WIDTH="353" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img26.png"
+ ALT="\begin{xtennoindent}
+public static type boolean(b:Boolean) = Boolean{self==b};
+\end{xtennoindent}">
+<BR>
+permits the expression <TT>boolean(true)</TT> to be used as
+shorthand the type <TT>Boolean{self==true}</TT>. 
+
+<P>
+X10 permits top-level type definitions. A type definition with
+principal name <TT>N</TT> must be defined in the file
+<TT>N.x10</TT>.  This file may contain other declarations as well,
+or may contain just the type definition.
+Example:
+
+<BR>
+<IMG
+ WIDTH="382" HEIGHT="104" ALIGN="BOTTOM" BORDER="0"
+ SRC="img27.png"
+ ALT="\begin{xtennum}[]
+\par
+package examples;
+public class Matrix[T](I:Long,J:Long) {...
+...type Matrix[T](I:Long,J:Long)=Matrix[T]{self.I==I,self.J==J};
+\par
+\end{xtennum}">
+<BR>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot456">... type.</A><A
+ HREF="node3.html#tex2html2"><SUP>2.1</SUP></A></DT>
+<DD>If it is not, the compiler tries to
+   first check for user-defined coercions. Only if it cannot find one
+   does it declare an error. See the Language Manual for more details.
+
+</DD>
+</DL><HR>
+<A NAME="tex2html141"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html137"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html131"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html139"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html142"
+  HREF="node4.html">The APGAS model</A>
+<B>Up:</B> <A NAME="tex2html138"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html132"
+  HREF="node2.html">Introduction</A>
+
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>A Brief Introduction To X10 (For the High Performance Programmer)</TITLE>
+<META NAME="description" CONTENT="A Brief Introduction To X10 (For the High Performance Programmer)">
+<META NAME="keywords" CONTENT="intro-web">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="intro-web.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+
+<A NAME="tex2html24"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html22"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html25"
+  HREF="node1.html">Contents</A>
+<BR> <P>
+
+<!--End of Navigation Panel-->
+
+
+<P>
+
+<P>
+
+<H1 ALIGN="CENTER">A Brief Introduction To X10 
+<BR>(For the High Performance Programmer)</H1>
+<DIV>
+
+<P ALIGN="CENTER"><STRONG>Vijay A. Saraswat</STRONG></P>
+
+
+<P ALIGN="CENTER"><STRONG>Olivier Tardieu</STRONG></P>
+
+
+<P ALIGN="CENTER"><STRONG>David Grove</STRONG></P>
+
+
+<P ALIGN="CENTER"><STRONG>David Cunningham</STRONG></P>
+
+
+<P ALIGN="CENTER"><STRONG>Mikio Takeuchi</STRONG></P>
+
+
+<P ALIGN="CENTER"><STRONG>Benjamin Herta</STRONG></P>
+</DIV>
+
+<P>
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+Copyright &#169; 2012-2013 The IBM Corporation
+
+<P>
+All rights reserved.
+
+<P>
+This work is part of the X10 project (http://x10-lang.org).
+
+<P>
+
+<BR> <HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html26"
+  HREF="node1.html">Contents</A>
+<LI><A NAME="tex2html27"
+  HREF="node2.html">Introduction</A>
+<LI><A NAME="tex2html28"
+  HREF="node3.html">X10 basics</A>
+<UL>
+<LI><A NAME="tex2html29"
+  HREF="node3.html#SECTION00310000000000000000">Core Object-oriented features</A>
+<UL>
+<LI><A NAME="tex2html30"
+  HREF="node3.html#SECTION00311000000000000000">Class</A>
+<LI><A NAME="tex2html31"
+  HREF="node3.html#SECTION00312000000000000000">Structs</A>
+<LI><A NAME="tex2html32"
+  HREF="node3.html#SECTION00313000000000000000">Function literals</A>
+</UL>
+<LI><A NAME="tex2html33"
+  HREF="node3.html#SECTION00320000000000000000">Statements</A>
+<LI><A NAME="tex2html34"
+  HREF="node3.html#SECTION00330000000000000000">Types</A>
+<UL>
+<LI><A NAME="tex2html35"
+  HREF="node3.html#SECTION00331000000000000000">Generic types</A>
+<LI><A NAME="tex2html36"
+  HREF="node3.html#SECTION00332000000000000000">Constrained types</A>
+<LI><A NAME="tex2html37"
+  HREF="node3.html#SECTION00333000000000000000">Type definitions</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html38"
+  HREF="node4.html">The APGAS model</A>
+<UL>
+<LI><A NAME="tex2html39"
+  HREF="node4.html#SECTION00410000000000000000">Async</A>
+<LI><A NAME="tex2html40"
+  HREF="node4.html#SECTION00420000000000000000">Finish</A>
+<UL>
+<LI><A NAME="tex2html41"
+  HREF="node4.html#SECTION00421000000000000000">The rooted exception model</A>
+</UL>
+<LI><A NAME="tex2html42"
+  HREF="node4.html#SECTION00430000000000000000">Atomic</A>
+<LI><A NAME="tex2html43"
+  HREF="node4.html#SECTION00440000000000000000">Places</A>
+<UL>
+<LI><A NAME="tex2html44"
+  HREF="node4.html#SECTION00441000000000000000">Motivation</A>
+<LI><A NAME="tex2html45"
+  HREF="node4.html#SECTION00442000000000000000">The <TT>at</TT> construct</A>
+<LI><A NAME="tex2html46"
+  HREF="node4.html#SECTION00443000000000000000">GlobalRef</A>
+<LI><A NAME="tex2html47"
+  HREF="node4.html#SECTION00444000000000000000">PlaceLocalHandle</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html48"
+  HREF="node5.html">The X10  Performance Model</A>
+<UL>
+<LI><A NAME="tex2html49"
+  HREF="node5.html#SECTION00510000000000000000">Fundamental X10  Performance Model</A>
+<UL>
+<LI><A NAME="tex2html50"
+  HREF="node5.html#SECTION00511000000000000000">X10  Type System</A>
+<LI><A NAME="tex2html51"
+  HREF="node5.html#SECTION00512000000000000000">Distribution</A>
+<LI><A NAME="tex2html52"
+  HREF="node5.html#SECTION00513000000000000000">Async and Finish</A>
+<LI><A NAME="tex2html53"
+  HREF="node5.html#SECTION00514000000000000000">Exceptions</A>
+</UL>
+<LI><A NAME="tex2html54"
+  HREF="node5.html#SECTION00520000000000000000">X10  v2.4.0  Implementation Overview</A>
+<LI><A NAME="tex2html55"
+  HREF="node5.html#SECTION00530000000000000000">X10  v2.4.0  Runtime</A>
+<UL>
+<LI><A NAME="tex2html56"
+  HREF="node5.html#SECTION00531000000000000000">Distribution</A>
+<LI><A NAME="tex2html57"
+  HREF="node5.html#SECTION00532000000000000000">Concurrency</A>
+<LI><A NAME="tex2html58"
+  HREF="node5.html#SECTION00533000000000000000">Synchronization</A>
+</UL>
+<LI><A NAME="tex2html59"
+  HREF="node5.html#SECTION00540000000000000000">X10  v2.4.0  Compilation</A>
+<UL>
+<LI><A NAME="tex2html60"
+  HREF="node5.html#SECTION00541000000000000000">Classes and Interfaces</A>
+<LI><A NAME="tex2html61"
+  HREF="node5.html#SECTION00542000000000000000">Primitives and Structs</A>
+<LI><A NAME="tex2html62"
+  HREF="node5.html#SECTION00543000000000000000">Closures and Function Types</A>
+<LI><A NAME="tex2html63"
+  HREF="node5.html#SECTION00544000000000000000">Generics</A>
+<LI><A NAME="tex2html64"
+  HREF="node5.html#SECTION00545000000000000000">Memory Management</A>
+<LI><A NAME="tex2html65"
+  HREF="node5.html#SECTION00546000000000000000">Other Considerations</A>
+</UL>
+<LI><A NAME="tex2html66"
+  HREF="node5.html#SECTION00550000000000000000">Final Thoughts</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html67"
+  HREF="node6.html">References</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR> <HR>
+
+</BODY>
+</HTML>

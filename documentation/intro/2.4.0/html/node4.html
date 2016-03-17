@@ -1,0 +1,774 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The APGAS model</TITLE>
+<META NAME="description" CONTENT="The APGAS model">
+<META NAME="keywords" CONTENT="intro-web">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="intro-web.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="intro-web.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+
+<A NAME="tex2html173"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html169"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html163"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html171"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html174"
+  HREF="node5.html">The X10 Performance Model</A>
+<B>Up:</B> <A NAME="tex2html170"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html164"
+  HREF="node3.html">X10 basics</A>
+<BR> <P>
+
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html175"
+  HREF="node4.html#SECTION00410000000000000000">Async</A>
+<LI><A NAME="tex2html176"
+  HREF="node4.html#SECTION00420000000000000000">Finish</A>
+<UL>
+<LI><A NAME="tex2html177"
+  HREF="node4.html#SECTION00421000000000000000">The rooted exception model</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html178"
+  HREF="node4.html#SECTION00430000000000000000">Atomic</A>
+<LI><A NAME="tex2html179"
+  HREF="node4.html#SECTION00440000000000000000">Places</A>
+<UL>
+<LI><A NAME="tex2html180"
+  HREF="node4.html#SECTION00441000000000000000">Motivation</A>
+<LI><A NAME="tex2html181"
+  HREF="node4.html#SECTION00442000000000000000">The <TT>at</TT> construct</A>
+<LI><A NAME="tex2html182"
+  HREF="node4.html#SECTION00443000000000000000">GlobalRef</A>
+<LI><A NAME="tex2html183"
+  HREF="node4.html#SECTION00444000000000000000">PlaceLocalHandle</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00400000000000000000"></A><A NAME="chap:apgas"></A>
+<BR>
+The APGAS model
+</H1>
+
+<P>
+In this chapter, we cover the APGAS constructs in X10  v2.4.0.
+
+<P>
+
+<H1><A NAME="SECTION00410000000000000000"></A><A NAME="sec:async"></A>
+<BR>
+Async
+</H1>
+The fundamental concurrency construct in X10  is <TT>async</TT>:
+
+<P>
+<PRE>
+Stmt ::= async Stmt
+</PRE>
+
+<P>
+The execution of <TT>async S</TT> may be thought of as creating a new
+<EM>activity</EM> to execute <TT>S</TT> and returning immediately. The newly
+created activity runs in parallel with the current activity and has
+access to the same heap of objects as the current activity. Thus an
+X10  computation may have many concurrent activities ``in flight``
+at the same time. Activities communicate with each other by reading
+and writing shared variables, e.g. fields of objects that both have
+access to.
+
+<P>
+An activity may be thought of as a very light-weight thread of
+execution. This means that the statement <TT>S</TT> may in fact contain
+just a few instructions, e.g. reading the value of a variable,
+performing some computation and then writing the value of a
+variable. There is no restriction on the statement <TT>S</TT> - it may
+contain any other construct (including other <TT>async</TT>s). In
+particular, activities may be long-running - indeed they may run for
+ever. In particular they make invoke recursive methods. Hence an
+activity is associated with its own control stack.
+
+<P>
+Activities (unlike threads in Java) are not named. There is no runtime
+object corresponding to an activity that is visible to user
+programs. This permits the implementation the freedom to actually <EM>  not</EM> create a separate activity for each <TT>async</TT> at runtime as
+long as the semantics of the language are not violated. For instance,
+the compiler may decide to translate the program fragment: 
+
+<BR>
+<IMG
+ WIDTH="105" HEIGHT="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="img28.png"
+ ALT="\begin{xtennum}[]
+async { f.x=1;}
+f.y=2;
+\end{xtennum}">
+<BR>
+to
+
+<BR>
+<IMG
+ WIDTH="52" HEIGHT="26" ALIGN="BOTTOM" BORDER="0"
+ SRC="img29.png"
+ ALT="\begin{xtennum}[]
+f.x=1;
+f.y=2;
+\end{xtennum}">
+<BR>
+This is called ``inlining'' an activity. It becomes much
+harder for a compiler to inline if activities can have names - for,
+to inline the activity the compiler will need to figure out that the
+name is not used later.  
+
+<P>
+Activities cannot be interrupted or aborted once they are in
+flight. They must proceed to completion.  
+
+<P>
+In <TT>async S</TT>, the code in <TT>S</TT> is permitted to refer to
+immutable variables defined in the lexically enclosing scope. This is
+extremely convenient when writing code. 
+
+<P>
+
+<H4><A NAME="SECTION00410010000000000000">
+Local vs Global termination</A>
+</H4>
+Because an activity may spawn further activities, we distinguish
+between <EM>local termination</EM> and <EM>global termination</EM>. We say
+that an activity <TT>async S</TT> has locally terminated if <TT>S</TT> has
+terminated. We say that it has <EM>globally terminated</EM> if it has
+locally terminated and further any activities spawned during its
+execution have themselves (recursively) globally terminated. 
+
+<P>
+
+<H1><A NAME="SECTION00420000000000000000"></A><A NAME="sec:finish"></A>
+<BR>
+Finish
+</H1>
+<TT>finish</TT> is a construct that converts global termination to local termination.
+
+<P>
+Using <TT>async</TT> we can specify that the elements of a rail should be doubled in parallel by:
+
+<P>
+
+<BR>
+<IMG
+ WIDTH="354" HEIGHT="73" ALIGN="BOTTOM" BORDER="0"
+ SRC="img30.png"
+ ALT="\begin{xtennum}[]
+// Initialize the i'th element to i.
+val a:Rail[Long] = new R...
+...ry element of the array
+for(i in 0..(a.size-1))
+async a(i) *= 2;
+\end{xtennum}">
+<BR>
+
+<P>
+Consider now what happens if we attempt to read the value of a location:
+
+<P>
+
+<BR>
+<IMG
+ WIDTH="354" HEIGHT="88" ALIGN="BOTTOM" BORDER="0"
+ SRC="img31.png"
+ ALT="\begin{xtennum}[]
+// Initialize the i'th element to i.
+val a:Rail[Long] = new R...
+....size-1))
+async a(i) *= 2;
+Console.OUT.println(''a(1)='' + a(1));
+\end{xtennum}">
+<BR>
+
+<P>
+Will it print out <TT>1</TT> or <TT>2</TT>? We cannot say! The activity
+executing <TT>a(1) *= 2</TT> may not have terminated by the time the
+current activity starts executing the print statement!
+
+<P>
+This is a fundamental problem. The programmer needs a mechanism for
+specifying <EM>ordering</EM> of computations. To this end we introduce
+the <TT>finish</TT> statement:
+
+<P>
+<PRE>
+Stmt ::= finish Stmt
+</PRE>
+
+<P>
+An activity executes <TT>finish S</TT> by executing <TT>S</TT> and then
+waiting until all activities spawned during the execution of <TT>S</TT>
+(transitively) terminate. Simple, but powerful!
+
+<P>
+To ensure proper termination of an X10  program, the <TT>main</TT>
+method is executed within a <TT>finish</TT>. Thus the program terminates
+only when the <TT>main</TT> method globally terminates. This property
+ensures that for every activity created during program execution there
+is a corresponding <TT>finish</TT> statement that will be notified of its
+termination.  We say the activity tree is <EM>rooted</EM>.
+
+<P>
+We can now write our program as follows:
+
+<BR>
+<IMG
+ WIDTH="354" HEIGHT="88" ALIGN="BOTTOM" BORDER="0"
+ SRC="img31.png"
+ ALT="\begin{xtennum}[]
+// Initialize the i'th element to i.
+val a:Rail[Long] = new R...
+....size-1))
+async a(i) *= 2;
+Console.OUT.println(''a(1)='' + a(1));
+\end{xtennum}">
+<BR>
+and be guaranteed that the output will be <TT>2</TT>.  Notice
+that little needs to change in the program - we just add <TT>finish</TT>
+and <TT>async</TT> at the right place!
+
+<P>
+Table&nbsp;<A HREF="#table:fib">3.1</A> shows how the Fibonacci program can be written
+in parallel. It uses an idiom that is of interest in many other
+settings. The natural functional way to write <TT>fib</TT> is through a recursive function call:
+
+<BR>
+<IMG
+ WIDTH="332" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
+ SRC="img32.png"
+ ALT="\begin{xtennum}[]
+def fib(n:Long):Long = (n&lt;=2)? 1:( fib(n-1)+fib(n-2) );
+\end{xtennum}">
+<BR>
+The value is returned on the activity's stack. However, we
+are interested in running <TT>fib</TT> in parallel, and hence we will
+want a way by which multiple activities can invoke multiple <TT>fib</TT>
+calls, each in their own stack. X10  does not permit the call stack
+of one activity to be shared by another, or the code running during
+the execution of an activity to read/write the local variables in a
+stack frame of another activity.<A NAME="tex2html3"
+  HREF="#foot1265"><SUP>3.1</SUP></A>
+<P>
+Table&nbsp;<A HREF="#table:fib">3.1</A> presents a slightly more verbose Fibonacci
+program that makes explicit the interaction of activities through
+objects on the heap. A heap object is created for each recursive
+invocation of <TT>fib</TT>. The object has a single field which initially
+contains the input argument to the call, and on return contains the
+result of the call.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="table:fib"></A><A NAME="1276"></A>
+<TABLE>
+<CAPTION><STRONG>Table 3.1:</STRONG>
+Fib</CAPTION>
+<TR><TD><IMG
+ WIDTH="309" HEIGHT="453" BORDER="0"
+ SRC="img33.png"
+ ALT="\begin{table}\fromfile{Fib.x10}
+\begin{xtennum}[]
+public class Fib {
+var n:Int=...
+...Console.OUT.println(''fib('' + n + '')= '' + f.n);
+}
+}
+\end{xtennum}\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+Note that the program illustrates that during execution <TT>finish</TT>
+and <TT>async</TT> may be scoped arbitrarily: the body of an <TT>async</TT>
+can contain <TT>finish</TT> statements, and the body of a <TT>finish</TT>
+can contain <TT>async</TT> statements. This interplay is at the heart of
+the expressiveness of the <TT>async</TT>/<TT>finish</TT> model.
+
+<P>
+
+<H2><A NAME="SECTION00421000000000000000">
+The rooted exception model</A>
+</H2>
+
+<P>
+X10  supports a <EM>rooted exception model</EM>. Any exception thrown
+inside an activity can be caught and handled within the activity by
+executing a <TT>try/catch</TT> statement. What happens if there is no
+<TT>try/catch</TT>? 
+
+<P>
+The rooted model offers an answer. Since every activity has a
+governing <TT>finish</TT>, we let the exception propagate up from the
+activity to the governing <TT>finish</TT>.  When executing a <TT>finish
+S</TT> statement, all exceptions thrown by activities spawned during the
+execution of <TT>S</TT> are accumulated at the <TT>finish</TT> statement. If
+at least one exception has been received at the <TT>finish</TT>
+statement, then it throws a <TT>MultipleExceptions</TT> exception with
+the set of exceptions as an argument. This ensures that no exception
+gets dropped on the floor (unlike Java).
+
+<P>
+
+<H1><A NAME="SECTION00430000000000000000"></A><A NAME="sec:atomic"></A>
+<BR>
+Atomic
+</H1>
+
+<P>
+Consider a parallel version of the Histogram program:
+
+<P>
+
+<BR>
+<IMG
+ WIDTH="249" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
+ SRC="img34.png"
+ ALT="\begin{xtennum}[]
+def hist(a:Rail[Int], b: Rail[Int]) {
+finish for(i in 0..(a.size-1)) async {
+val bin = a(i)% b.size;
+b(bin)++;
+}
+}
+\end{xtennum}">
+<BR>
+
+<P>
+However, this program is <EM>incorrect</EM>! Why? Multiple activities
+executing <TT>b(bin)++</TT> may interfere with each other! The operation
+<TT>d++</TT> is not an <EM>atomic</EM> operation.
+
+<P>
+An atomic operation is an operation that is performed in a single step
+with respect to all other activities in the system (even though the
+operation itself might involve the execution of multiple
+statements). X10  provides the <EM>conditional atomic statement</EM>
+as a basic statement:
+
+<P>
+<PRE>
+Stmt ::= when (c) Stmt
+</PRE>
+
+<P>
+Here <TT>c</TT> is a condition, called the <EM>guard</EM> of the
+statement. An activity executes <TT>when (c) S</TT> atomically - in a
+single step - provided that the condition <TT>c</TT> is
+satisfied. Otherwise it blocks (waiting for the condition to be true).
+
+<P>
+The conditional atomic statement is an extremely powerful
+construct. It was introduced in the 1970s by Per Brinch Hansen and
+Tony Hoare under the name ``conditional critical region''. This is the
+only construct in X10  that permits one activity to block waiting
+for some other set of activities to establish some condition on shared
+variables.
+
+<P>
+This construct has an important special case. The statement
+<TT>atomic S</TT> is just shorthand for <TT>when (true) S</TT>.
+
+<P>
+Since the construct is so powerful, it is subject to several
+conditions for ease of implementation.
+
+<UL>
+<LI>The condition <TT>c</TT> must be <EM>sequential</EM>,
+    <EM>non-blocking</EM>, and <EM>local</EM>. That is, it must not spawn new
+    activities (contain a <TT>async</TT> or <TT>finish</TT>), it must not
+    itself call a <TT>when</TT>, and it must not access remote locations
+    (contain an <TT>at</TT>).
+</LI>
+<LI>The statement <TT>S</TT> must be also be <EM>sequential</EM>,
+    <EM>non-blocking</EM>, and <EM>local</EM>.
+</LI>
+<LI>The condition <TT>c</TT> may be evaluated an arbitrary number of
+    times by the X10 scheduler to determine if it returns true.
+    Therefore it should be side-effect free and as simple as possible. 
+</LI>
+</UL>
+The first two restrictions are enforced dynamically: while executing
+either the condition or the statement if the program attempts to
+execute a <TT>async</TT>, <TT>at</TT>, <TT>finish</TT>, or <TT>when</TT> then an
+<TT>IllegalOperationException</TT> will be raised.  The last restriction
+is currently not enforced by X10 . 
+
+<P>
+The Histogram problem can now be solved correctly:
+
+<BR>
+<IMG
+ WIDTH="249" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
+ SRC="img35.png"
+ ALT="\begin{xtennum}[]
+def hist(a:Rail[Int], b: Rail[Int]) {
+finish for(i in 0..(a.size-1)) async {
+val bin = a(i)% b.size;
+atomic b(bin)++;
+}
+}
+\end{xtennum}">
+<BR>
+
+<P>
+A parallel N-Queens program is given in Table&nbsp;<A HREF="#table:nqueens">3.2</A>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="table:nqueens"></A><A NAME="1359"></A>
+<TABLE>
+<CAPTION><STRONG>Table 3.2:</STRONG>
+NQueens</CAPTION>
+<TR><TD><IMG
+ WIDTH="514" HEIGHT="876" BORDER="0"
+ SRC="img36.png"
+ ALT="\begin{table}\fromfile{NQueensPar.x10}
+\begin{xtennum}[]
+public class NQueensPar...
+...c def println(s:String) {
+Console.OUT.println(s);
+}
+}
+\end{xtennum}\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+
+<H1><A NAME="SECTION00440000000000000000"></A><A NAME="sec:places"></A>
+<BR>
+Places
+</H1>
+We come now to a central innovation of X10, the notion of <EM>places</EM>. Places permit the programmer to explicitly deal with notions
+of <EM>locality</EM>.
+
+<P>
+
+<H2><A NAME="SECTION00441000000000000000">
+Motivation</A>
+</H2>
+Locality issues arise in three primary ways. 
+
+<P>
+First, consider you are writing a program to deal with enormous
+amounts of data - say terabytes of data, i.e. thousands of
+gigabytes. Now you may not have enough main memory on a single node to
+store all this data - a single node will typically have tens of
+gigabytes of main storage. So therefore you will need to run your
+computation on a <EM>cluster</EM> of nodes: a collection of nodes
+connected to each other through some (possibly high-speed)
+interconnect.  That is, your single computation will actually involve
+the execution of several operating system level processes, one on each
+node. Unfortunately, acccessing a memory location across a network is
+typically orders of magnitude slower (i.e. has higher <EM>latency</EM>)
+than accessing it from a register on the local core. Further, the rate
+at which data can be transferred to local memory (<EM>bandwidth</EM>) is
+orders of magnitude higher than the rate at which it can be
+transferred to memory across the cluster.
+
+<P>
+As with implicit parallelism, one could try to write extremely clever
+compilers and runtimes that try to deal with this memory wall
+implicitly. Indeed, this is the idea behind <EM>distributed shared
+memory</EM> (DSM). The entire memory of a collection of processes is
+presented to the programmer as a single shared heap. Any activity can
+read and write any location in shared memory. However, there are no
+efficient implementations of DSM available today. The primary
+conceptual issue is that the programmer has lost control over
+decisions that can have orders of magnitude impact on performance of
+their code. When looking at a single assignment statement <TT>a.f=e</TT>,
+the programmer has no way of knowing whether this is going to take
+dozens of cycles or millions of cycles.
+
+<P>
+A second primary motivation arises from heterogeneity. Computer
+architects are looking to boost computational power by designing
+different kinds of specialized cores, each very good at particular
+kinds of computations. In general, these <EM>accelerators</EM> interact
+with the main processor at arm's length.
+
+<P>
+Two primary cases in point are the Toshiba-Sony-IBM Cell Broadband
+Engine (``Cell processor'' for short), and general-purpose graphical
+processing engines (GPGPUs for short), from vendors such as NVidia and
+AMD. These provide an enormous boost in computational power for
+particular kinds of regular loops at the cost of introducing
+specialized hardware.
+
+<P>
+For instance, the Cell provides eight specialized processors (SPEs) on
+a single chip, connected to each other through a high-speed (on-chip)
+bus. These processors may execute many instructions in parallel (they
+have ``single instruction multiple data'', SIMD,
+instructions). However, data needs to be explicitly transfered from
+main memory to a local cache on each SPE, operated upon, and then
+transfered back.
+
+<P>
+The third motivation is similar to the second, but involves only
+homogeneous cores. Multiple cores may share precious resources, such
+as L1 and L2 cache. To improve performance, it may make sense to <EM>bind</EM> activities to particular cores, in particular to force certain
+groups of activities to work on the same cores so that they can
+amortize the cost of cache misses (because they are operating on the
+same data). Or it may make sense to bind them to <EM>different</EM> cores
+that do not share an L2 cache so that the execution of one does not
+pollute the cache lines of the other.
+
+<P>
+
+<H2><A NAME="SECTION00442000000000000000">
+The <TT>at</TT> construct</A>
+</H2>
+
+<P>
+A <EM>place</EM> in X10  is a collection of data and activities that
+operate on that data. A program is run on a fixed number of
+places. The binding of places to hardware resources (e.g. nodes in a
+cluster, accelerators) is provided externally by a configuration file,
+independent of the program. 
+
+<P>
+Programs are typically written to operate on any number of places. The
+number of places in a particular run of the program can be queried
+through <TT>Place.MAX_PLACES</TT>. 
+
+<P>
+In X10  v2.4.0   all places are uniform. In future versions of the
+language we will support heterogeneity by permitting different kinds
+of places, with the ability to check the attributes of a place
+statically, and hence write code that depends on the <EM>kind</EM> of
+place it is running on.
+
+<P>
+The primary construct for exposing places to the programmer is:
+<PRE>
+Stmt ::= at (p) Stmt
+</PRE>
+
+<P>
+An activity executing <TT>at (p) S</TT> suspends execution in the current
+place.  The object graph <IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img37.png"
+ ALT="$G$"> at the current place whose roots are all the
+variables <IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img38.png"
+ ALT="$V$"> used in <TT>S</TT> is serialized, and transmitted to place
+<TT>p</TT>, deserialized (creating a graph <IMG
+ WIDTH="21" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img39.png"
+ ALT="$G'$"> isomorphic to <IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img37.png"
+ ALT="$G$">), an
+environment is created with the variables <IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img38.png"
+ ALT="$V$"> bound to the
+corresponding roots in <IMG
+ WIDTH="21" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img39.png"
+ ALT="$G'$">, and <TT>S</TT> executed at <TT>p</TT> in
+this environment.   On local termination of
+<TT>S</TT>, computation resumes after <TT>at (p) S</TT> in the original
+location. The object graph is not automatically transferred back to
+the originating place when <TT>S</TT> terminates: <EM>any updates made
+  to objects copied   by an <TT>at</TT> will not be reflected in the
+  original object graph</EM>. 
+
+<P>
+The <TT>at</TT> statement is a reminder to the programmer that at this
+point communication may potentially happen across the
+network. Therefore the programmer should be aware of what values will
+be transmitted from the source to the destination place and also be
+aware that any mutations to objects during the execution of <TT>S</TT>
+will only be visible at <TT>p</TT>
+
+<P>
+Because of this ability to shift the current place, <TT>at</TT>
+is said to be a <EM>place-shifting</EM> operation. It is the only
+control construct related to places in X10.
+
+<P>
+The indexical constant <TT>here</TT> can be used to determine the current
+place.
+
+<P>
+It is also possible to use <TT>at</TT> as an expression to do a
+computation and return a value to the originating place.
+<PRE>
+Expr ::= at (p) { S; E } 
+Expr ::= at (p) E
+</PRE>
+In this variant of <TT>at</TT>, the value of <TT>E</TT> is serialized from
+<TT>p</TT> back to the originating place and used as the value of the
+<TT>at</TT> expression.
+
+<P>
+
+<H2><A NAME="SECTION00443000000000000000">
+GlobalRef</A>
+</H2>
+
+<P>
+Of course the abstraction of a partitioned global address space
+without some means of actually referring to objects in a different
+partition would not be of much use.  Therefore the X10  standard
+library provides the <TT>GlobalRef</TT> struct in the <TT>x10.lang</TT>
+package. Using GlobalRef, the programmer can easily create cross-place
+references by capturing a GlobalRef within an <TT>at</TT> statement.
+
+<P>
+The core API of <TT>GlobalRef</TT> is shown below. It has two operations:
+a constructor to create a <TT>GlobalRef</TT> to encapsulate an object and
+a method to access the encapsulated object, which is constrained via a
+method guard to only be applicable at the home <TT>Place</TT> of the
+<TT>GlobalRef</TT>. 
+
+<BR>
+<IMG
+ WIDTH="457" HEIGHT="226" ALIGN="BOTTOM" BORDER="0"
+ SRC="img40.png"
+ ALT="\begin{xtennum}[]
+public struct GlobalRef[T](home:Place) {T isref} {
+\par
+/**
+...
+....
+*/
+public native operator this(){here == this.home}:T;
+\par
+}
+\end{xtennum}">
+<BR>
+To access the encapsulated object, the programmer uses <TT>at</TT> to
+place-shift to the ref's <TT>home</TT>:
+<BR>
+<IMG
+ WIDTH="208" HEIGHT="59" ALIGN="BOTTOM" BORDER="0"
+ SRC="img41.png"
+ ALT="\begin{xtennum}[]
+at (gr.home) {
+val obj = gr();
+// ...compute using obj...
+}
+\end{xtennum}">
+<BR>
+In X10 , the programmer must explicitly place-shift using <TT>at</TT>
+to access an object that lives in another <TT>Place</TT>. Requiring an
+explicit <TT>at</TT> is a design choice that was made to highlight for
+the programmer that at this point communication may potentially happen
+across the network.
+
+<P>
+Table&nbsp;<A HREF="#table:gradv">3.3</A> shows some additional operations defined on
+the <TT>GlobalRef</TT> struct.  These functions encapsulate more
+efficient implemenetations of common idiomatic usages of
+<TT>GlobalRef</TT>. 
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="table:gradv"></A><A NAME="1436"></A>
+<TABLE>
+<CAPTION><STRONG>Table 3.3:</STRONG>
+Advanced features of GlobalRef API</CAPTION>
+<TR><TD><IMG
+ WIDTH="435" HEIGHT="511" BORDER="0"
+ SRC="img42.png"
+ ALT="\begin{table}\fromfile{GlobalRef.x10}
+\begin{xtennum}[]
+/**
+* Unsafe native met...
+...first branch.
+*/
+public native def getLocalOrCopy():T;
+\end{xtennum}\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+
+<H2><A NAME="SECTION00444000000000000000">
+PlaceLocalHandle</A>
+</H2>
+Another useful abstraction for a partitioned global address space is
+that of an abstract reference that can be resolved to a different
+object in each partition of the address space.  Such a reference
+should be both efficiently transmittable from one <TT>Place</TT> to
+another and also be efficiently resolvable to its target object in each
+<TT>Place</TT>. A primary use of such an abstraction is the definition of
+distributed data structures that need to keep a portion of their state
+in each <TT>Place</TT>. In X10, the <TT>PlaceLocalHandle</TT> struct
+in the <TT>x10.lang</TT> package provides such an abstraction.  Examples
+of its usage can be found in virtually all of the programming examples
+in the next part of this book.  
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot1265">... activity.</A><A
+ HREF="node4.html#tex2html3"><SUP>3.1</SUP></A></DT>
+<DD>Why? Because in general this
+  is not a safe operation. The stack frame being referred to may not
+  exist any more!
+
+</DD>
+</DL><HR>
+<A NAME="tex2html173"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html169"
+  HREF="intro-web.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html163"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html171"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html174"
+  HREF="node5.html">The X10 Performance Model</A>
+<B>Up:</B> <A NAME="tex2html170"
+  HREF="intro-web.html">A Brief Introduction To X10</A>
+<B> Previous:</B> <A NAME="tex2html164"
+  HREF="node3.html">X10 basics</A>
+
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

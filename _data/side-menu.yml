@@ -1,7 +1,7 @@
 - name: X10 Resources
   submenu:
     - name: An Introduction to X10
-      link: http://x10.sourceforge.net/documentation/intro/latest/html/
+      link: /documentation/intro/latest/html/
     - name: X10 Publications
       link: /x10-publications.html
     - name: Applications and Libraries
