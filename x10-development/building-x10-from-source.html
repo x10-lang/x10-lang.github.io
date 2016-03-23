@@ -4,9 +4,9 @@ title: "Building X10 From Source"
 alias: "building-from-source"
 category: "documentation/developer-info"
 date: 2011-04-25 19:11:33
-redirect_from: /x10-development/building-x10-from-source.html
+redirect_from: /articles/167.html
 ---
-<p>These instructions can be used either to build X10 from source code checked out of the repository or from an X10 source release obtained from the <a href="/articles/145.html">downloads page</a>. To download the source code for a particular X10 release, visit <a href="https://github.com/x10-lang/x10/releases">https://github.com/x10-lang/x10/releases</a>.</p>
+<p>These instructions can be used either to build X10 from source code checked out of the repository or from an X10 source release obtained from the <a href="/releases/x10-release-list.html">downloads page</a>. To download the source code for a particular X10 release, visit <a href="https://github.com/x10-lang/x10/releases">https://github.com/x10-lang/x10/releases</a>.</p>
 <div class="section_3">
 <h3><a name="BuildingFromSource-AssumptionsandPrerequisites"></a>Assumptions and Prerequisites</h3>
 <p>This assumes that <tt>JAVA_HOME</tt> is set to a Java 6.0 compatible SDK.</p>
@@ -64,10 +64,10 @@ ant squeakyclean dist
 <p><tt>NO_CHECKS=true</tt> ensures that no constraint type-checks and array bounds checks are performed at run time.<br /> You can also build fairly optimized, but still safe, class libraries by just using <tt>-Doptimize=true</tt>.</p>
 <p>To disable GC, supply the argument <tt>-DDISABLE_GC=true</tt>. Note that on all platfroms except AIX, GC is enabled by default. GC is not currently supported on AIX.</p>
 <p>To build faster, supply <tt>-Davailable.procs=n</tt>, where <tt>n</tt> is the number of cores you want to use for the build (default=2).</p>
-<p>If you want to use the MPI runtime, supply <tt>-DX10RT_MPI=true</tt>. For PAMI support, set <tt><span>-DX10RT_PAMI</span>=true</tt>. See <a href="/documentation/practical-x10-programming/x10rt-implementations.html">X10RT Implementations</a> for more details on these.</p>
+<p>If you want to use the MPI runtime, supply <tt>-DX10RT_MPI=true</tt>. For PAMI support, set <tt><span>-DX10RT_PAMI</span>=true</tt>. See <a href="/documentation/x10rt.html">X10RT Implementations</a> for more details on these.</p>
 </div>
 <div class="section_3">
-<h3><a name="BuildingFromSource-Exampleofhowtocheckoutandcompiletheentiresourcecodeonwindows"></a>Example of how to checkout and compile the entire source code on windows</h3>
+<h3><a name="BuildingFromSource-Exampleofhowtocheckoutandcompiletheentiresourcecodeonwindows"></a>Example: checkout and compile the entire source code on Windows</h3>
 <ul>
 <li>Install cygwin to directory c:\cygwin,<br /> with the packages: gcc (all of them), wget, make, binutils, libtool, git, patch.</li>
 <li>Download <a href="http://ant.apache.org/">Apache Ant</a> to C:\cygwin\home\USERNAME\apache-ant-1.8.0 (version 1.8.0 is current as of this writing, but be sure to use a path that corresponds to the version you downloaded).</li>
