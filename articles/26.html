@@ -11,7 +11,56 @@ redirect_from: /home/codebase-progress.html
 <h1 class="page-title">Project Roadmap</h1>
 <p>This page summarizes the development plans and release schedules for the X10 project.</p>
 <p>The most detailed and up-to-date information can be found in JIRA via inspecting the Roadmap views and the fix-for targets of various issues.</p>
-<p>The overall tempo of the project is to plan for a major release every 9 to 12 months with minor releases every 2 to 3 months in between. We maintain a single stream of development, so features that are formally targeted at a particular major release may actually appear (or partially appear) in one or more minor releases before the major release.</p>
+<p>The overall tempo of the project is to plan for a major release every 9 to 12 months with minor releases every 3 to 4 months in between. We maintain a single stream of development, so features that are formally targeted at a particular major release may actually appear (or partially appear) in one or more minor releases before the major release.</p>
+
+
+<h2><a name="ProjectRoadmap-X102.5"></a><span>X10</span> 2.5</h2>
+<table class="confluenceTable" border="1">
+<tbody>
+<tr><th class="confluenceTh">Version</th><th class="confluenceTh">Date</th><th class="confluenceTh">Comments</th></tr>
+<tr>
+<td class="confluenceTd">2.5.0</td>
+<td class="confluenceTd">October 2014</td>
+<td class="confluenceTd">
+<p>X10 2.5 includes a redesign of several Place-related standard library APIs to better support Resilient and Elastic X10. The changes were made to more naturally support execution over a dynamically varying set of Places. As a result, minor adjustments may be needed to port code from X10 2.4.3 to X10 2.5.0.</p>
+</td>
+</tr>
+<tr>
+<td class="confluenceTd">2.5.1</td>
+<td class="confluenceTd">December 2014</td>
+<td class="confluenceTd">
+<p>Enhancements to Resilient and Elastic X10</p>
+</td>
+</tr>
+<tr>
+<td class="confluenceTd">2.5.2</td>
+<td class="confluenceTd">March 2015</td>
+<td class="confluenceTd">
+<p>Improvements to the x10rt_mpi implementation, class library changes in the x10.util.resilient package, and the movement of the implementation class for the X10 Runtime from x10.lang to the new x10.xrx package. </p>
+</td>
+</tr>
+<tr>
+<td class="confluenceTd">2.5.3</td>
+<td class="confluenceTd">June 2015</td>
+<td class="confluenceTd">
+<p>Improved compiler support for X10DT features. The X10 Editor is now much more resilient to syntax errors: features such as outline, hyperlink, hover help, and content-assist continue to work in the face of compilation errors.</p>
+</td>
+</tr>
+<tr>
+<td class="confluenceTd">2.5.4</td>
+<td class="confluenceTd">December 2015</td>
+<td class="confluenceTd">
+  <p>Improvements in Resilient X10 including:
+    <ul><li>significant performance improvements to the implementations of resilient finish to eliminate resiliency overheads of local activity creation</li>
+      <li>the addition of ULFM-MPI as a network transport for Resilient X10 applications</li>
+      <li>enhanced standard library support for writing Resilient X10 applications and frameworks (see x10.util.resilient).</li>
+      </ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 <h2><a name="ProjectRoadmap-X102.4"></a><span>X10</span> 2.4</h2>
 <table class="confluenceTable" border="1">
 <tbody>
@@ -43,8 +92,16 @@ redirect_from: /home/codebase-progress.html
 <p>Bug fixes and performance improvements.</p>
 </td>
 </tr>
+<tr>
+<td class="confluenceTd">2.4.3</td>
+<td class="confluenceTd">May 2014</td>
+<td class="confluenceTd">
+<p>X10DT supports source-level debugging of Managed X10 programs!</p>
+</td>
+</tr>
 </tbody>
 </table>
+
 <h2><a name="ProjectRoadmap-X102.3"></a><span>X10</span> 2.3</h2>
 <table class="confluenceTable" border="1">
 <tbody>
