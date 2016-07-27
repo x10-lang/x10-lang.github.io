@@ -8,16 +8,16 @@ redirect_from:
  - /documentation/practical-x10-programming/x10rt-implementations.html
  - /articles/164.html
 ---
-<div id="main-copy">
-<div class="section_2">
+
 <p><a href="http://x10.sourceforge.net/x10rt/">X10RT</a> is a library that an X10 program uses to communicate between places. There are several implementations of X10RT available for use. The different implementations have different capabilities and performance characteristics, as described below.</p>
+
 <div class="table-wrap">
 <table class="confluenceTable">
 <tbody>
 <tr><th class="confluenceTh">X10RT Implementation</th><th class="confluenceTh">Description</th></tr>
 <tr>
 <td class="confluenceTd">Sockets</td>
-<td class="confluenceTd"><span style="display: none;">&nbsp;</span>An open-source implementation that uses TCP/IP sockets and <span>ssh</span> to support multiple places on one or more hosts.&nbsp; This is the default implementation, and is the only option when using Managed <span>X10</span>.&nbsp; It can be found in <tt><span>x10.runtime</span>/<span>x10rt</span>/sockets.</tt></td>
+<td class="confluenceTd"><span style="display: none;">&nbsp;</span>An open-source implementation that uses TCP/IP sockets and <span>ssh</span> to support multiple places on one or more hosts.&nbsp; This is the default implementation, and is the only option when using Managed <span>X10</span>.&nbsp; It can be found in <code><span>x10.runtime</span>/<span>x10rt</span>/sockets.</code></td>
 </tr>
 <tr>
 <td class="confluenceTd">Standalone</td>
@@ -25,48 +25,42 @@ redirect_from:
 </tr>
 <tr>
 <td class="confluenceTd">MPI</td>
-<td class="confluenceTd">An implementation of X10RT on top of MPI2. It is fully open source and can be found in <tt>x10.runtime/x10rt/mpi</tt>.&nbsp; This supports all the hardware that your MPI implementation supports, such as Infiniband and Ethernet.</td>
+<td class="confluenceTd">An implementation of X10RT on top of MPI2. It is fully open source and can be found in <code>x10.runtime/x10rt/mpi</code>.&nbsp; This supports all the hardware that your MPI implementation supports, such as Infiniband and Ethernet.</td>
 </tr>
 <tr>
 <td class="confluenceTd">PAMI</td>
-<td class="confluenceTd">PAMI is an IBM communications API that supports high-end networks such HFI (Host Fabric Interface), Blue Gene, Infiniband, and also Ethernet.&nbsp; PAMI code is located in <tt><span>x10.runtime</span>/<span>x10rt</span>/pami. </tt><span>Building and running with PAMI</span> requires the <a href="http://www-03.ibm.com/systems/power/software/parallel/">IBM Parallel Environment</a>.</td>
+<td class="confluenceTd">PAMI is an IBM communications API that supports high-end networks such HFI (Host Fabric Interface), Blue Gene, Infiniband, and also Ethernet.&nbsp; PAMI code is located in <code><span>x10.runtime</span>/<span>x10rt</span>/pami. </code><span>Building and running with PAMI</span> requires the <a href="http://www-03.ibm.com/systems/power/software/parallel/">IBM Parallel Environment</a>.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>&nbsp;</p>
-<p>The default is <tt>sockets</tt> on all platforms except Blue Gene/Q (which defaults to <tt>pami</tt>). All platforms except Blue Gene support <tt>standalone</tt> and <tt>sockets</tt>.</p>
-</div>
-<div class="section_2">
+
+<p>The default is <code>sockets</code> on all platforms except Blue Gene/Q (which defaults to <code>pami</code>). All platforms except Blue Gene support <code>standalone</code> and <code>sockets</code>.</p>
+
 <h2><a name="X10RTImplementations-Propertiesfiles"></a>Properties files</h2>
-<p>The programmer may specify <tt>X10RT</tt> properties to be used by x10c++ in a properties file:</p>
-<div class="preformatted panel" style="border-width: 1px;">
-<div class="preformattedContent panelContent">
-<pre>$ x10c++ -x10rt FOO
-</pre>
-</div>
-</div>
-<p>This will cause the compiler to search to read <tt>etc/x10rt_FOO.properties</tt>. Typically the contents of this file tell <tt>x10c++</tt> how to compile the generated <tt>c++</tt> code.<br /> For instance, this file may contain:</p>
-<div class="preformatted panel" style="border-width: 1px;">
-<div class="preformattedContent panelContent">
-<pre>$ cat etc/x10rt_mpi.properties
+<p>The programmer may specify <code>X10RT</code> properties to be used by x10c++ in a properties file:</p>
+
+<pre><code>
+$ x10c++ -x10rt FOO
+</pre></code>
+
+<p>This will cause the compiler to search to read <code>etc/x10rt_FOO.properties</code>. Typically the contents of this file tell <code>x10c++</code> how to compile the generated <code>c++</code> code.<br /> For instance, this file may contain:</p>
+
+<pre><code>
+$ cat etc/x10rt_mpi.properties
 CXX=mpicxx
 CXXFLAGS=
 LDFLAGS=
 LDLIBS=-lx10rt_mpi
-</pre>
-</div>
-</div>
-</div>
-<div class="section_2">
+</pre></code>
+
 <h2><a name="X10RTImplementations-BuildingalternateX10RTImplementations"></a>Building alternative X10RT Implementations</h2>
-<p>By default, the build process will automatically build the Standalone and socket implementations of X10RT. If you have MPI installed on your build machine, then you may want to build the MPI implementation as well. This can be done by giving ant the extra command line <tt>-DX10RT_MPI=true</tt> when building X10 (<tt>cd x10.dist &amp;&amp; ant dist -DX10RT_MPI=true</tt>).&nbsp; Similarly, if you have PAMI installed on your machine, you can build support for pami by passing the extra command <tt><span>-DX10RT_PAMI</span>=true</tt> when building X10.</p>
-</div>
-<div class="section_2">
+<p>By default, the build process will automatically build the Standalone and socket implementations of X10RT. If you have MPI installed on your build machine, then you may want to build the MPI implementation as well. This can be done by giving ant the extra command line <code>-DX10RT_MPI=true</code> when building X10 (<code>cd x10.dist &amp;&amp; ant dist -DX10RT_MPI=true</code>).&nbsp; Similarly, if you have PAMI installed on your machine, you can build support for pami by passing the extra command <code><span>-DX10RT_PAMI</span>=true</code> when building X10.</p>
+
 <h2><a name="X10RTImplementations-SelectingalternativeX10RTImplementations"></a>Selecting alternative X10RT Implementations</h2>
 <p>When you compile a program, you can optionally select the X10RT implementation you want to use. This can be done on a per-compilation basis. There is no need to rebuild X10 to switch X10RT implementations; simply recompiling the X10 program (relinking the C++ executable) is sufficient.</p>
-<p>By default, x10c++ will use the implementation that is appropriate for the target platform, which is usually sockets. The default can be overridden either by giving the -x10rt &lt;impl&gt; command line argument to x10c++ (valid values for &lt;impl&gt; are: <tt>mpi</tt>, <tt>standalone</tt>,<tt> pami, or sockets</tt>).&nbsp; The string given corresponds to a properties file in etc, containing the specifics required to build an executable for that x10rt implementation.&nbsp; One can inspect the contents of this directory to see what x10rt implementations are available, and also to add custom ones.</p>
-<div class="section_3">
+<p>By default, x10c++ will use the implementation that is appropriate for the target platform, which is usually sockets. The default can be overridden either by giving the -x10rt &lt;impl&gt; command line argument to x10c++ (valid values for &lt;impl&gt; are: <code>mpi</code>, <code>standalone</code>,<code> pami, or sockets</code>).&nbsp; The string given corresponds to a properties file in etc, containing the specifics required to build an executable for that x10rt implementation.&nbsp; One can inspect the contents of this directory to see what x10rt implementations are available, and also to add custom ones.</p>
+
 <h3><a name="X10RTImplementations-RunningX10programs"></a>Running X10 programs</h3>
 <p>Depending on which X10RT implementation you selected, you will execute the resulting executable in slightly different ways.</p>
 <div class="table-wrap">
@@ -92,11 +86,9 @@ LDLIBS=-lx10rt_mpi
 </tbody>
 </table>
 </div>
-</div>
-<p>&nbsp;</p>
+
 <h2><a name="X10RTImplementations-RunningWithSocketsBackend"></a>Running with <strong>Sockets</strong> backend</h2>
-</div>
-</div>
+
 <p>The sockets transport is currently the default backend if you don't compile with the "-x10rt" flag. Running with sockets is easy - you simply execute the binary that was produced when you compiled your program.&nbsp; This will run your program in a single place on your local machine.&nbsp; To use more places, you set an environment variable <code>X10_NPLACES</code> to specify the number of places.</p>
 <p>There are two ways to specify the machines to run those places on:</p>
 <ul>
@@ -115,7 +107,19 @@ LDLIBS=-lx10rt_mpi
 <p><code>X10_LAZYLINKS</code> The socket links between places are point-to-point. By default, these links are established at the beginning of communications, from every place to every other place. This gives better performance when running everything locally, but if you are running with a large number of places across multiple machines, you may want to establish the links on-demand, by setting <code>X10_LAZYLINKS</code> to true.</p>
 <p><code>X10_FORCEPORTS</code> Normally the port number that each place opens for other places to connect to it is left up to the operating system. This eliminates the possibility of port contention, but it also requires a fancy place lookup mechanism supported by the launchers. It's possible to force the listen port for each place to a specific number, by setting <code>X10_FORCEPORTS</code>. If everything is running on localhost, this will bypass the need for the lookup. The value can take one of two forms. Firsy, you can set it to a single number. This will be the port number for place 0, and each additional place will listen at that port number plus the place number. For example, if <code>X10_FORCEPORTS=7000</code>, then place 0 will listen on port 7000, place 1 on port 7001, etc. The other form requires a comma-separated list of values, one per place. So if you set <code>X10_FORCEPORTS=7000,7005,7010</code>, and run with 3 places, then place 0 will be at port 7000, place 1 at port 7005, and place 2 at port 7010.</p>
 <p>It's possible to run without the launcher, and start up each place manually. To do this, you need to set the <code>X10_LAUNCHER_PLACE</code>, and <code>X10_FORCEPORTS</code> environment variables, which would normally be set by the launcher. For example:</p>
-<pre>// Launch three places on triloka1-3, all using port 7001:<br />X10_LAUNCHER_PLACE=0 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka1<br />X10_LAUNCHER_PLACE=1 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka2<br />X10_LAUNCHER_PLACE=2 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka3</pre>
-<h2><a name="X10RTImplementations-RunningWithStandalonesBackend"></a>Running with the Standalone backend</h2>
+
+<pre><code>
+// Launch three places on triloka1-3, all using port 7001:
+X10_LAUNCHER_PLACE=0 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka1
+X10_LAUNCHER_PLACE=1 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka2
+X10_LAUNCHER_PLACE=2 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka3
+</pre></code>
+
+<h2><a name="X10RTImplementations-RunningWithMPIBackend"></a>Running with the <strong>MPI</strong> backend</h2>
+<p>In MPI mode, the X10 program is launched with the MPI launcher program e.g. <code>mpirun</code>, <code>mpiexec</code>, <code>poe</code>, etc.
+By default, an <a href="https://www.mpi-forum.org/docs/mpi-2.0/mpi-20-html/node165.htm">MPI threading level</href> of <code>MPI_THREAD_MULTIPLE</code> is requested.
+As some MPI implementations do not support <code>MPI_THREAD_MULTIPLE</code>, it is possible to request <code>MPI_THREAD_SERIALIZED</code> instead by setting the environment variable <code>X10RT_MPI_THREAD_SERIALIZED=1</code>.
+In the special case of single-threaded places with static threads (<code>X10_NTHREADS=1 X10_NUM_IMMEDIATE_THREADS=0 X10_STATIC_THREADS=true</code>), a threading level of <code>MPI_THREAD_SINGLE</code> will be is requested.</p>
+
+<h2><a name="X10RTImplementations-RunningWithStandalonesBackend"></a>Running with the <strong>Standalone</strong> backend</h2>
 <p>Standalone mode sets up shared memory regions and forks off one instance of the program per place. The places all run on the local machine. There is one environment variable "X10_NPLACES", which should be set to the number of places. If not set, it defaults to 1 and prints a warning. The standalone has transport has a limit on the size of the data blocks that can be sent (about 512k), because of the shared memory regions. To run, just compile with "-x10rt standalone", set the environment variable, and run your executable. This transport is a good choice if you're running everything one one machine and don't use large messages.</p>
-<div id="cke_pastebin" style="position: absolute; top: 221.633px; width: 1px; height: 1px; overflow: hidden; left: -1000px;">&nbsp;</div>
