@@ -84,6 +84,8 @@ LDLIBS=-lx10rt_mpi
 </table>
 </div>
 
+<br/>
+
 <h2><a name="X10RTImplementations-RunningWithSocketsBackend"></a>Running with <strong>Sockets</strong> backend</h2>
 
 <p>The sockets transport is currently the default backend if you don't compile with the "-x10rt" flag. Running with sockets is easy - you simply execute the binary that was produced when you compiled your program.&nbsp; This will run your program in a single place on your local machine.&nbsp; To use more places, you set an environment variable <code>X10_NPLACES</code> to specify the number of places.</p>
@@ -114,8 +116,8 @@ X10_LAUNCHER_PLACE=2 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=tr
 <h2><a name="X10RTImplementations-RunningWithMPIBackend"></a>Running with the <strong>MPI</strong> backend</h2>
 <p>In MPI mode, the X10 program is launched with the MPI launcher program e.g. <code>mpirun</code>, <code>mpiexec</code>, <code>poe</code>, etc.
 By default, an <a href="https://www.mpi-forum.org/docs/mpi-2.0/mpi-20-html/node165.htm">MPI threading level</a> of <code>MPI_THREAD_MULTIPLE</code> is requested.
-As some MPI implementations do not support <code>MPI_THREAD_MULTIPLE</code>, it is possible to request <code>MPI_THREAD_SERIALIZED</code> instead by setting the environment variable <code>X10RT_MPI_THREAD_SERIALIZED=1</code>.
-In the special case of single-threaded places with static threads (<code>X10_NTHREADS=1 X10_NUM_IMMEDIATE_THREADS=0 X10_STATIC_THREADS=true</code>), a threading level of <code>MPI_THREAD_SINGLE</code> will be is requested.</p>
+As some MPI implementations do not support <code>MPI_THREAD_MULTIPLE</code>, it is possible to request <code>MPI_THREAD_SERIALIZED</code> instead by setting the environment variable <code>X10RT_MPI_THREAD_SERIALIZED=1</code>.</p>
+<p>In the special case of single-threaded places with static threads (<code>X10_NTHREADS=1 X10_NUM_IMMEDIATE_THREADS=0 X10_STATIC_THREADS=true</code>), a threading level of <code>MPI_THREAD_SINGLE</code> is requested.</p>
 
 <h2><a name="X10RTImplementations-RunningWithStandalonesBackend"></a>Running with the <strong>Standalone</strong> backend</h2>
 <p>Standalone mode sets up shared memory regions and forks off one instance of the program per place. The places all run on the local machine. There is one environment variable "X10_NPLACES", which should be set to the number of places. If not set, it defaults to 1 and prints a warning. The standalone has transport has a limit on the size of the data blocks that can be sent (about 512k), because of the shared memory regions. To run, just compile with "-x10rt standalone", set the environment variable, and run your executable. This transport is a good choice if you're running everything one one machine and don't use large messages.</p>
