@@ -115,7 +115,7 @@ X10_LAUNCHER_PLACE=2 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=tr
 
 <h2><a name="X10RTImplementations-RunningWithMPIBackend"></a>Running with the <strong>MPI</strong> backend</h2>
 <p>In MPI mode, the X10 program is launched with the MPI launcher program e.g. <code>mpirun</code>, <code>mpiexec</code>, <code>poe</code>, etc.
-By default, an <a href="https://www.mpi-forum.org/docs/mpi-2.0/mpi-20-html/node165.htm">MPI threading level</a> of <code>MPI_THREAD_MULTIPLE</code> is requested.
+By default, an <a href="https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report/node303.htm">MPI threading level</a> of <code>MPI_THREAD_MULTIPLE</code> is requested.
 As some MPI implementations do not support <code>MPI_THREAD_MULTIPLE</code>, it is possible to request <code>MPI_THREAD_SERIALIZED</code> instead by setting the environment variable <code>X10RT_MPI_THREAD_SERIALIZED=1</code>.</p>
 <p>In the special case of single-threaded places with static threads (<code>X10_NTHREADS=1 X10_NUM_IMMEDIATE_THREADS=0 X10_STATIC_THREADS=true</code>), a threading level of <code>MPI_THREAD_SINGLE</code> is requested.</p>
 
