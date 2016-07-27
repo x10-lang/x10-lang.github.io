@@ -40,19 +40,16 @@ redirect_from:
 <h2><a name="X10RTImplementations-Propertiesfiles"></a>Properties files</h2>
 <p>The programmer may specify <code>X10RT</code> properties to be used by x10c++ in a properties file:</p>
 
-<pre><code>
-$ x10c++ -x10rt FOO
-</pre></code>
+<p><code>$ x10c++ -x10rt FOO</code></p>
 
 <p>This will cause the compiler to search to read <code>etc/x10rt_FOO.properties</code>. Typically the contents of this file tell <code>x10c++</code> how to compile the generated <code>c++</code> code.<br /> For instance, this file may contain:</p>
 
-<pre><code>
-$ cat etc/x10rt_mpi.properties
+<pre><code>$ cat etc/x10rt_mpi.properties
 CXX=mpicxx
 CXXFLAGS=
 LDFLAGS=
 LDLIBS=-lx10rt_mpi
-</pre></code>
+</code></pre>
 
 <h2><a name="X10RTImplementations-BuildingalternateX10RTImplementations"></a>Building alternative X10RT Implementations</h2>
 <p>By default, the build process will automatically build the Standalone and socket implementations of X10RT. If you have MPI installed on your build machine, then you may want to build the MPI implementation as well. This can be done by giving ant the extra command line <code>-DX10RT_MPI=true</code> when building X10 (<code>cd x10.dist &amp;&amp; ant dist -DX10RT_MPI=true</code>).&nbsp; Similarly, if you have PAMI installed on your machine, you can build support for pami by passing the extra command <code><span>-DX10RT_PAMI</span>=true</code> when building X10.</p>
@@ -108,16 +105,15 @@ LDLIBS=-lx10rt_mpi
 <p><code>X10_FORCEPORTS</code> Normally the port number that each place opens for other places to connect to it is left up to the operating system. This eliminates the possibility of port contention, but it also requires a fancy place lookup mechanism supported by the launchers. It's possible to force the listen port for each place to a specific number, by setting <code>X10_FORCEPORTS</code>. If everything is running on localhost, this will bypass the need for the lookup. The value can take one of two forms. Firsy, you can set it to a single number. This will be the port number for place 0, and each additional place will listen at that port number plus the place number. For example, if <code>X10_FORCEPORTS=7000</code>, then place 0 will listen on port 7000, place 1 on port 7001, etc. The other form requires a comma-separated list of values, one per place. So if you set <code>X10_FORCEPORTS=7000,7005,7010</code>, and run with 3 places, then place 0 will be at port 7000, place 1 at port 7005, and place 2 at port 7010.</p>
 <p>It's possible to run without the launcher, and start up each place manually. To do this, you need to set the <code>X10_LAUNCHER_PLACE</code>, and <code>X10_FORCEPORTS</code> environment variables, which would normally be set by the launcher. For example:</p>
 
-<pre><code>
-// Launch three places on triloka1-3, all using port 7001:
+<pre><code>// Launch three places on triloka1-3, all using port 7001:
 X10_LAUNCHER_PLACE=0 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka1
 X10_LAUNCHER_PLACE=1 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka2
 X10_LAUNCHER_PLACE=2 X10_NPLACES=3 X10_FORCEPORTS=7001,7001,7001 X10_HOSTLIST=triloka1,triloka2,triloka3 // run on triloka3
-</pre></code>
+</code></pre>
 
 <h2><a name="X10RTImplementations-RunningWithMPIBackend"></a>Running with the <strong>MPI</strong> backend</h2>
 <p>In MPI mode, the X10 program is launched with the MPI launcher program e.g. <code>mpirun</code>, <code>mpiexec</code>, <code>poe</code>, etc.
-By default, an <a href="https://www.mpi-forum.org/docs/mpi-2.0/mpi-20-html/node165.htm">MPI threading level</href> of <code>MPI_THREAD_MULTIPLE</code> is requested.
+By default, an <a href="https://www.mpi-forum.org/docs/mpi-2.0/mpi-20-html/node165.htm">MPI threading level</a> of <code>MPI_THREAD_MULTIPLE</code> is requested.
 As some MPI implementations do not support <code>MPI_THREAD_MULTIPLE</code>, it is possible to request <code>MPI_THREAD_SERIALIZED</code> instead by setting the environment variable <code>X10RT_MPI_THREAD_SERIALIZED=1</code>.
 In the special case of single-threaded places with static threads (<code>X10_NTHREADS=1 X10_NUM_IMMEDIATE_THREADS=0 X10_STATIC_THREADS=true</code>), a threading level of <code>MPI_THREAD_SINGLE</code> will be is requested.</p>
 
