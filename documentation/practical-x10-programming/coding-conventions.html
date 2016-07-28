@@ -1,0 +1,35 @@
+---
+layout: page
+title: "X10 Project Coding Conventions"
+alias: "x10-project-coding-conventions"
+category: "documentation/developer-info"
+date: 2011-04-25 23:39:11
+redirect_from:
+  - /documentation/coding-conventions.html
+  - /x10-development/x10-project-coding-conventions.html
+  - /articles/168.html
+---
+<div class="section_1"><div class="section_3"><h3><a name="Codingconventions-%28%29Caveat"></a> Caveat</h3><p>X10 has an extensive code base that has been developed over the last decade by a large number of people. You will find that some of the code does not live up to product quality standards. Don&#39;t hesitate to help rectify this by contributing clean-ups, bug fixes, and missing documentation to the project. We are trying to apply more uniform coding conventions to newly developed code, to clean up older code, and to automate some basic checking of those coding conventions that are uniformly followed already.</p>
+
+</div><div class="section_3"><h3><a name="Codingconventions-Whitespace"></a>Whitespace</h3>
+<ul><li>Please avoid gratuitous whitespace changes in your commits. You are, of course, welcome to change the indentation and whitespace on the lines you&#39;re modifying.<ul><li>We will arrange in advance periodic wholesale whitespace commits that modify multiple files at the same time.</li></ul></li></ul><ul><li>For Java, C++, and X10 code, use 4-space indenting with no tabs and no trailing whitespace. Most editors can be configured to do this automatically.<ul><li>In Eclipse, go to <tt>Preferences-&gt;General-&gt;Editors-&gt;Text Editors</tt> and set <tt>Displayed tab width</tt> to 4 and check the <tt>Insert spaces for tabs</tt> checkbox. We also have an X10-specific set of formatter preferences that will be posted shortly.</li><li>In <tt>vim</tt>, issue the following command: &quot;<tt>:set tabstop=4 shiftwidth=4 expandtab</tt>&quot;. You can also add a <em>modeline</em> in a comment at the bottom of any Java, C++, or X10 source file, as follows:<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent"><pre class="code-java"><span class="code-comment"><font color="#808080">// vim:tabstop=4:shiftwidth=4:expandtab</font></span>
+</pre></div></div><p>Many files already have this <em>modeline</em>.</p>
+
+</li></ul></li></ul><ul><li>Try to avoid making lines longer than 132 characters, but also don&#39;t go out of your way to make them fit in 80 characters.</li></ul></div><div class="section_3"><h3><a name="Codingconventions-Codingstyle"></a>Coding style</h3><ul><li>For Java, our basic coding style guidelines are defined with reference to the Sun&reg; Microsystems <a class="external-link" href="http://www.oracle.com/technetwork/java/codeconvtoc-136057.html"><font color="#0000ff">&quot;Code Conventions for the Java&trade; Programming Language&quot;</font></a>, with a few exceptions listed below. Most of the style guide is intuitive; however, please read through the document (or at least look at its sample code).</li></ul><ul><li>If you use Eclipse to edit your Java source, there is Eclipse Formatter Profile checked in to svn at x10.common/contrib/eclipse/jdt/X10JavaFormatting.xml that you can use.</li></ul><ul><li>Put braces (&quot;{&quot; and &quot;}&quot;) around loop bodies and conditional clauses that are not on the same line as the header.</li></ul><ul><li>Do not put the opening brace on a new line.<ul><li>An exception is in method headers, if the signature takes up more than one line &ndash; then put the brace on the next line with the same indentation as the first line of the method signature.</li></ul></li></ul></div><div class="section_3"><h3><a name="Codingconventions-FileHeaders"></a>File Headers</h3><p>Every file should begin with the standard license and copyright header shown below (adjusted to use the comment characters appropriate to the source file).</p>
+
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent"><pre class="code-java">/*
+ *  This file is part of the X10 project (http:<span class="code-comment"><font color="#808080">//x10-lang.org).
+</font></span> *
+ *  This file is licensed to You under the Eclipse Public License (EPL);
+ *  You may not use <span class="code-keyword"><font color="#000091">this</font></span> file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *      http:<span class="code-comment"><font color="#808080">//www.opensource.org/licenses/eclipse-1.0.php
+</font></span> *
+ *  (C) Copyright IBM Corporation 2006-2015.
+ */
+</pre></div></div></div><div class="section_3"><h3><a name="Codingconventions-Javadoc%2FX10docrequirements"></a>Javadoc/X10doc requirements</h3><p>The following applies to both Java code and X10 code.</p>
+
+<p>All files should contain descriptive comments in <a class="external-link" href="http://www.oracle.com/technetwork/java/index.html"><font color="#0000ff">Javadoc</font></a>&trade; form so that documentation can be generated automatically. Of course, additional non-Javadoc source code comments should appear as appropriate.</p>
+
+<ol><li>All public classes and methods should have a block comment describing them</li><li>All methods contain a short description of their arguments (using <tt>@param</tt>), the return value (using <tt>@return</tt>) and the exceptions they may throw (using <tt>@throws</tt>).</li><li>Each class should include <tt>@see</tt> and <tt>@link</tt> references as appropriate.</li></ol><p>The X10doc format is very similar to that of Javadoc. Please see the X10 files in <tt>x10.lang </tt>and<tt> x10.array</tt> for examples.</p>
+</div></div>

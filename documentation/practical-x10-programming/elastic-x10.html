@@ -1,0 +1,38 @@
+---
+layout: page
+title: "Elastic X10"
+alias: "elastic-x10"
+category: "documentation/documentation"
+date: 2014-10-03 19:25:45
+redirect_from:
+  - /documentation/elastic-x10.html
+  - /articles/262.html
+---
+
+<p>Elastic X10 is a new feature introduced in the X10 2.5.0 release. Elastic X10 allows places to be added to a computation while it is running. The new places join existing ones, and your program will see the new places via calls to <code>Place.numPlaces()</code> and <code>Place.places()</code> once the new place joins. Elastic X10 is currently only supported in Managed X10, when using the default JavaSockets transport.</p>
+
+<p>Writing your program to make use of Elastic X10 is similar to Resilient X10. Keep in mind that the number of live places may change. When places die under Resilient X10, the number of places does not change, but some places are marked as dead. With Elastic X10, the number of places increases with each newly added place.</p>
+
+<p>In order for a new place to join, it needs to know the hostname and port number of any other place that is already up and running. Since X10 runs on hosts you specify, but will use dynamic port numbers by default, it's not immediately obvious what those port numbers are. If you are running on Linux, you can use the netstat utility to query which ports are open by each process. But an easier way is to tell X10 to use specific port numbers via the <code class="western">X10_FORCEPORTS</code> environment variable, so that you know what they are.</p>
+
+<p>With the hostname and port number of some existing place in hand, start up your new place with the argument &ldquo;-DX10_JOIN_EXISTING=hostname:port&rdquo;, replacing hostname:port with your own hostname and port number. The new place will join the existing ones, and it will be assigned the next available place ID.</p>
+
+<h2>Example usage</h2>
+
+<p>To see how Elastic X10 works in practice, let's launch the HelloWholeWorldLoop program, available under the samples/resiliency folder of the X10 2.5.0 distribution.</p>
+
+<p>First, compile the program:</p>
+<pre>$ x10c HelloWholeWorldLoop.x10</pre>
+
+<p>Next, launch the program normally. We're going to start with 3 places, and specify ports 7000-7002 on localhost, but you can use any values you want.</p>
+<pre>$ X10_NPLACES=3 X10_FORCEPORTS=7000 x10 HelloWholeWorldLoop greetings 100 </pre>
+
+<p>The console output should look like this:</p>
+<pre>Place(0) sees 3 places<br />Place(0) says hello and greetings 0<br />Place(1) says hello and greetings 0<br />Place(2) says hello and greetings 0<br />Place(0) sees 3 places<br />Place(0) says hello and greetings 1<br />Place(1) says hello and greetings 1<br />Place(2) says hello and greetings 1<br />Place(0) sees 3 places<br />Place(0) says hello and greetings 2<br />Place(1) says hello and greetings 2<br />Place(2) says hello and greetings 2<br />&hellip;.</pre>
+
+<p>While that program is running, we'll open up a new window, and launch place #4:</p>
+<pre>$ x10 -DX10_JOIN_EXISTING=localhost:7000 HelloWholeWorldLoop</pre>
+
+<p>Your original console will now show &ldquo;Place(0) sees 4 places&rdquo;, and you'll see &ldquo;Place(3) says hello and greetings &ldquo; messages in the new window, which matches the counter for the original window.</p>
+
+<p>Because we used the X10 launcher to launch places 0-2, the launcher forwards their output to that console, but not the output from the new place. This is because the new place was started in an independent console, and so has independent output.</p>
