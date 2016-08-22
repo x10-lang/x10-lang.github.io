@@ -1,0 +1,30 @@
+---
+layout: page
+title: "X10 Global Matrix Library"
+alias: "x10-global-matrix-library"
+category: "documentation"
+date: 2012-02-06 20:44:42
+redirect_from: articles/204.html
+---
+<h1>Global Matrix Library (GML)</h1>
+<p><a href="https://sourceforge.net/projects/x10/files/x10/2.6.0/x10-gml-2.6.0-src.tar.bz2/download">Download GML</a></p>
+
+<p>The X10 Global Matrix Library (GML) is an object-oriented library implementing double-precision, blocked, sparse and dense matrices, distributed across multiple places. Each matrix type implements cell-wise operations (addition, multiplication, etc.) and higher level operations like matrix multiplication (using the SUMMA algorithm).</p>
+
+<p>The high-level matrix operations can be invoked from purely sequential code, even though each library operation is internally fully distributed and concurrent. This makes GML very attractive as a target for a Matlab-like DSL.</p>
+
+<p>GML runs on both Managed X10 (on multiple JVMs over sockets), and Native X10 (over sockets and over MPI). On the native backend, GML provides an interesting example of an MPI+X10 program.</p>
+
+<p>The performance of GML code is comparable with that of hand-written C++ code using MPI. Parallelism within a node is exploited through the use of multi-threaded implementations of the <a href="http://www.netlib.org/blas/">Basic Linear Algebra Subroutines (BLAS)</a> and <a href="http://www.netlib.org/lapack/">Linear Algebra PACKage (LAPACK)</a> routines. Between nodes, collective communications are used to support coarse-grained parallelism.<br />
+Several benchmarks are available, including:</p>
+<ul>
+<li>PageRank;</li>
+<li>linear regression;</li>
+<li>logistic regression; and</li>
+<li>non-negative matrix factorization.</li>
+</ul>
+<p>Additional benchmarks are being developed, and additional linear algebra operations are being implemented.</p>
+
+<p><a href="https://sourceforge.net/projects/x10/files/x10/2.6.0/x10-gml-2.6.0-src.tar.bz2/download">Download the GML source package from SourceForge</a>, or <a href="https://github.com/x10-lang/x10/tree/master/x10.gml">check out the latest GML source from Git</a>. Please report any bugs or feature requests using the Global Matrix Library component of the <a href="https://xtenlang.atlassian.net/projects/XTENLANG">X10 JIRA</a>.</p>
+
+<p>GML was originally designed and implemented by Juemin Zhang in collaboration with Vijay Saraswat.</p>
