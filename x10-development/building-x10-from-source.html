@@ -9,10 +9,10 @@ redirect_from: /articles/167.html
 <p>These instructions can be used either to build X10 from source code checked out of the repository or from an X10 source release obtained from the <a href="/releases/x10-release-list.html">downloads page</a>. To download the source code for a particular X10 release, visit <a href="https://github.com/x10-lang/x10/releases">https://github.com/x10-lang/x10/releases</a>.</p>
 <div class="section_3">
 <h3><a name="BuildingFromSource-AssumptionsandPrerequisites"></a>Assumptions and Prerequisites</h3>
-<p>This assumes that <tt>JAVA_HOME</tt> is set to a Java 6.0 compatible SDK.</p>
-<p>You will also need <a href="http://ant.apache.org/">Ant</a> 1.7.1 or better, as well as <tt>g++</tt> 4.4 or better (optionally <tt>xlC</tt> 11.1 or better), binutils, <tt>wget</tt>, and GNU <tt>make</tt>.</p>
+<p>This assumes that <tt>JAVA_HOME</tt> is set to a Java 8 compatible SDK.</p>
+<p>You will also need <a href="http://ant.apache.org/">Ant</a> 1.10.2 or better, as well as <tt>g++</tt> 4.4 or better (optionally <tt>xlC</tt> 11.1 or better), binutils, <tt>wget</tt>, and GNU <tt>make</tt>.</p>
 <p>Note for Linux users: The X10 build uses the <tt>javah</tt> task, which is not included in the default <tt>ant</tt> package. You would need to install <tt>ant-nodeps</tt> (on RedHat/Gentoo-based systems) or <tt>ant-optional</tt> (on Debian/SuSE-based systems).</p>
-<p>Note for MacOS users: The default Java installation on recent versions of MacOS is not a complete JDK even if it comes with the javac compiler. You must install a proper JDK to build X10 from sources, that is, either a Java Developer Package for Java 6 from Apple or a Java 7 JDK from Oracle. If JAVA_HOME is not set, the build will use the preferred Java installation as returned by /usr/libexec/java_home.</p>
+<p>Note for MacOS users: The default Java installation on recent versions of MacOS is not a complete JDK even if it comes with the javac compiler. You must install a proper JDK to build X10 from sources, that is, a Java 8 JDK from Oracle. If JAVA_HOME is not set, the build will use the preferred Java installation as returned by /usr/libexec/java_home.</p>
 <p>Note for Windows users: You can build X10 within <a href="http://www.cygwin.com/">the cygwin environment</a>. The minimum Cygwin version required to build X10 is 1.7.1, as Cygwin releases prior to 1.7.1 broke the shared library behavior of g++ 4.3.2.&nbsp;
    Make sure you have these packages:&nbsp; gcc, g++, wget, make, binutils, diffutils, libtool, git, patch, time.
    If you are running a 64-bit build of Windows 10, you can also build X10 using the <a href="https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/">Windows Subsystem for Linux</a> Ubuntu image.</p>    
@@ -72,7 +72,7 @@ ant squeakyclean dist
 <h3><a name="BuildingFromSource-Exampleofhowtocheckoutandcompiletheentiresourcecodeonwindows"></a>Example: checkout and compile the entire source code on Windows</h3>
 <ul>
 <li>Install cygwin to directory c:\cygwin,<br /> with the packages: gcc (all of them), wget, make, binutils, libtool, git, patch.</li>
-<li>Download <a href="http://ant.apache.org/">Apache Ant</a> to C:\cygwin\home\USERNAME\apache-ant-1.8.0 (version 1.8.0 is current as of this writing, but be sure to use a path that corresponds to the version you downloaded).</li>
+<li>Download <a href="http://ant.apache.org/">Apache Ant</a> to C:\cygwin\home\USERNAME\apache-ant-1.10.5 (version 1.10.5 is current as of this writing, but be sure to use a path that corresponds to the version you downloaded).</li>
 <li>checkout the source code:<br /> git clone git@github.com:x10-lang/x10.git C:/cygwin/home/USERNAME/x10</li>
 <li>Edit the file C:\cygwin\home\USERNAME\.bash_profile<br />And add:
 <div class="code panel" style="border-width: 1px;">
