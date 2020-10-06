@@ -250,7 +250,7 @@ We can now write our program as follows:
 <BR>
 <IMG
  WIDTH="354" HEIGHT="88" ALIGN="BOTTOM" BORDER="0"
- SRC="img31.png"
+ SRC="img32.png"
  ALT="\begin{xtennum}[]
 // Initialize the i'th element to i.
 val a:Rail[Long] = new R...
@@ -271,7 +271,7 @@ settings. The natural functional way to write <TT>fib</TT> is through a recursiv
 <BR>
 <IMG
  WIDTH="332" HEIGHT="12" ALIGN="BOTTOM" BORDER="0"
- SRC="img32.png"
+ SRC="img33.png"
  ALT="\begin{xtennum}[]
 def fib(n:Long):Long = (n&lt;=2)? 1:( fib(n-1)+fib(n-2) );
 \end{xtennum}">
@@ -300,7 +300,7 @@ result of the call.
 Fib</CAPTION>
 <TR><TD><IMG
  WIDTH="309" HEIGHT="453" BORDER="0"
- SRC="img33.png"
+ SRC="img34.png"
  ALT="\begin{table}\fromfile{Fib.x10}
 \begin{xtennum}[]
 public class Fib {
@@ -358,7 +358,7 @@ Consider a parallel version of the Histogram program:
 <BR>
 <IMG
  WIDTH="249" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
- SRC="img34.png"
+ SRC="img35.png"
  ALT="\begin{xtennum}[]
 def hist(a:Rail[Int], b: Rail[Int]) {
 finish for(i in 0..(a.size-1)) async {
@@ -435,7 +435,7 @@ The Histogram problem can now be solved correctly:
 <BR>
 <IMG
  WIDTH="249" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
- SRC="img35.png"
+ SRC="img36.png"
  ALT="\begin{xtennum}[]
 def hist(a:Rail[Int], b: Rail[Int]) {
 finish for(i in 0..(a.size-1)) async {
@@ -455,7 +455,7 @@ A parallel N-Queens program is given in Table&nbsp;<A HREF="#table:nqueens">3.2<
 NQueens</CAPTION>
 <TR><TD><IMG
  WIDTH="514" HEIGHT="876" BORDER="0"
- SRC="img36.png"
+ SRC="img37.png"
  ALT="\begin{table}\fromfile{NQueensPar.x10}
 \begin{xtennum}[]
 public class NQueensPar...
@@ -584,26 +584,26 @@ Stmt ::= at (p) Stmt
 An activity executing <TT>at (p) S</TT> suspends execution in the current
 place.  The object graph <IMG
  WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="img37.png"
+ SRC="img38.png"
  ALT="$G$"> at the current place whose roots are all the
 variables <IMG
  WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="img38.png"
+ SRC="img39.png"
  ALT="$V$"> used in <TT>S</TT> is serialized, and transmitted to place
 <TT>p</TT>, deserialized (creating a graph <IMG
  WIDTH="21" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img39.png"
+ SRC="img40.png"
  ALT="$G'$"> isomorphic to <IMG
  WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="img37.png"
+ SRC="img38.png"
  ALT="$G$">), an
 environment is created with the variables <IMG
  WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
- SRC="img38.png"
+ SRC="img39.png"
  ALT="$V$"> bound to the
 corresponding roots in <IMG
  WIDTH="21" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="img39.png"
+ SRC="img40.png"
  ALT="$G'$">, and <TT>S</TT> executed at <TT>p</TT> in
 this environment.   On local termination of
 <TT>S</TT>, computation resumes after <TT>at (p) S</TT> in the original
@@ -664,7 +664,7 @@ method guard to only be applicable at the home <TT>Place</TT> of the
 <BR>
 <IMG
  WIDTH="457" HEIGHT="226" ALIGN="BOTTOM" BORDER="0"
- SRC="img40.png"
+ SRC="img41.png"
  ALT="\begin{xtennum}[]
 public struct GlobalRef[T](home:Place) {T isref} {
 \par
@@ -682,7 +682,7 @@ place-shift to the ref's <TT>home</TT>:
 <BR>
 <IMG
  WIDTH="208" HEIGHT="59" ALIGN="BOTTOM" BORDER="0"
- SRC="img41.png"
+ SRC="img42.png"
  ALT="\begin{xtennum}[]
 at (gr.home) {
 val obj = gr();
@@ -710,7 +710,7 @@ efficient implemenetations of common idiomatic usages of
 Advanced features of GlobalRef API</CAPTION>
 <TR><TD><IMG
  WIDTH="435" HEIGHT="511" BORDER="0"
- SRC="img42.png"
+ SRC="img43.png"
  ALT="\begin{table}\fromfile{GlobalRef.x10}
 \begin{xtennum}[]
 /**
