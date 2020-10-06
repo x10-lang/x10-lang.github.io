@@ -777,14 +777,14 @@ that are intended to hold for any X10  implementation.
  -->
 <IMG
  WIDTH="133" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img44.png"
+ SRC="img45.png"
  ALT="$n&lt;\texttt{X10\_NTHREADS}$">'' workers running user
   code then there are ``<!-- MATH
  $\texttt{X10\_NTHREADS}-n$
  -->
 <IMG
  WIDTH="131" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img45.png"
+ SRC="img46.png"
  ALT="$\texttt{X10\_NTHREADS}-n$">'' workers searching
   for pending activities.
 </LI>
@@ -793,7 +793,7 @@ that are intended to hold for any X10  implementation.
  -->
 <IMG
  WIDTH="102" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img46.png"
+ SRC="img47.png"
  ALT="$\texttt{X10\_NTHREADS}$"> or more workers running then
   there are no workers spinning.
 </LI>
@@ -896,19 +896,19 @@ these events on an unambiguous, per-place basis.
 <P>
 In the worst-case scenario, with <IMG
  WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img47.png"
+ SRC="img48.png"
  ALT="$p$"> places, there will be <IMG
  WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img47.png"
+ SRC="img48.png"
  ALT="$p$">
 counters in each place, that is, <IMG
  WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img48.png"
+ SRC="img49.png"
  ALT="$p\times p$"> counters for each
 <I>finish</I>. Moreover, there could be one inter-process message for
 each activity termination event. Messages could contain up to <IMG
  WIDTH="12" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="img47.png"
+ SRC="img48.png"
  ALT="$p$"> data
 elements.
 
@@ -970,7 +970,7 @@ of activities is equal, and these events happen before the count of
 local creation and termination events (for <TT>async</TT>s controlled by
 this <TT>finish</TT>) reaches <IMG
  WIDTH="12" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img49.png"
+ SRC="img50.png"
  ALT="$0$">. 
 
 <P>
